@@ -1,0 +1,1591 @@
+{
+  "source": "https://normapi.de/fehler",
+  "licence": "CC BY 4.0",
+  "count": 132,
+  "rules": {
+    "BR-01": {
+      "de": {
+        "meaning": "Die Rechnung muss eine Spezifikationskennung (BT-24) tragen. Sie sagt dem Empfänger, nach welchem Regelwerk die Rechnung aufgebaut ist.",
+        "cause": "Wird häufig vergessen oder von einer älteren Vorlage übernommen, die noch auf eine frühere XRechnung-Version verweist.",
+        "fix": "Setzen Sie BT-24 auf die Kennung der verwendeten XRechnung-Version. In UBL ist das cbc:CustomizationID, in CII ram:GuidelineSpecifiedDocumentContextParameter/ram:ID."
+      },
+      "en": {
+        "meaning": "The invoice must carry a specification identifier (BT-24), which tells the recipient which rule set the invoice was built against.",
+        "cause": "Commonly forgotten, or inherited from an older template that still points at a previous XRechnung version.",
+        "fix": "Set BT-24 to the identifier of the XRechnung version you are producing — cbc:CustomizationID in UBL, ram:GuidelineSpecifiedDocumentContextParameter/ram:ID in CII."
+      }
+    },
+    "BR-02": {
+      "de": {
+        "meaning": "Die Rechnung muss eine Rechnungsnummer (BT-1) enthalten.",
+        "cause": "In der Praxis fast immer ein Mapping-Fehler: Das Feld heißt intern anders und wird beim Export nicht befüllt, oder die Nummer wird erst nach dem Export vergeben.",
+        "fix": "Befüllen Sie BT-1 mit Ihrer Rechnungsnummer, bevor Sie das Dokument erzeugen. In UBL ist das cbc:ID auf Dokumentebene, in CII ram:ID im ExchangedDocument."
+      },
+      "en": {
+        "meaning": "The invoice must have an invoice number (BT-1).",
+        "cause": "In practice almost always a mapping error: the field is named differently internally and never populated on export, or the number is assigned only after the document is generated.",
+        "fix": "Populate BT-1 with your invoice number before generating the document — cbc:ID at document level in UBL, ram:ID inside ExchangedDocument in CII."
+      }
+    },
+    "BR-03": {
+      "de": {
+        "meaning": "Die Rechnung muss ein Rechnungsdatum (BT-2) enthalten.",
+        "cause": "Meist ein Formatproblem statt eines fehlenden Werts: Das Datum muss als reines Datum ohne Uhrzeit übermittelt werden. Ein Zeitstempel wird nicht akzeptiert.",
+        "fix": "Übermitteln Sie BT-2 im Format JJJJ-MM-TT. In CII ist zusätzlich das Formatattribut 102 anzugeben."
+      },
+      "en": {
+        "meaning": "The invoice must have an issue date (BT-2).",
+        "cause": "Usually a format problem rather than a missing value: the date must be a plain date with no time component. A timestamp is rejected.",
+        "fix": "Send BT-2 as YYYY-MM-DD. In CII the format attribute 102 must be given as well."
+      }
+    },
+    "BR-04": {
+      "de": {
+        "meaning": "Die Rechnung muss einen Rechnungstyp (BT-3) tragen — den Code, der sagt, ob es sich um eine Rechnung, eine Gutschrift oder eine Abschlagsrechnung handelt.",
+        "cause": "Der Belegtyp ist im Quellsystem oft ein hausinternes Kürzel, für das es im Mapping keine Zuordnung gibt. Fehlt die Zuordnung, wird lieber nichts geschrieben als etwas Falsches.",
+        "fix": "Setzen Sie BT-3 auf einen UNTDID-1001-Code — 380 für die Handelsrechnung, 381 für die Gutschrift, 384 für die Korrektur: cbc:InvoiceTypeCode in UBL, ram:TypeCode in CII. Zur Auswahl der zulässigen Codes siehe BR-DE-17."
+      },
+      "en": {
+        "meaning": "The invoice must carry an invoice type code (BT-3) — the code saying whether this is an invoice, a credit note or a partial invoice.",
+        "cause": "The document type is often a house abbreviation in the source system with no mapping to a standard code. Where the mapping is missing, nothing gets written in preference to something wrong.",
+        "fix": "Set BT-3 to a UNTDID 1001 code — 380 for a commercial invoice, 381 for a credit note, 384 for a correction: cbc:InvoiceTypeCode in UBL, ram:TypeCode in CII. On which codes are permitted, see BR-DE-17."
+      }
+    },
+    "BR-05": {
+      "de": {
+        "meaning": "Die Rechnung muss eine Rechnungswährung (BT-5) nennen. Jeder Betrag im Dokument wird in dieser Währung gelesen.",
+        "cause": "Ein Unternehmen, das nur in Euro fakturiert, führt die Währung nirgends als Feld — sie ist im Layout eingedruckt. Im strukturierten Datensatz fehlt sie dann vollständig.",
+        "fix": "Setzen Sie BT-5 auf den ISO-4217-Code, für den deutschen Markt EUR: cbc:DocumentCurrencyCode in UBL, ram:InvoiceCurrencyCode in CII. Die Beträge tragen zusätzlich ihr eigenes currencyID-Attribut, das dazu passen muss."
+      },
+      "en": {
+        "meaning": "The invoice must name an invoice currency (BT-5). Every amount in the document is read in that currency.",
+        "cause": "A company that invoices only in euro keeps the currency in no field at all — it is printed into the layout. It is then entirely absent from the structured record.",
+        "fix": "Set BT-5 to the ISO 4217 code, EUR on the German market: cbc:DocumentCurrencyCode in UBL, ram:InvoiceCurrencyCode in CII. The amounts additionally carry their own currencyID attribute, which has to agree with it."
+      }
+    },
+    "BR-06": {
+      "de": {
+        "meaning": "Die Rechnung muss den Namen des Verkäufers (BT-27) enthalten — den vollständigen eingetragenen Namen, unter dem das Unternehmen firmiert.",
+        "cause": "Der Absender steht im Briefkopf, nicht in den Rechnungsdaten: er ist für jede Rechnung gleich und wird deshalb im Layout gepflegt statt im Datensatz. Beim Erzeugen des XML fällt er heraus.",
+        "fix": "Setzen Sie den eingetragenen Namen in BT-27: cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName in UBL, ram:SellerTradeParty/ram:Name in CII. Der Handelsname gehört, falls abweichend, zusätzlich in BT-28."
+      },
+      "en": {
+        "meaning": "The invoice must contain the seller name (BT-27) — the full registered name the company trades under.",
+        "cause": "The sender lives in the letterhead rather than in the invoice data: it is the same on every invoice and so is maintained in the layout instead of the record. It falls out when the XML is produced.",
+        "fix": "Put the registered name in BT-27: cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName in UBL, ram:SellerTradeParty/ram:Name in CII. A differing trading name goes in BT-28 as well."
+      }
+    },
+    "BR-07": {
+      "de": {
+        "meaning": "Die Rechnung muss den Namen des Käufers (BT-44) enthalten — den Namen, unter dem der Empfänger die Rechnung erwartet.",
+        "cause": "Im Debitorenstamm stehen oft mehrere Namensfelder: Anzeigename, Suchbegriff, Rechnungsempfänger. Das Mapping greift auf ein Feld zu, das bei manchen Kunden leer ist, weil es nur für die Suche gepflegt wird.",
+        "fix": "Setzen Sie BT-44 auf den Namen des Rechnungsempfängers: cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName in UBL, ram:BuyerTradeParty/ram:Name in CII."
+      },
+      "en": {
+        "meaning": "The invoice must contain the buyer name (BT-44) — the name the recipient expects the invoice under.",
+        "cause": "Customer master data usually holds several name fields: display name, search term, invoice recipient. The mapping reads one that is empty for some customers because it is only maintained for searching.",
+        "fix": "Set BT-44 to the name of the invoice recipient: cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName in UBL, ram:BuyerTradeParty/ram:Name in CII."
+      }
+    },
+    "BR-08": {
+      "de": {
+        "meaning": "Die Rechnung muss die Postanschrift des Verkäufers (BG-5) enthalten — die Gruppe, in der Straße, Ort, Postleitzahl und Land stehen.",
+        "cause": "Dieselbe Ursache wie beim Namen: die eigene Anschrift ist Teil des Layouts. Manchmal wird auch nur ein einzelnes Adressfeld gemappt, ohne die umgebende Gruppe anzulegen.",
+        "fix": "Legen Sie cac:AccountingSupplierParty/cac:Party/cac:PostalAddress an (in CII ram:SellerTradeParty/ram:PostalTradeAddress). Ort und Postleitzahl verlangt zusätzlich BR-DE-3 und BR-DE-4, das Land BR-09."
+      },
+      "en": {
+        "meaning": "The invoice must contain the seller postal address (BG-5) — the group holding street, city, post code and country.",
+        "cause": "The same cause as the name: your own address is part of the layout. Sometimes a single address field is mapped without the surrounding group ever being created.",
+        "fix": "Create cac:AccountingSupplierParty/cac:Party/cac:PostalAddress in UBL, ram:SellerTradeParty/ram:PostalTradeAddress in CII. City and post code are additionally required by BR-DE-3 and BR-DE-4, the country by BR-09."
+      }
+    },
+    "BR-09": {
+      "de": {
+        "meaning": "Die Postanschrift des Verkäufers muss ein Länderkennzeichen (BT-40) enthalten — den zweistelligen ISO-3166-1-Code, nicht den ausgeschriebenen Ländernamen.",
+        "cause": "Adressen liegen in vielen Systemen als mehrzeiliger Freitext vor, in dem das Land die letzte Zeile ist. Beim Zerlegen in Einzelfelder bleibt genau diese Zeile übrig, weil sie keinen Code trägt.",
+        "fix": "Übersetzen Sie das Land einmalig in den ISO-Code und setzen Sie ihn in BT-40: cac:PostalAddress/cac:Country/cbc:IdentificationCode in UBL, ram:PostalTradeAddress/ram:CountryID in CII. DE, nicht Deutschland."
+      },
+      "en": {
+        "meaning": "The seller postal address must contain a country code (BT-40) — the two-letter ISO 3166-1 code, not the country's name spelled out.",
+        "cause": "Addresses live in many systems as multi-line free text with the country on the last line. Splitting them into individual fields leaves exactly that line over, because it carries no code.",
+        "fix": "Translate the country into its ISO code once and set it in BT-40: cac:PostalAddress/cac:Country/cbc:IdentificationCode in UBL, ram:PostalTradeAddress/ram:CountryID in CII. DE, not Germany."
+      }
+    },
+    "BR-10": {
+      "de": {
+        "meaning": "Die Rechnung muss die Postanschrift des Käufers (BG-8) enthalten — das Gegenstück zu BG-5 auf der Empfängerseite.",
+        "cause": "Bei Behördenrechnungen wird die Anschrift für verzichtbar gehalten, weil die Leitweg-ID die Zustellung ohnehin steuert. Die Norm verlangt die Anschrift dennoch: sie identifiziert den Leistungsempfänger, nicht den Zustellweg.",
+        "fix": "Legen Sie cac:AccountingCustomerParty/cac:Party/cac:PostalAddress an (CII: ram:BuyerTradeParty/ram:PostalTradeAddress). Ort und Postleitzahl fordern zusätzlich BR-DE-8 und BR-DE-9, das Land BR-11."
+      },
+      "en": {
+        "meaning": "The invoice must contain the buyer postal address (BG-8) — the counterpart to BG-5 on the recipient's side.",
+        "cause": "On public-sector invoices the address is treated as dispensable because the Leitweg-ID already routes the document. The norm wants it regardless: it identifies who received the service, not where the file goes.",
+        "fix": "Create cac:AccountingCustomerParty/cac:Party/cac:PostalAddress in UBL, ram:BuyerTradeParty/ram:PostalTradeAddress in CII. City and post code are additionally required by BR-DE-8 and BR-DE-9, the country by BR-11."
+      }
+    },
+    "BR-11": {
+      "de": {
+        "meaning": "Die Postanschrift des Käufers muss ein Länderkennzeichen (BT-55) enthalten — dieselbe Anforderung wie BR-09, auf der Empfängerseite.",
+        "cause": "Bei rein inländischen Kunden wird das Land im Debitorenstamm häufig gar nicht gepflegt, weil es sich von selbst versteht. Was sich von selbst versteht, steht in keinem Feld.",
+        "fix": "Setzen Sie den ISO-3166-1-Code in BT-55: cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode in UBL, ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID in CII. Ein Standardwert im Mapping ist hier vertretbar."
+      },
+      "en": {
+        "meaning": "The buyer postal address must contain a country code (BT-55) — the same requirement as BR-09, on the recipient's side.",
+        "cause": "For purely domestic customers the country is frequently not maintained at all, because it goes without saying. What goes without saying sits in no field.",
+        "fix": "Set the ISO 3166-1 code in BT-55: cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cac:Country/cbc:IdentificationCode in UBL, ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CountryID in CII. A mapping default is defensible here."
+      }
+    },
+    "BR-12": {
+      "de": {
+        "meaning": "Die Rechnung muss die Summe der Positionsnettobeträge (BT-106) enthalten. Die Norm verlangt jeden der Summenwerte ausdrücklich — keiner darf aus den übrigen erschlossen werden.",
+        "cause": "Der Wert ist im eigenen Rechnungsobjekt selten ein Feld: er ergibt sich aus den Positionen und wird beim Anzeigen berechnet. Im Dokument muss er aber ausgeschrieben stehen.",
+        "fix": "Schreiben Sie BT-106 in cac:LegalMonetaryTotal/cbc:LineExtensionAmount (UBL) beziehungsweise ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:LineTotalAmount (CII). Wie der Wert zu den anderen Summen passen muss, steht in BR-CO-10 bis BR-CO-16."
+      },
+      "en": {
+        "meaning": "The invoice must contain the sum of line net amounts (BT-106). The norm requires each of the totals explicitly — none of them may be left to be inferred from the others.",
+        "cause": "The value is rarely a field in your own invoice object: it follows from the lines and is computed for display. In the document it has to be written out.",
+        "fix": "Write BT-106 into cac:LegalMonetaryTotal/cbc:LineExtensionAmount in UBL, or ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:LineTotalAmount in CII. How the value has to agree with the other totals is covered by BR-CO-10 through BR-CO-16."
+      }
+    },
+    "BR-13": {
+      "de": {
+        "meaning": "Die Rechnung muss den Gesamtbetrag ohne Umsatzsteuer (BT-109) enthalten. Die Norm verlangt jeden der Summenwerte ausdrücklich — keiner darf aus den übrigen erschlossen werden.",
+        "cause": "Wer keine Rabatte oder Zuschläge auf Dokumentebene kennt, hält den Betrag für identisch mit der Positionssumme und schreibt nur einen von beiden.",
+        "fix": "Schreiben Sie BT-109 in cac:LegalMonetaryTotal/cbc:TaxExclusiveAmount (UBL) beziehungsweise ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount (CII). Wie der Wert zu den anderen Summen passen muss, steht in BR-CO-10 bis BR-CO-16."
+      },
+      "en": {
+        "meaning": "The invoice must contain the total amount without VAT (BT-109). The norm requires each of the totals explicitly — none of them may be left to be inferred from the others.",
+        "cause": "Where there are no document-level allowances or charges, this looks identical to the line sum, and only one of the two gets written.",
+        "fix": "Write BT-109 into cac:LegalMonetaryTotal/cbc:TaxExclusiveAmount in UBL, or ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount in CII. How the value has to agree with the other totals is covered by BR-CO-10 through BR-CO-16."
+      }
+    },
+    "BR-14": {
+      "de": {
+        "meaning": "Die Rechnung muss den Gesamtbetrag mit Umsatzsteuer (BT-112) enthalten. Die Norm verlangt jeden der Summenwerte ausdrücklich — keiner darf aus den übrigen erschlossen werden.",
+        "cause": "Der Bruttobetrag steht in der PDF-Darstellung ganz unten und wird dort formatiert erzeugt, nicht als Datenfeld geführt. Beim Mapping fehlt er deshalb.",
+        "fix": "Schreiben Sie BT-112 in cac:LegalMonetaryTotal/cbc:TaxInclusiveAmount (UBL) beziehungsweise ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount (CII). Wie der Wert zu den anderen Summen passen muss, steht in BR-CO-10 bis BR-CO-16."
+      },
+      "en": {
+        "meaning": "The invoice must contain the total amount with VAT (BT-112). The norm requires each of the totals explicitly — none of them may be left to be inferred from the others.",
+        "cause": "The gross total sits at the bottom of the PDF and is produced there by formatting rather than kept as a data field. It is missing when the mapping runs.",
+        "fix": "Write BT-112 into cac:LegalMonetaryTotal/cbc:TaxInclusiveAmount in UBL, or ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount in CII. How the value has to agree with the other totals is covered by BR-CO-10 through BR-CO-16."
+      }
+    },
+    "BR-15": {
+      "de": {
+        "meaning": "Die Rechnung muss den fälligen Zahlbetrag (BT-115) enthalten. Die Norm verlangt jeden der Summenwerte ausdrücklich — keiner darf aus den übrigen erschlossen werden.",
+        "cause": "Bei Rechnungen ohne Anzahlung ist der Zahlbetrag gleich dem Bruttobetrag, und ein gleicher Wert wirkt redundant. Die Norm verlangt ihn trotzdem eigenständig.",
+        "fix": "Schreiben Sie BT-115 in cac:LegalMonetaryTotal/cbc:PayableAmount (UBL) beziehungsweise ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount (CII). Wie der Wert zu den anderen Summen passen muss, steht in BR-CO-10 bis BR-CO-16."
+      },
+      "en": {
+        "meaning": "The invoice must contain the amount due for payment (BT-115). The norm requires each of the totals explicitly — none of them may be left to be inferred from the others.",
+        "cause": "On invoices without a prepayment the amount due equals the gross total, and an identical value looks redundant. The norm wants it in its own right regardless.",
+        "fix": "Write BT-115 into cac:LegalMonetaryTotal/cbc:PayableAmount in UBL, or ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount in CII. How the value has to agree with the other totals is covered by BR-CO-10 through BR-CO-16."
+      }
+    },
+    "BR-16": {
+      "de": {
+        "meaning": "Die Rechnung muss mindestens eine Rechnungsposition (BG-25) enthalten. Eine Rechnung, die nur aus Kopf- und Summendaten besteht, ist nicht zulässig.",
+        "cause": "Tritt auf, wenn der Generator Positionen nur aus einer Artikelliste erzeugt und diese leer ist — etwa bei Pauschal- oder Abschlagsrechnungen, die intern ohne Einzelpositionen geführt werden.",
+        "fix": "Erzeugen Sie auch für Pauschalbeträge genau eine Position: Menge 1, der Betrag als Einzelpreis, eine sprechende Bezeichnung. In UBL ist das cac:InvoiceLine, in CII ram:IncludedSupplyChainTradeLineItem."
+      },
+      "en": {
+        "meaning": "The invoice must contain at least one invoice line (BG-25). A document consisting only of header and total data is not permitted.",
+        "cause": "Appears when the generator builds lines from an item list and that list is empty — typically flat-fee or instalment invoices that are managed internally without line items.",
+        "fix": "Emit exactly one line even for a flat amount: quantity 1, the amount as unit price, a descriptive name. That is cac:InvoiceLine in UBL, ram:IncludedSupplyChainTradeLineItem in CII."
+      }
+    },
+    "BR-17": {
+      "de": {
+        "meaning": "Weicht der Zahlungsempfänger (BG-10) vom Verkäufer ab, muss sein Name (BT-59) übermittelt werden. Wer das Geld bekommt, darf nicht offenbleiben.",
+        "cause": "Die Gruppe wird angelegt, weil eine abweichende Bankverbindung übermittelt werden soll — etwa bei Factoring oder einer Konzerntochter, die zentral kassiert. Der Name gilt dabei als Nebensache, weil die IBAN die Zahlung ohnehin lenkt.",
+        "fix": "Setzen Sie BT-59 in cac:PayeeParty/cac:PartyName/cbc:Name (UBL) beziehungsweise ram:PayeeTradeParty/ram:Name (CII) — oder lassen Sie die Gruppe ganz weg, wenn Verkäufer und Zahlungsempfänger dieselbe Partei sind."
+      },
+      "en": {
+        "meaning": "Where the payee (BG-10) differs from the seller, the payee name (BT-59) must be provided. Who receives the money may not be left open.",
+        "cause": "The group is created because a different bank account has to be sent — factoring, or a group subsidiary collecting centrally. The name is treated as incidental, since the IBAN steers the payment anyway.",
+        "fix": "Set BT-59 in cac:PayeeParty/cac:PartyName/cbc:Name in UBL, ram:PayeeTradeParty/ram:Name in CII — or omit the group entirely where seller and payee are the same party."
+      }
+    },
+    "BR-18": {
+      "de": {
+        "meaning": "Hat der Verkäufer einen steuerlichen Vertreter (BG-11), muss dessen Name (BT-62) übermittelt werden.",
+        "cause": "Die Gruppe wird meist nur angelegt, um die USt-IdNr. des Vertreters unterzubringen, weil das der steuerlich relevante Teil ist. Der Name folgt nicht mit.",
+        "fix": "Setzen Sie BT-62 in cac:TaxRepresentativeParty/cac:PartyName/cbc:Name (UBL) beziehungsweise ram:SellerTaxRepresentativeTradeParty/ram:Name (CII). Anschrift und USt-IdNr. verlangen BR-19 und BR-56."
+      },
+      "en": {
+        "meaning": "Where the seller has a tax representative (BG-11), the representative's name (BT-62) must be provided.",
+        "cause": "The group is usually created only to hold the representative's VAT identifier, that being the part with tax consequences. The name does not follow it in.",
+        "fix": "Set BT-62 in cac:TaxRepresentativeParty/cac:PartyName/cbc:Name in UBL, ram:SellerTaxRepresentativeTradeParty/ram:Name in CII. The address and VAT identifier are required by BR-19 and BR-56."
+      }
+    },
+    "BR-19": {
+      "de": {
+        "meaning": "Hat der Verkäufer einen steuerlichen Vertreter, muss dessen Postanschrift (BG-12) übermittelt werden — dieselbe Anforderung wie BR-08, für eine dritte Partei.",
+        "cause": "Der Vertreter ist im Stammdatensatz oft nur ein Name und eine Steuernummer; eine vollständige Anschrift wird für ihn nicht gepflegt, weil an ihn nichts versendet wird.",
+        "fix": "Legen Sie cac:TaxRepresentativeParty/cac:PostalAddress an (CII: ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress). Das Länderkennzeichen darin fordert BR-20."
+      },
+      "en": {
+        "meaning": "Where the seller has a tax representative, that representative's postal address (BG-12) must be provided — the same requirement as BR-08, for a third party.",
+        "cause": "In master data the representative is often only a name and a tax number; no full address is maintained, because nothing is ever sent to them.",
+        "fix": "Create cac:TaxRepresentativeParty/cac:PostalAddress in UBL, ram:SellerTaxRepresentativeTradeParty/ram:PostalTradeAddress in CII. The country code inside it is required by BR-20."
+      }
+    },
+    "BR-20": {
+      "de": {
+        "meaning": "Die Anschrift des steuerlichen Vertreters muss ein Länderkennzeichen (BT-69) enthalten — dieselbe Anforderung wie BR-09 und BR-11, für die dritte Partei.",
+        "cause": "Wie bei den anderen beiden Adressen: das Land steht als Freitext in der letzten Adresszeile oder wird als selbstverständlich gar nicht geführt.",
+        "fix": "Setzen Sie den ISO-3166-1-Code in cac:TaxRepresentativeParty/cac:PostalAddress/cac:Country/cbc:IdentificationCode (UBL) beziehungsweise ram:PostalTradeAddress/ram:CountryID des Vertreters (CII)."
+      },
+      "en": {
+        "meaning": "The tax representative's address must contain a country code (BT-69) — the same requirement as BR-09 and BR-11, for the third party.",
+        "cause": "As with the other two addresses: the country sits as free text on the last address line, or is not carried at all because it goes without saying.",
+        "fix": "Set the ISO 3166-1 code in cac:TaxRepresentativeParty/cac:PostalAddress/cac:Country/cbc:IdentificationCode in UBL, or the representative's ram:PostalTradeAddress/ram:CountryID in CII."
+      }
+    },
+    "BR-21": {
+      "de": {
+        "meaning": "Jede Rechnungsposition (BG-25) muss eine Positionsnummer (BT-126) tragen. Sie ist der Anker, über den der Empfänger eine einzelne Zeile bespricht oder reklamiert.",
+        "cause": "Positionen entstehen als Liste, deren Reihenfolge implizit die Nummer ist. Beim Serialisieren wird der Index nicht mitgeschrieben, weil er im Quellobjekt kein Feld war.",
+        "fix": "Vergeben Sie eine je Rechnung eindeutige Nummer in BT-126: cbc:ID in cac:InvoiceLine (UBL), ram:AssociatedDocumentLineDocument/ram:LineID (CII). Eine fortlaufende Zahl ab 1 genügt."
+      },
+      "en": {
+        "meaning": "Every invoice line (BG-25) must carry a line identifier (BT-126). It is the anchor the recipient uses to discuss or dispute a single row.",
+        "cause": "Lines are built as a list whose order implicitly is the number. The index is not written out when serialising, because it was never a field on the source object.",
+        "fix": "Assign an identifier unique within the invoice in BT-126: cbc:ID inside cac:InvoiceLine in UBL, ram:AssociatedDocumentLineDocument/ram:LineID in CII. A counter from 1 is enough."
+      }
+    },
+    "BR-22": {
+      "de": {
+        "meaning": "Jede Rechnungsposition muss eine berechnete Menge (BT-129) tragen — auch dann, wenn es sich um eine Pauschale handelt.",
+        "cause": "Bei Dienstleistungen und Pauschalen gibt es im Quellsystem keine Menge, nur einen Betrag. Das Feld bleibt leer, weil es inhaltlich nichts zu sagen scheint.",
+        "fix": "Schreiben Sie bei einer Pauschale die Menge 1 und den Betrag als Einzelpreis: cbc:InvoicedQuantity in UBL, ram:BilledQuantity in CII. Die Maßeinheit dazu fordert BR-23."
+      },
+      "en": {
+        "meaning": "Every invoice line must carry an invoiced quantity (BT-129) — including where the line is a flat fee.",
+        "cause": "For services and flat fees the source system holds no quantity, only an amount. The field stays empty because there seems to be nothing to say in it.",
+        "fix": "For a flat fee write a quantity of 1 and the amount as the unit price: cbc:InvoicedQuantity in UBL, ram:BilledQuantity in CII. Its unit of measure is required by BR-23."
+      }
+    },
+    "BR-23": {
+      "de": {
+        "meaning": "Die berechnete Menge muss eine Maßeinheit (BT-130) tragen — einen Code aus UN/ECE Recommendation 20, nicht das eigene Kürzel aus dem Artikelstamm.",
+        "cause": "Systeme führen Einheiten als Text: Stk, Std, kg. Der Code dazu ist eine Übersetzung, die im Mapping erst angelegt werden muss, und ohne sie bleibt das Attribut leer.",
+        "fix": "Setzen Sie das unitCode-Attribut an cbc:InvoicedQuantity (UBL) beziehungsweise ram:BilledQuantity (CII): C62 für Stück, HUR für Stunden, KGM für Kilogramm, MTR für Meter."
+      },
+      "en": {
+        "meaning": "The invoiced quantity must carry a unit of measure (BT-130) — a code from UN/ECE Recommendation 20, not your item master's own abbreviation.",
+        "cause": "Systems keep units as text: pcs, hrs, kg. The code is a translation that has to be built in the mapping first, and without it the attribute stays empty.",
+        "fix": "Set the unitCode attribute on cbc:InvoicedQuantity in UBL, ram:BilledQuantity in CII: C62 for pieces, HUR for hours, KGM for kilograms, MTR for metres."
+      }
+    },
+    "BR-24": {
+      "de": {
+        "meaning": "Jede Rechnungsposition muss einen Nettobetrag (BT-131) tragen — den Betrag der Zeile ohne Umsatzsteuer.",
+        "cause": "Der Betrag wird beim Anzeigen aus Menge und Preis berechnet und deshalb nicht als eigenes Feld geführt. Im Dokument muss er aber stehen, und zwar so, dass er zur Rechnung aufgeht.",
+        "fix": "Schreiben Sie den Zeilenbetrag in cbc:LineExtensionAmount (UBL) beziehungsweise ram:LineTotalAmount (CII). Wie er sich aus Menge, Preis und Rabatten ergeben muss, prüft PEPPOL-EN16931-R120."
+      },
+      "en": {
+        "meaning": "Every invoice line must carry a net amount (BT-131) — the amount of the row before VAT.",
+        "cause": "The amount is computed from quantity and price for display and so is not kept as a field of its own. The document needs it written out, and written so that it adds up.",
+        "fix": "Write the row amount into cbc:LineExtensionAmount in UBL, ram:LineTotalAmount in CII. How it must follow from quantity, price and discounts is checked by PEPPOL-EN16931-R120."
+      }
+    },
+    "BR-25": {
+      "de": {
+        "meaning": "Jede Rechnungsposition muss einen Artikelnamen (BT-153) tragen. Ohne ihn steht in der Zeile ein Betrag für etwas Unbenanntes.",
+        "cause": "Die Bezeichnung kommt aus einem Langtext, der leer sein darf, während die interne Artikelnummer immer belegt ist. Das Mapping greift auf den Langtext zu und findet nichts.",
+        "fix": "Setzen Sie eine kurze Bezeichnung in cac:Item/cbc:Name (UBL) beziehungsweise ram:SpecifiedTradeProduct/ram:Name (CII). Der ausführliche Text gehört daneben in BT-154, die Artikelnummer in BT-155."
+      },
+      "en": {
+        "meaning": "Every invoice line must carry an item name (BT-153). Without one the row states an amount for something unnamed.",
+        "cause": "The description comes from a long-text field that is allowed to be empty, while the internal article number is always populated. The mapping reads the long text and finds nothing.",
+        "fix": "Put a short description in cac:Item/cbc:Name in UBL, ram:SpecifiedTradeProduct/ram:Name in CII. The full text belongs beside it in BT-154 and the article number in BT-155."
+      }
+    },
+    "BR-26": {
+      "de": {
+        "meaning": "Jede Rechnungsposition muss einen Nettopreis (BT-146) tragen — den Preis je Einheit nach Abzug eines Preisnachlasses.",
+        "cause": "Bei Pauschalen und bei Positionen, die nur einen Gesamtbetrag kennen, wird kein Einzelpreis geführt. Die Zeile trägt dann einen Betrag, aber nichts, woraus er entstünde.",
+        "fix": "Schreiben Sie den Einzelpreis in cac:Price/cbc:PriceAmount (UBL) beziehungsweise ram:NetPriceProductTradePrice/ram:ChargeAmount (CII). Bei einer Pauschale ist der Einzelpreis der Gesamtbetrag bei Menge 1."
+      },
+      "en": {
+        "meaning": "Every invoice line must carry an item net price (BT-146) — the price per unit after any price discount.",
+        "cause": "Flat fees, and lines that know only a total, carry no unit price. The row then has an amount and nothing it could have come from.",
+        "fix": "Write the unit price into cac:Price/cbc:PriceAmount in UBL, ram:NetPriceProductTradePrice/ram:ChargeAmount in CII. For a flat fee the unit price is the total, at a quantity of 1."
+      }
+    },
+    "BR-27": {
+      "de": {
+        "meaning": "Der Nettopreis einer Position darf nicht negativ sein. Ein Minus gehört in die Menge oder in eine Gutschrift, nicht in den Preis.",
+        "cause": "Stornozeilen und Rückvergütungen werden gern als negativer Preis abgebildet, weil das in der eigenen Summenrechnung sofort funktioniert. Die Norm kennt dafür andere Mittel.",
+        "fix": "Bilden Sie eine Rückvergütung als Abschlag auf der Position ab, oder erzeugen Sie eine Gutschrift mit Rechnungstyp 381. Der Preis in cac:Price/cbc:PriceAmount bleibt positiv."
+      },
+      "en": {
+        "meaning": "A line's net price may not be negative. A minus belongs in the quantity or in a credit note, never in the price.",
+        "cause": "Reversal rows and rebates are readily modelled as a negative price, because that works immediately in your own total. The norm provides other means for it.",
+        "fix": "Model a rebate as an allowance on the line, or issue a credit note with invoice type 381. The price in cac:Price/cbc:PriceAmount stays positive."
+      }
+    },
+    "BR-28": {
+      "de": {
+        "meaning": "Der Bruttopreis einer Position (BT-148) darf nicht negativ sein — dieselbe Anforderung wie BR-27, eine Ebene darüber.",
+        "cause": "Wer den Nettopreis negativ setzt, setzt meist auch den Bruttopreis negativ, weil beide aus derselben Quelle stammen. Die beiden Regeln melden sich deshalb fast immer gemeinsam.",
+        "fix": "Halten Sie cac:Price/cac:AllowanceCharge/cbc:BaseAmount (UBL) beziehungsweise ram:GrossPriceProductTradePrice/ram:ChargeAmount (CII) positiv und drehen Sie das Vorzeichen dort, wo die Norm es vorsieht — siehe BR-27."
+      },
+      "en": {
+        "meaning": "A line's gross price (BT-148) may not be negative — the same requirement as BR-27, one level above it.",
+        "cause": "Whoever sets the net price negative usually sets the gross price negative too, both coming from one source. The two rules therefore almost always report together.",
+        "fix": "Keep cac:Price/cac:AllowanceCharge/cbc:BaseAmount in UBL, or ram:GrossPriceProductTradePrice/ram:ChargeAmount in CII, positive, and put the sign where the norm provides for it — see BR-27."
+      }
+    },
+    "BR-29": {
+      "de": {
+        "meaning": "Sind Beginn und Ende des Abrechnungszeitraums angegeben, muss das Ende auf oder nach dem Beginn liegen.",
+        "cause": "Der Zeitraum wird aus zwei Feldern gefüllt, die getrennt gepflegt werden. Ein Tippfehler im Jahr, oder ein Ende, das aus dem Vormonat stehen blieb, dreht die Reihenfolge um.",
+        "fix": "Prüfen Sie die Reihenfolge, bevor Sie cac:InvoicePeriod schreiben (CII: ram:BillingSpecifiedPeriod). Ein eintägiger Zeitraum mit identischem Beginn und Ende ist zulässig."
+      },
+      "en": {
+        "meaning": "Where both the start and the end of the invoicing period are given, the end must fall on or after the start.",
+        "cause": "The period is filled from two fields maintained separately. A typo in the year, or an end date left over from the previous month, reverses the order.",
+        "fix": "Check the order before writing cac:InvoicePeriod in UBL, ram:BillingSpecifiedPeriod in CII. A single-day period with identical start and end is permitted."
+      }
+    },
+    "BR-30": {
+      "de": {
+        "meaning": "Sind Beginn und Ende eines Positionszeitraums angegeben, muss das Ende auf oder nach dem Beginn liegen — dieselbe Prüfung wie BR-29, je Position.",
+        "cause": "Positionszeiträume entstehen in einer Schleife aus Vertragsdaten. Läuft ein Vertrag über den Jahreswechsel, wird das Jahr an einem der beiden Daten gern falsch berechnet.",
+        "fix": "Prüfen Sie die Reihenfolge je Position, bevor Sie cac:InvoicePeriod innerhalb von cac:InvoiceLine schreiben. Dass der Zeitraum zusätzlich in den Rechnungszeitraum passen muss, fordern PEPPOL-EN16931-R110 und R111."
+      },
+      "en": {
+        "meaning": "Where both the start and the end of a line period are given, the end must fall on or after the start — the same check as BR-29, per line.",
+        "cause": "Line periods are produced in a loop out of contract data. Where a contract runs across a year boundary, the year on one of the two dates is readily computed wrong.",
+        "fix": "Check the order per line before writing cac:InvoicePeriod inside cac:InvoiceLine. That the period must also fit inside the invoicing period is required by PEPPOL-EN16931-R110 and R111."
+      }
+    },
+    "BR-31": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Dokumentebene (BG-20) muss einen Betrag (BT-92) tragen. Ein Ab- oder Zuschlag ohne Betrag verändert nichts und gehört dann nicht ins Dokument.",
+        "cause": "Der Rabatt wird bereits in die Positionsbeträge eingerechnet und die Gruppe nur noch zur Erläuterung angelegt — mit Grund, aber ohne Betrag.",
+        "fix": "Schreiben Sie den Betrag in cbc:Amount im cac:AllowanceCharge (UBL) beziehungsweise ram:ActualAmount im ram:SpecifiedTradeAllowanceCharge (CII). Zur Beziehung zwischen Betrag, Grundbetrag und Prozentsatz siehe PEPPOL-EN16931-R040."
+      },
+      "en": {
+        "meaning": "Every document-level allowance (BG-20) must carry an amount (BT-92). An allowance or charge without an amount changes nothing, and then does not belong in the document.",
+        "cause": "The discount is already folded into the line amounts and the group is created only as an explanation — with a reason, but no amount.",
+        "fix": "Write the amount into cbc:Amount inside cac:AllowanceCharge in UBL, ram:ActualAmount inside ram:SpecifiedTradeAllowanceCharge in CII. On how amount, base amount and percentage relate, see PEPPOL-EN16931-R040."
+      }
+    },
+    "BR-32": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Dokumentebene (BG-20) muss einen Umsatzsteuer-Kategoriecode (BT-95) tragen. Er entscheidet, in welchen Block der Steueraufschlüsselung der Betrag einfließt.",
+        "cause": "Der Ab- oder Zuschlag wird als reine Betragsposition gedacht, nicht als etwas Steuerbares. Erst die Aufschlüsselung braucht die Zuordnung — und findet sie dann nicht.",
+        "fix": "Setzen Sie BT-95 in cac:AllowanceCharge/cac:TaxCategory/cbc:ID mit cbc:Percent und cac:TaxScheme (UBL) beziehungsweise ram:CategoryTradeTax in CII. Es ist derselbe Kategoriecode wie auf den Positionen — S, E, Z, AE."
+      },
+      "en": {
+        "meaning": "Every document-level allowance (BG-20) must carry a VAT category code (BT-95). It decides which block of the VAT breakdown the amount flows into.",
+        "cause": "The allowance or charge is thought of as a bare amount rather than as something taxable. Only the breakdown needs the classification — and then fails to find it.",
+        "fix": "Set BT-95 in cac:AllowanceCharge/cac:TaxCategory/cbc:ID together with cbc:Percent and cac:TaxScheme in UBL, or ram:CategoryTradeTax in CII. It is the same category code as on the lines — S, E, Z, AE."
+      }
+    },
+    "BR-33": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Dokumentebene (BG-20) muss einen Grund tragen — im Klartext (BT-97), als Code (BT-98) oder beides. Ein Betrag ohne Begründung ist für den Empfänger nicht prüfbar.",
+        "cause": "Diese Regel und BR-CO-21 sind dieselbe Prüfung, in der Norm zweimal formuliert. Sie melden sich immer gemeinsam: ein fehlender Grund erzeugt zwei Fehlercodes, nicht zwei Fehler.",
+        "fix": "Setzen Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge (UBL) beziehungsweise ram:Reason oder ram:ReasonCode (CII). Damit verschwindet auch BR-CO-21. Zur Übereinstimmung von Code und Text siehe ebenfalls BR-CO-21."
+      },
+      "en": {
+        "meaning": "Every document-level allowance (BG-20) must carry a reason — in plain text (BT-97), as a code (BT-98), or both. An amount with no justification is something the recipient cannot check.",
+        "cause": "This rule and BR-CO-21 are one check written twice in the norm. They always report together: a single missing reason produces two error codes, not two errors.",
+        "fix": "Set cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode in CII. That clears BR-CO-21 at the same time. On the code and the text agreeing, see BR-CO-21 as well."
+      }
+    },
+    "BR-36": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Dokumentebene (BG-21) muss einen Betrag (BT-99) tragen. Ein Ab- oder Zuschlag ohne Betrag verändert nichts und gehört dann nicht ins Dokument.",
+        "cause": "Fracht- und Verpackungskosten werden als Text im Rechnungsfuß geführt. Die Gruppe entsteht aus diesem Text, und der Betrag steckt darin statt in einem eigenen Feld.",
+        "fix": "Schreiben Sie den Betrag in cbc:Amount im cac:AllowanceCharge (UBL) beziehungsweise ram:ActualAmount im ram:SpecifiedTradeAllowanceCharge (CII). Zur Beziehung zwischen Betrag, Grundbetrag und Prozentsatz siehe PEPPOL-EN16931-R040."
+      },
+      "en": {
+        "meaning": "Every document-level charge (BG-21) must carry an amount (BT-99). An allowance or charge without an amount changes nothing, and then does not belong in the document.",
+        "cause": "Freight and packaging are carried as text in the invoice footer. The group is built from that text, and the amount stays inside it rather than in a field of its own.",
+        "fix": "Write the amount into cbc:Amount inside cac:AllowanceCharge in UBL, ram:ActualAmount inside ram:SpecifiedTradeAllowanceCharge in CII. On how amount, base amount and percentage relate, see PEPPOL-EN16931-R040."
+      }
+    },
+    "BR-37": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Dokumentebene (BG-21) muss einen Umsatzsteuer-Kategoriecode (BT-102) tragen. Er entscheidet, in welchen Block der Steueraufschlüsselung der Betrag einfließt.",
+        "cause": "Der Ab- oder Zuschlag wird als reine Betragsposition gedacht, nicht als etwas Steuerbares. Erst die Aufschlüsselung braucht die Zuordnung — und findet sie dann nicht.",
+        "fix": "Setzen Sie BT-102 in cac:AllowanceCharge/cac:TaxCategory/cbc:ID mit cbc:Percent und cac:TaxScheme (UBL) beziehungsweise ram:CategoryTradeTax in CII. Es ist derselbe Kategoriecode wie auf den Positionen — S, E, Z, AE."
+      },
+      "en": {
+        "meaning": "Every document-level charge (BG-21) must carry a VAT category code (BT-102). It decides which block of the VAT breakdown the amount flows into.",
+        "cause": "The allowance or charge is thought of as a bare amount rather than as something taxable. Only the breakdown needs the classification — and then fails to find it.",
+        "fix": "Set BT-102 in cac:AllowanceCharge/cac:TaxCategory/cbc:ID together with cbc:Percent and cac:TaxScheme in UBL, or ram:CategoryTradeTax in CII. It is the same category code as on the lines — S, E, Z, AE."
+      }
+    },
+    "BR-38": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Dokumentebene (BG-21) muss einen Grund tragen — im Klartext (BT-104), als Code (BT-105) oder beides. Ein Betrag ohne Begründung ist für den Empfänger nicht prüfbar.",
+        "cause": "Diese Regel und BR-CO-22 sind dieselbe Prüfung, in der Norm zweimal formuliert. Sie melden sich immer gemeinsam: ein fehlender Grund erzeugt zwei Fehlercodes, nicht zwei Fehler.",
+        "fix": "Setzen Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge (UBL) beziehungsweise ram:Reason oder ram:ReasonCode (CII). Damit verschwindet auch BR-CO-22. Zur Übereinstimmung von Code und Text siehe ebenfalls BR-CO-22."
+      },
+      "en": {
+        "meaning": "Every document-level charge (BG-21) must carry a reason — in plain text (BT-104), as a code (BT-105), or both. An amount with no justification is something the recipient cannot check.",
+        "cause": "This rule and BR-CO-22 are one check written twice in the norm. They always report together: a single missing reason produces two error codes, not two errors.",
+        "fix": "Set cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode in CII. That clears BR-CO-22 at the same time. On the code and the text agreeing, see BR-CO-22 as well."
+      }
+    },
+    "BR-41": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Positionsebene (BG-27) muss einen Betrag (BT-136) tragen. Ein Ab- oder Zuschlag ohne Betrag verändert nichts und gehört dann nicht ins Dokument.",
+        "cause": "Positionsrabatte kommen aus der Preisfindung als Prozentsatz. Der Prozentsatz wird übernommen, der daraus folgende Betrag nicht ausgerechnet.",
+        "fix": "Schreiben Sie den Betrag in cbc:Amount im cac:AllowanceCharge (UBL) beziehungsweise ram:ActualAmount im ram:SpecifiedTradeAllowanceCharge (CII). Zur Beziehung zwischen Betrag, Grundbetrag und Prozentsatz siehe PEPPOL-EN16931-R040."
+      },
+      "en": {
+        "meaning": "Every invoice line allowance (BG-27) must carry an amount (BT-136). An allowance or charge without an amount changes nothing, and then does not belong in the document.",
+        "cause": "Line discounts arrive from pricing as a percentage. The percentage is carried through and the amount that follows from it is never worked out.",
+        "fix": "Write the amount into cbc:Amount inside cac:AllowanceCharge in UBL, ram:ActualAmount inside ram:SpecifiedTradeAllowanceCharge in CII. On how amount, base amount and percentage relate, see PEPPOL-EN16931-R040."
+      }
+    },
+    "BR-42": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Positionsebene (BG-27) muss einen Grund tragen — im Klartext (BT-139), als Code (BT-140) oder beides. Ein Betrag ohne Begründung ist für den Empfänger nicht prüfbar.",
+        "cause": "Diese Regel und BR-CO-23 sind dieselbe Prüfung, in der Norm zweimal formuliert. Sie melden sich immer gemeinsam: ein fehlender Grund erzeugt zwei Fehlercodes, nicht zwei Fehler.",
+        "fix": "Setzen Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge (UBL) beziehungsweise ram:Reason oder ram:ReasonCode (CII). Damit verschwindet auch BR-CO-23. Zur Übereinstimmung von Code und Text siehe ebenfalls BR-CO-23."
+      },
+      "en": {
+        "meaning": "Every invoice line allowance (BG-27) must carry a reason — in plain text (BT-139), as a code (BT-140), or both. An amount with no justification is something the recipient cannot check.",
+        "cause": "This rule and BR-CO-23 are one check written twice in the norm. They always report together: a single missing reason produces two error codes, not two errors.",
+        "fix": "Set cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode in CII. That clears BR-CO-23 at the same time. On the code and the text agreeing, see BR-CO-23 as well."
+      }
+    },
+    "BR-43": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Positionsebene (BG-28) muss einen Betrag (BT-141) tragen. Ein Ab- oder Zuschlag ohne Betrag verändert nichts und gehört dann nicht ins Dokument.",
+        "cause": "Positionszuschläge sind selten und werden im Mapping oft nur halb angelegt: die Gruppe steht, der Betrag ist an ein Feld gebunden, das es im Quellsystem nicht gibt.",
+        "fix": "Schreiben Sie den Betrag in cbc:Amount im cac:AllowanceCharge (UBL) beziehungsweise ram:ActualAmount im ram:SpecifiedTradeAllowanceCharge (CII). Zur Beziehung zwischen Betrag, Grundbetrag und Prozentsatz siehe PEPPOL-EN16931-R040."
+      },
+      "en": {
+        "meaning": "Every invoice line charge (BG-28) must carry an amount (BT-141). An allowance or charge without an amount changes nothing, and then does not belong in the document.",
+        "cause": "Line charges are rare and often only half-built in the mapping: the group exists, and the amount is bound to a field the source system does not have.",
+        "fix": "Write the amount into cbc:Amount inside cac:AllowanceCharge in UBL, ram:ActualAmount inside ram:SpecifiedTradeAllowanceCharge in CII. On how amount, base amount and percentage relate, see PEPPOL-EN16931-R040."
+      }
+    },
+    "BR-44": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Positionsebene (BG-28) muss einen Grund tragen — im Klartext (BT-144), als Code (BT-145) oder beides. Ein Betrag ohne Begründung ist für den Empfänger nicht prüfbar.",
+        "cause": "Diese Regel und BR-CO-24 sind dieselbe Prüfung, in der Norm zweimal formuliert. Sie melden sich immer gemeinsam: ein fehlender Grund erzeugt zwei Fehlercodes, nicht zwei Fehler.",
+        "fix": "Setzen Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge (UBL) beziehungsweise ram:Reason oder ram:ReasonCode (CII). Damit verschwindet auch BR-CO-24. Zur Übereinstimmung von Code und Text siehe ebenfalls BR-CO-24."
+      },
+      "en": {
+        "meaning": "Every invoice line charge (BG-28) must carry a reason — in plain text (BT-144), as a code (BT-145), or both. An amount with no justification is something the recipient cannot check.",
+        "cause": "This rule and BR-CO-24 are one check written twice in the norm. They always report together: a single missing reason produces two error codes, not two errors.",
+        "fix": "Set cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode in CII. That clears BR-CO-24 at the same time. On the code and the text agreeing, see BR-CO-24 as well."
+      }
+    },
+    "BR-45": {
+      "de": {
+        "meaning": "Jeder Block der Steueraufschlüsselung (BG-23) muss den Nettobetrag der Kategorie (BT-116) enthalten. Die Aufschlüsselung ist die Stelle, an der die Steuer nachvollziehbar wird.",
+        "cause": "Die Aufschlüsselung wird aus den Steuerbeträgen gebaut, weil die auf der Rechnung sichtbar sind. Die zugehörige Bemessungsgrundlage ist ein Zwischenergebnis und wird nicht mitgeschrieben.",
+        "fix": "Schreiben Sie BT-116 in cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount (UBL) beziehungsweise ram:BasisAmount im ram:ApplicableTradeTax (CII). Wie Bemessungsgrundlage, Satz und Steuerbetrag zusammenpassen müssen, prüft BR-CO-17."
+      },
+      "en": {
+        "meaning": "Every VAT breakdown block (BG-23) must contain the category taxable amount (BT-116). The breakdown is where the tax becomes traceable.",
+        "cause": "The breakdown is built from the tax amounts, those being what is visible on the invoice. The taxable base behind them is an intermediate result and does not get written out.",
+        "fix": "Write BT-116 into cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount in UBL, or ram:BasisAmount inside ram:ApplicableTradeTax in CII. How base, rate and tax amount must agree is checked by BR-CO-17."
+      }
+    },
+    "BR-46": {
+      "de": {
+        "meaning": "Jeder Block der Steueraufschlüsselung (BG-23) muss den Steuerbetrag der Kategorie (BT-117) enthalten. Die Aufschlüsselung ist die Stelle, an der die Steuer nachvollziehbar wird.",
+        "cause": "Bei steuerfreien Kategorien wirkt ein Steuerbetrag von 0 wie eine Nichtangabe und wird weggelassen. Die Norm verlangt die Null ausdrücklich.",
+        "fix": "Schreiben Sie BT-117 in cac:TaxTotal/cac:TaxSubtotal/cbc:TaxAmount (UBL) beziehungsweise ram:CalculatedAmount im ram:ApplicableTradeTax (CII). Wie Bemessungsgrundlage, Satz und Steuerbetrag zusammenpassen müssen, prüft BR-CO-17."
+      },
+      "en": {
+        "meaning": "Every VAT breakdown block (BG-23) must contain the category tax amount (BT-117). The breakdown is where the tax becomes traceable.",
+        "cause": "For exempt categories a tax amount of zero reads like an absence of information and gets left out. The norm requires the zero explicitly.",
+        "fix": "Write BT-117 into cac:TaxTotal/cac:TaxSubtotal/cbc:TaxAmount in UBL, or ram:CalculatedAmount inside ram:ApplicableTradeTax in CII. How base, rate and tax amount must agree is checked by BR-CO-17."
+      }
+    },
+    "BR-47": {
+      "de": {
+        "meaning": "Jeder Block der Steueraufschlüsselung muss über einen Umsatzsteuer-Kategoriecode (BT-118) definiert sein — S, E, Z, AE, K, G, L, M oder O.",
+        "cause": "Systeme unterscheiden Steuersätze über den Prozentsatz und brauchen dafür keine Kategorie. 0 % steht dann für steuerfrei, innergemeinschaftlich und Reverse Charge gleichermaßen, obwohl das drei verschiedene Kategorien sind.",
+        "fix": "Setzen Sie BT-118 in cac:TaxSubtotal/cac:TaxCategory/cbc:ID (UBL) beziehungsweise ram:ApplicableTradeTax/ram:CategoryCode (CII). Es ist derselbe Code wie auf der Position, siehe BR-CO-04."
+      },
+      "en": {
+        "meaning": "Every VAT breakdown block must be defined through a VAT category code (BT-118) — S, E, Z, AE, K, G, L, M or O.",
+        "cause": "Systems distinguish rates by percentage and need no category for it. 0% then stands for exempt, intra-community and reverse charge alike, though those are three different categories.",
+        "fix": "Set BT-118 in cac:TaxSubtotal/cac:TaxCategory/cbc:ID in UBL, ram:ApplicableTradeTax/ram:CategoryCode in CII. It is the same code as on the line, see BR-CO-04."
+      }
+    },
+    "BR-48": {
+      "de": {
+        "meaning": "Jeder Block der Steueraufschlüsselung muss einen Steuersatz (BT-119) tragen, außer die Rechnung unterliegt gar nicht der Umsatzsteuer.",
+        "cause": "Bei steuerfreien Kategorien wird der Satz weggelassen, weil es keinen gibt. Die Norm will dort ausdrücklich die 0 sehen — die Aussage „null Prozent“ unterscheidet sich von „kein Wert“.",
+        "fix": "Setzen Sie BT-119 in cac:TaxSubtotal/cac:TaxCategory/cbc:Percent (UBL) beziehungsweise ram:RateApplicablePercent (CII), bei E, Z und AE ausdrücklich als 0. Für den deutschen Prüfweg gilt zusätzlich BR-DE-14."
+      },
+      "en": {
+        "meaning": "Every VAT breakdown block must carry a VAT category rate (BT-119), unless the invoice is not subject to VAT at all.",
+        "cause": "For exempt categories the rate is omitted, because there is none. The norm wants an explicit zero there — the statement “zero per cent” differs from “no value”.",
+        "fix": "Set BT-119 in cac:TaxSubtotal/cac:TaxCategory/cbc:Percent in UBL, ram:RateApplicablePercent in CII, explicitly as 0 for E, Z and AE. On the German path BR-DE-14 applies as well."
+      }
+    },
+    "BR-49": {
+      "de": {
+        "meaning": "Eine Zahlungsanweisung (BG-16) muss den Zahlungsmittel-Code (BT-81) nennen — die Angabe, auf welchem Weg gezahlt werden soll.",
+        "cause": "Die Gruppe wird angelegt, um die IBAN unterzubringen, und die IBAN scheint den Weg schon zu erklären. Für die automatische Verarbeitung ist der Code aber das entscheidende Feld, nicht die Kontonummer.",
+        "fix": "Setzen Sie einen UNTDID-4461-Code in cbc:PaymentMeansCode (UBL) beziehungsweise ram:TypeCode (CII): 58 für SEPA-Überweisung, 59 für SEPA-Lastschrift, 30 für die allgemeine Überweisung, 48 für Kartenzahlung."
+      },
+      "en": {
+        "meaning": "A payment instruction (BG-16) must state the payment means code (BT-81) — how the invoice is meant to be paid.",
+        "cause": "The group is created to hold the IBAN, and the IBAN seems to explain the route already. For automatic processing the code is the decisive field, not the account number.",
+        "fix": "Set a UNTDID 4461 code in cbc:PaymentMeansCode in UBL, ram:TypeCode in CII: 58 for SEPA credit transfer, 59 for SEPA direct debit, 30 for a general transfer, 48 for card payment."
+      }
+    },
+    "BR-50": {
+      "de": {
+        "meaning": "Wird eine Überweisung als Zahlungsweg angegeben, muss die Kontokennung des Zahlungsempfängers (BT-84) dabeistehen. Eine Aufforderung zu überweisen braucht ein Ziel.",
+        "cause": "Die Bankverbindung steht im Rechnungsfuß der PDF-Darstellung und wird im strukturierten Datensatz nicht wiederholt, weil sie dort für den Menschen bereits sichtbar ist.",
+        "fix": "Schreiben Sie die IBAN in cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID (UBL) beziehungsweise ram:PayeePartyCreditorFinancialAccount/ram:IBANID (CII). Zur Richtigkeit der IBAN siehe BR-DE-19."
+      },
+      "en": {
+        "meaning": "Where a credit transfer is given as the payment means, the payee account identifier (BT-84) must accompany it. An instruction to transfer needs somewhere to transfer to.",
+        "cause": "The bank details sit in the footer of the PDF and are not repeated in the structured record, being already visible there to a human reader.",
+        "fix": "Write the IBAN into cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID in UBL, ram:PayeePartyCreditorFinancialAccount/ram:IBANID in CII. On the IBAN being correct, see BR-DE-19."
+      }
+    },
+    "BR-51": {
+      "de": {
+        "meaning": "Die vollständige Kartennummer darf niemals in einer Rechnung stehen. Übermittelt werden dürfen nur die letzten Stellen, der Rest maskiert — so verlangen es die Sicherheitsstandards für Kartenzahlungen.",
+        "cause": "Die Kartennummer liegt im Zahlungssystem vollständig vor und wird beim Mapping unverändert übernommen, weil das Feld im Zielschema genau so heißt. Damit wandert ein Datum in ein Dokument, das per Mail verschickt und jahrelang archiviert wird.",
+        "fix": "Maskieren Sie vor dem Schreiben und übermitteln Sie höchstens die letzten Stellen in cac:PaymentMeans/cac:CardAccount/cbc:PrimaryAccountNumberID (UBL) beziehungsweise ram:ApplicableTradeSettlementFinancialCard/ram:ID (CII). Die Maskierung gehört in die Erzeugung, nicht in eine spätere Bereinigung."
+      },
+      "en": {
+        "meaning": "A full card primary account number must never appear in an invoice. Only the last digits may be transmitted, the rest masked — this is what the card payment security standards require.",
+        "cause": "The payment system holds the number in full and the mapping copies it across unchanged, because the target field has exactly that name. A number then travels into a document that is emailed and archived for years.",
+        "fix": "Mask before writing and transmit at most the trailing digits in cac:PaymentMeans/cac:CardAccount/cbc:PrimaryAccountNumberID in UBL, ram:ApplicableTradeSettlementFinancialCard/ram:ID in CII. The masking belongs in the generation, not in a later clean-up."
+      }
+    },
+    "BR-52": {
+      "de": {
+        "meaning": "Jede zusätzliche Belegangabe (BG-24) muss eine Kennung (BT-122) tragen — die Nummer, unter der der Beleg beim Empfänger auffindbar ist.",
+        "cause": "Die Gruppe wird angelegt, um einen Anhang mitzuschicken, und der Anhang trägt einen Dateinamen. Eine Kennung für den Beleg selbst wird dabei nicht vergeben, weil der Dateiname als Bezeichnung genügt.",
+        "fix": "Setzen Sie BT-122 in cac:AdditionalDocumentReference/cbc:ID (UBL) beziehungsweise ram:AdditionalReferencedDocument/ram:IssuerAssignedID (CII). Zur Eindeutigkeit der Dateinamen bei mehreren Anhängen siehe BR-DE-22."
+      },
+      "en": {
+        "meaning": "Every additional supporting document (BG-24) must carry a reference (BT-122) — the number under which the recipient can find the document.",
+        "cause": "The group is created to carry an attachment, and the attachment has a filename. No identifier is assigned to the document itself, the filename seeming description enough.",
+        "fix": "Set BT-122 in cac:AdditionalDocumentReference/cbc:ID in UBL, ram:AdditionalReferencedDocument/ram:IssuerAssignedID in CII. On filenames being distinct where there are several attachments, see BR-DE-22."
+      }
+    },
+    "BR-53": {
+      "de": {
+        "meaning": "Ist eine abweichende Steuerwährung (BT-6) angegeben, muss auch die Steuersumme in dieser Währung (BT-111) übermittelt werden. Die Währung allein sagt noch keinen Betrag.",
+        "cause": "BT-6 wird aus dem Mandanten oder einer Vorlage gesetzt, die Umrechnung des Steuerbetrags aber nicht ausgelöst — sie braucht einen Kurs, den das Rechnungsobjekt nicht kennt.",
+        "fix": "Schreiben Sie den umgerechneten Steuerbetrag in ein zweites cac:TaxTotal ohne cac:TaxSubtotal, mit currencyID der Steuerwährung (UBL) — oder lassen Sie BT-6 weg. Wie viele solcher Blöcke zulässig sind, regelt PEPPOL-EN16931-R054, das Vorzeichen R055."
+      },
+      "en": {
+        "meaning": "Where a separate VAT accounting currency (BT-6) is given, the tax total in that currency (BT-111) must be provided too. A currency on its own states no amount.",
+        "cause": "BT-6 is set from a company code or a template while the conversion of the tax amount is never triggered — it needs a rate the invoice object does not hold.",
+        "fix": "Write the converted tax amount into a second cac:TaxTotal without a cac:TaxSubtotal, with the accounting currency as currencyID — or drop BT-6. How many such blocks are allowed is governed by PEPPOL-EN16931-R054, and their sign by R055."
+      }
+    },
+    "BR-54": {
+      "de": {
+        "meaning": "Jedes Artikelmerkmal (BG-32) muss aus einem Namen (BT-160) und einem Wert (BT-161) bestehen. Ein Merkmal ohne eines von beiden beschreibt nichts.",
+        "cause": "Merkmale werden aus einer Eigenschaftstabelle übernommen, in der Werte fehlen dürfen. Die Gruppe entsteht je Eigenschaft, auch wenn nur der Name belegt ist.",
+        "fix": "Schreiben Sie cac:Item/cac:AdditionalItemProperty nur, wenn beide Felder belegt sind — cbc:Name und cbc:Value (UBL) beziehungsweise ram:ApplicableProductCharacteristic mit ram:Description und ram:Value (CII)."
+      },
+      "en": {
+        "meaning": "Every item attribute (BG-32) must consist of a name (BT-160) and a value (BT-161). An attribute missing either describes nothing.",
+        "cause": "Attributes are taken from a property table in which values are allowed to be absent. The group is produced per property even where only the name is populated.",
+        "fix": "Write cac:Item/cac:AdditionalItemProperty only where both fields are populated — cbc:Name and cbc:Value in UBL, ram:ApplicableProductCharacteristic with ram:Description and ram:Value in CII."
+      }
+    },
+    "BR-55": {
+      "de": {
+        "meaning": "Jeder Verweis auf eine vorausgegangene Rechnung (BG-3) muss deren Nummer (BT-25) enthalten. Ohne sie verweist die Gruppe auf nichts Bestimmtes.",
+        "cause": "Die Gruppe wird angelegt, um das Datum der Ursprungsrechnung mitzugeben, oder sie entsteht leer aus einer Vorlage für Korrekturen. Die Nummer liegt in einem anderen Feld als erwartet.",
+        "fix": "Setzen Sie BT-25 in cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID (UBL) beziehungsweise ram:InvoiceReferencedDocument/ram:IssuerAssignedID (CII). Wann der Verweis überhaupt verlangt wird, steht in BR-DE-26."
+      },
+      "en": {
+        "meaning": "Every preceding invoice reference (BG-3) must contain the preceding invoice's number (BT-25). Without it the group refers to nothing in particular.",
+        "cause": "The group is created to carry the original invoice's date, or comes out of a correction template empty. The number sits in a different field from the one expected.",
+        "fix": "Set BT-25 in cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID in UBL, ram:InvoiceReferencedDocument/ram:IssuerAssignedID in CII. When the reference is required at all is covered by BR-DE-26."
+      }
+    },
+    "BR-56": {
+      "de": {
+        "meaning": "Jeder steuerliche Vertreter (BG-11) muss seine Umsatzsteuer-Identifikationsnummer (BT-63) tragen. Ohne sie ist die Vertretung steuerlich nicht nachvollziehbar.",
+        "cause": "Der Vertreter wird als weitere Adresse behandelt und wie eine Adresse gemappt — Name, Ort, Land. Dass hier eine Steuerkennung zwingend ist und nicht nur nützlich, geht dabei unter.",
+        "fix": "Setzen Sie BT-63 in cac:TaxRepresentativeParty/cac:PartyTaxScheme/cbc:CompanyID mit cac:TaxScheme/cbc:ID = VAT (UBL) beziehungsweise ram:SpecifiedTaxRegistration/ram:ID des Vertreters (CII). Das Länderpräfix fordert BR-CO-09."
+      },
+      "en": {
+        "meaning": "Every tax representative party (BG-11) must carry its VAT identifier (BT-63). Without it the representation cannot be traced for tax purposes.",
+        "cause": "The representative is treated as one more address and mapped like an address — name, city, country. That a tax identifier is mandatory here rather than merely useful gets lost.",
+        "fix": "Set BT-63 in cac:TaxRepresentativeParty/cac:PartyTaxScheme/cbc:CompanyID with a cac:TaxScheme/cbc:ID of VAT in UBL, or the representative's ram:SpecifiedTaxRegistration/ram:ID in CII. The country prefix is required by BR-CO-09."
+      }
+    },
+    "BR-57": {
+      "de": {
+        "meaning": "Wird eine Lieferanschrift (BG-15) übermittelt, muss sie ein Länderkennzeichen (BT-80) enthalten — dieselbe Anforderung wie BR-09 und BR-11, für die Lieferadresse.",
+        "cause": "Die Lieferanschrift wird aus dem Auftrag übernommen und dort meist als Freitext geführt, weil sie nur auf den Lieferschein gedruckt wird. Ein Ländercode ist dafür nie nötig gewesen.",
+        "fix": "Setzen Sie den ISO-3166-1-Code in cac:Delivery/cac:DeliveryLocation/cac:Address/cac:Country/cbc:IdentificationCode (UBL) beziehungsweise ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID (CII) — oder lassen Sie die Gruppe weg. Ort und Postleitzahl fordern BR-DE-10 und BR-DE-11."
+      },
+      "en": {
+        "meaning": "Where a deliver-to address (BG-15) is sent, it must contain a country code (BT-80) — the same requirement as BR-09 and BR-11, for the delivery address.",
+        "cause": "The delivery address is taken from the order, where it is usually free text because it is only ever printed on a delivery note. A country code was never needed for that.",
+        "fix": "Set the ISO 3166-1 code in cac:Delivery/cac:DeliveryLocation/cac:Address/cac:Country/cbc:IdentificationCode in UBL, ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CountryID in CII — or omit the group. City and post code are required by BR-DE-10 and BR-DE-11."
+      }
+    },
+    "BR-61": {
+      "de": {
+        "meaning": "Bedeutet der Zahlungsmittel-Code eine Überweisung — SEPA, inländisch oder international —, muss die Kontokennung des Empfängers (BT-84) übermittelt werden.",
+        "cause": "Nahe verwandt mit BR-50, aber anders ausgelöst: BR-50 greift, sobald Überweisungsdaten vorhanden sind, BR-61 greift über den Code. Wer den Code auf 58 setzt und die Kontogruppe ganz weglässt, sieht in UBL deshalb nur diese Regel — in CII kompilieren beide zur selben Prüfung und melden sich gemeinsam.",
+        "fix": "Schreiben Sie die IBAN in cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID (UBL) beziehungsweise ram:PayeePartyCreditorFinancialAccount/ram:IBANID (CII) — oder setzen Sie den Code auf das Zahlungsmittel, das tatsächlich gemeint ist."
+      },
+      "en": {
+        "meaning": "Where the payment means code means a credit transfer — SEPA, local or non-SEPA international — the payee account identifier (BT-84) must be provided.",
+        "cause": "Closely related to BR-50 but triggered differently: BR-50 applies once credit transfer data is present, BR-61 applies through the code. Setting the code to 58 and omitting the account group altogether therefore reports only this rule in UBL — in CII the two compile to one check and report together.",
+        "fix": "Write the IBAN into cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID in UBL, ram:PayeePartyCreditorFinancialAccount/ram:IBANID in CII — or set the code to the payment means actually intended."
+      }
+    },
+    "BR-62": {
+      "de": {
+        "meaning": "Wird die elektronische Adresse des Verkäufers (BT-34) übermittelt, muss sie ein Schema-Attribut tragen. Das Attribut sagt, aus welchem Verzeichnis die Kennung stammt — ohne das ist sie nur eine Zeichenkette.",
+        "cause": "Die Adresse wird als einfache Zeichenkette gemappt, weil sie im Quellsystem eine ist. Das Schema-Attribut daneben hat dort kein Gegenstück und bleibt leer.",
+        "fix": "Setzen Sie das Attribut schemeID an cac:AccountingSupplierParty/cac:Party/cbc:EndpointID — in CII das entsprechende schemeID am selben Element. BR-20 fordert die Adresse selbst."
+      },
+      "en": {
+        "meaning": "Where the seller electronic address (BT-34) is sent, it must carry a scheme identifier. The attribute says which register the identifier comes from — without it the value is only a string.",
+        "cause": "The address is mapped as a plain string, because in the source system it is one. The scheme attribute beside it has no counterpart there and stays empty.",
+        "fix": "Set the schemeID attribute on cac:AccountingSupplierParty/cac:Party/cbc:EndpointID in UBL, and the corresponding schemeID on the same element in CII. PEPPOL-EN16931-R020 requires the address itself."
+      }
+    },
+    "BR-63": {
+      "de": {
+        "meaning": "Wird die elektronische Adresse des Käufers (BT-49) übermittelt, muss sie ein Schema-Attribut tragen. Das Attribut sagt, aus welchem Verzeichnis die Kennung stammt — ohne das ist sie nur eine Zeichenkette.",
+        "cause": "Dieselbe Ursache wie bei BR-62, mit einer Zuspitzung: bei Behörden wird die Leitweg-ID als Adresse eingetragen, und dann ist das Schema 9958 und nicht EM — die Wahl fällt nur auf, wenn es das Feld überhaupt gibt.",
+        "fix": "Setzen Sie das Attribut schemeID an cac:AccountingCustomerParty/cac:Party/cbc:EndpointID — in CII das entsprechende schemeID am selben Element. PEPPOL-EN16931-R010 fordert die Adresse selbst."
+      },
+      "en": {
+        "meaning": "Where the buyer electronic address (BT-49) is sent, it must carry a scheme identifier. The attribute says which register the identifier comes from — without it the value is only a string.",
+        "cause": "The same cause as BR-62, sharpened: for public bodies the Leitweg-ID is entered as the address, and then the scheme is 9958 rather than EM — a choice that only surfaces if the field exists at all.",
+        "fix": "Set the schemeID attribute on cac:AccountingCustomerParty/cac:Party/cbc:EndpointID in UBL, and the corresponding schemeID on the same element in CII. PEPPOL-EN16931-R010 requires the address itself."
+      }
+    },
+    "BR-64": {
+      "de": {
+        "meaning": "Wird die Artikelkennung nach Standard (BT-157) übermittelt, muss sie ein Schema-Attribut tragen. Das Attribut sagt, aus welchem Verzeichnis die Kennung stammt — ohne das ist sie nur eine Zeichenkette.",
+        "cause": "Die GTIN steht im Artikelstamm als Zahl. Dass sie zusätzlich sagen muss, aus welchem Nummernkreis sie stammt, ergibt sich aus dem eigenen System nicht.",
+        "fix": "Setzen Sie das Attribut schemeID an cac:Item/cac:StandardItemIdentification/cbc:ID — in CII das entsprechende schemeID am selben Element. 0160 steht für die GTIN."
+      },
+      "en": {
+        "meaning": "Where the item standard identifier (BT-157) is sent, it must carry a scheme identifier. The attribute says which register the identifier comes from — without it the value is only a string.",
+        "cause": "The GTIN sits in the item master as a number. That it must additionally say which numbering scheme it comes from does not follow from your own system.",
+        "fix": "Set the schemeID attribute on cac:Item/cac:StandardItemIdentification/cbc:ID in UBL, and the corresponding schemeID on the same element in CII. 0160 denotes a GTIN."
+      }
+    },
+    "BR-65": {
+      "de": {
+        "meaning": "Wird die Klassifizierungskennung des Artikels (BT-158) übermittelt, muss sie ein Schema-Attribut tragen. Das Attribut sagt, aus welchem Verzeichnis die Kennung stammt — ohne das ist sie nur eine Zeichenkette.",
+        "cause": "Warengruppen werden hausintern vergeben und beim Mapping unverändert übernommen. Ohne Angabe des Klassifikationssystems ist die Nummer für den Empfänger bedeutungslos.",
+        "fix": "Setzen Sie das Attribut listID an cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode — in CII das entsprechende schemeID am selben Element. TST steht hier stellvertretend; üblich sind etwa eCl@ss oder UNSPSC."
+      },
+      "en": {
+        "meaning": "Where the item classification identifier (BT-158) is sent, it must carry a scheme identifier. The attribute says which register the identifier comes from — without it the value is only a string.",
+        "cause": "Commodity groups are assigned in house and copied across unchanged. Without naming the classification scheme the number means nothing to the recipient.",
+        "fix": "Set the listID attribute on cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode in UBL, and the corresponding schemeID on the same element in CII. TST stands in here; eCl@ss and UNSPSC are the usual ones."
+      }
+    },
+    "BR-CO-03": {
+      "de": {
+        "meaning": "Die Rechnung darf den Steuerstichtag entweder als Datum (BT-7) oder als Code (BT-8) angeben — niemals beides. Beide Felder beantworten dieselbe Frage: wann die Umsatzsteuer entsteht.",
+        "cause": "Mappings setzen BT-7 aus dem Leistungsdatum und füllen BT-8 zusätzlich mit einem Standardwert, weil beide Felder im Zielschema vorhanden sind und keines von beiden als „entweder/oder“ gekennzeichnet ist.",
+        "fix": "Entscheiden Sie sich für eines. Liegt ein konkretes Datum vor, senden Sie BT-7 (cbc:TaxPointDate in UBL, ram:TaxPointDate in CII) und lassen BT-8 weg; andernfalls nur den Code in BT-8 (cac:InvoicePeriod/cbc:DescriptionCode in UBL, ram:DueDateTypeCode in CII)."
+      },
+      "en": {
+        "meaning": "The invoice may state the VAT point either as a date (BT-7) or as a code (BT-8), never as both. The two fields answer the same question: when the VAT becomes chargeable.",
+        "cause": "Mappings fill BT-7 from the delivery date and then set BT-8 to a default as well, because both fields exist in the target schema and nothing marks them as either/or.",
+        "fix": "Pick one. With a concrete date, send BT-7 (cbc:TaxPointDate in UBL, ram:TaxPointDate in CII) and omit BT-8; otherwise send only the code in BT-8 (cac:InvoicePeriod/cbc:DescriptionCode in UBL, ram:DueDateTypeCode in CII)."
+      }
+    },
+    "BR-CO-04": {
+      "de": {
+        "meaning": "Jede Rechnungsposition (BG-25) muss einen Umsatzsteuer-Kategoriecode (BT-151) tragen — S für den Regelsatz, E für steuerfrei, Z für den Nullsatz, AE für Reverse Charge und so weiter.",
+        "cause": "Der Code steht im Kopf der Rechnung, weil dort ohnehin die Steuerübersicht gebildet wird, und wird auf Positionsebene vergessen — besonders bei Rechnungen mit nur einem Steuersatz, wo er redundant wirkt.",
+        "fix": "Setzen Sie BT-151 auf jeder Position: cac:InvoiceLine/cac:Item/cac:ClassifiedTaxCategory/cbc:ID in UBL, ram:ApplicableTradeTax/ram:CategoryCode auf Positionsebene in CII. Auch bei einheitlichem Steuersatz muss jede Position ihn nennen."
+      },
+      "en": {
+        "meaning": "Every invoice line (BG-25) must carry a VAT category code (BT-151) — S for the standard rate, E for exempt, Z for zero-rated, AE for reverse charge, and so on.",
+        "cause": "The code sits in the header, where the tax breakdown is built anyway, and is forgotten at line level — particularly on invoices with a single rate, where repeating it looks redundant.",
+        "fix": "Set BT-151 on every line: cac:InvoiceLine/cac:Item/cac:ClassifiedTaxCategory/cbc:ID in UBL, ram:ApplicableTradeTax/ram:CategoryCode at line level in CII. Every line must name it, even where the rate is the same throughout."
+      }
+    },
+    "BR-CO-09": {
+      "de": {
+        "meaning": "Die Umsatzsteuer-Identifikationsnummern von Verkäufer (BT-31), Steuervertreter (BT-63) und Käufer (BT-48) müssen mit dem Länderkürzel nach ISO 3166-1 alpha-2 beginnen. Griechenland darf abweichend „EL“ verwenden.",
+        "cause": "Im Debitoren- und Kreditorenstamm steht die Nummer oft ohne Präfix, weil das Land in einem eigenen Feld gepflegt wird. Beim Mapping wird dann der reine Zahlenteil übernommen — „811234567“ statt „DE811234567“.",
+        "fix": "Stellen Sie das Länderkürzel voran und entfernen Sie Leerzeichen: cac:PartyTaxScheme/cbc:CompanyID mit cac:TaxScheme/cbc:ID = VAT in UBL, ram:SpecifiedTaxRegistration/ram:ID mit schemeID=\"VA\" in CII."
+      },
+      "en": {
+        "meaning": "The VAT identifiers of the seller (BT-31), the tax representative (BT-63) and the buyer (BT-48) must begin with the ISO 3166-1 alpha-2 country code. Greece is permitted to use “EL” instead.",
+        "cause": "Master data usually holds the number without the prefix, because the country lives in a field of its own. The mapping then copies the digits alone — “811234567” where “DE811234567” is required.",
+        "fix": "Prepend the country code and strip any spaces: cac:PartyTaxScheme/cbc:CompanyID with a cac:TaxScheme/cbc:ID of VAT in UBL, ram:SpecifiedTaxRegistration/ram:ID with schemeID=\"VA\" in CII."
+      }
+    },
+    "BR-CO-10": {
+      "de": {
+        "meaning": "Die Summe der Positionsnettobeträge (BT-106) muss exakt der Summe aller einzelnen Positionsbeträge (BT-131) entsprechen.",
+        "cause": "Tritt auf, wenn Positionsbeträge einzeln gerundet und anschließend addiert werden, während die Gesamtsumme aus ungerundeten Werten berechnet wird. Beide Wege ergeben unterschiedliche Ergebnisse.",
+        "fix": "Runden Sie jeden Positionsbetrag auf zwei Nachkommastellen und bilden Sie die Summe aus genau diesen gerundeten Werten — nicht aus den Rohwerten."
+      },
+      "en": {
+        "meaning": "The sum of invoice line net amounts (BT-106) must equal the sum of the individual line net amounts (BT-131) exactly.",
+        "cause": "This appears when line amounts are rounded individually and then added, while the total is computed from unrounded values. The two routes disagree.",
+        "fix": "Round each line amount to two decimal places and sum exactly those rounded values, not the raw ones."
+      }
+    },
+    "BR-CO-11": {
+      "de": {
+        "meaning": "Die Summe der Abschläge auf Dokumentebene (BT-107) muss exakt der Summe der einzelnen Abschlagsbeträge (BT-92) entsprechen.",
+        "cause": "Der Summenwert wird aus dem eigenen Rechnungsobjekt übernommen, die Einzelabschläge aber gefiltert geschrieben — etwa weil ein Abschlag mit Betrag 0 übersprungen oder ein Rabatt zusätzlich in die Position gerechnet wurde.",
+        "fix": "Bilden Sie BT-107 aus genau den Abschlägen, die auch im Dokument stehen: cbc:AllowanceTotalAmount in cac:LegalMonetaryTotal als Summe aller cac:AllowanceCharge mit cbc:ChargeIndicator false (UBL), ram:AllowanceTotalAmount in CII."
+      },
+      "en": {
+        "meaning": "The sum of allowances at document level (BT-107) must equal the sum of the individual allowance amounts (BT-92) exactly.",
+        "cause": "The total is taken from your own invoice object while the individual allowances are written through a filter — an allowance of zero skipped, say, or a discount also folded into the line.",
+        "fix": "Build BT-107 from exactly the allowances the document contains: cbc:AllowanceTotalAmount inside cac:LegalMonetaryTotal as the sum of every cac:AllowanceCharge whose cbc:ChargeIndicator is false in UBL, ram:AllowanceTotalAmount in CII."
+      }
+    },
+    "BR-CO-12": {
+      "de": {
+        "meaning": "Die Summe der Zuschläge auf Dokumentebene (BT-108) muss exakt der Summe der einzelnen Zuschlagsbeträge (BT-99) entsprechen — das Gegenstück zu BR-CO-11.",
+        "cause": "Fracht- und Verpackungskosten werden gern im Kopf summiert und gleichzeitig als eigene Position geführt. Dann steht der Betrag zweimal im Dokument, aber nur einmal in der Summe.",
+        "fix": "Summieren Sie BT-108 aus allen cac:AllowanceCharge mit cbc:ChargeIndicator true und schreiben Sie das Ergebnis nach cbc:ChargeTotalAmount (UBL) beziehungsweise ram:ChargeTotalAmount (CII). Ein Zuschlag gehört entweder in die Position oder auf Dokumentebene, nie in beide."
+      },
+      "en": {
+        "meaning": "The sum of charges at document level (BT-108) must equal the sum of the individual charge amounts (BT-99) exactly — the counterpart to BR-CO-11.",
+        "cause": "Freight and packaging are often totalled in the header and carried as a line of their own at the same time. The amount then appears twice in the document and only once in the total.",
+        "fix": "Sum BT-108 from every cac:AllowanceCharge whose cbc:ChargeIndicator is true and write the result to cbc:ChargeTotalAmount in UBL, ram:ChargeTotalAmount in CII. A charge belongs either in the line or at document level, never in both."
+      }
+    },
+    "BR-CO-13": {
+      "de": {
+        "meaning": "Der Gesamtbetrag ohne Umsatzsteuer (BT-109) muss der Summe aller Positionsnettobeträge (BT-131) abzüglich der Nachlässe (BT-107) zuzüglich der Zuschläge (BT-108) auf Dokumentenebene entsprechen.",
+        "cause": "Meist werden Nachlässe oder Zuschläge auf Dokumentenebene zwar ausgewiesen, aber beim Berechnen von BT-109 vergessen — oder sie stecken bereits in den Positionspreisen und werden dann doppelt abgezogen.",
+        "fix": "Berechnen Sie BT-109 strikt nach der Formel Σ BT-131 − BT-107 + BT-108 aus genau den Werten, die im Dokument stehen. Ein Rabatt gehört entweder in die Position oder auf Dokumentenebene — nie in beide."
+      },
+      "en": {
+        "meaning": "The invoice total without VAT (BT-109) must equal the sum of all line net amounts (BT-131) minus document-level allowances (BT-107) plus document-level charges (BT-108).",
+        "cause": "Usually document-level allowances or charges are shown but forgotten when computing BT-109 — or the discount is already baked into the line prices and then subtracted a second time.",
+        "fix": "Compute BT-109 strictly as Σ BT-131 − BT-107 + BT-108 from exactly the values written in the document. A discount belongs either in the line or at document level — never in both."
+      }
+    },
+    "BR-CO-14": {
+      "de": {
+        "meaning": "Der Gesamtsteuerbetrag der Rechnung (BT-110) muss der Summe der Steuerbeträge aller Steuerkategorien (BT-117) entsprechen.",
+        "cause": "Klassisch, wenn BT-110 aus den einzeln gerundeten Positionssteuern berechnet wird, die Kategoriebeträge aber aus den Bemessungsgrundlagen — beide Wege weichen um Rundungsdifferenzen voneinander ab.",
+        "fix": "Berechnen Sie zuerst je Kategorie BT-117 aus der Bemessungsgrundlage und bilden Sie BT-110 als exakte Summe genau dieser Kategoriebeträge — nicht als eigene, unabhängige Rechnung."
+      },
+      "en": {
+        "meaning": "The invoice total VAT amount (BT-110) must equal the sum of the tax amounts of all VAT categories (BT-117).",
+        "cause": "Classic when BT-110 is computed from individually rounded per-line taxes while the category amounts come from the taxable bases — the two routes drift apart by rounding differences.",
+        "fix": "Compute BT-117 per category from its taxable base first, then form BT-110 as the exact sum of those category amounts — never as a separate, independent calculation."
+      }
+    },
+    "BR-CO-15": {
+      "de": {
+        "meaning": "Der Gesamtbetrag mit Umsatzsteuer (BT-112) muss exakt der Summe aus Gesamtbetrag ohne Umsatzsteuer (BT-109) und Gesamtsteuerbetrag (BT-110) entsprechen.",
+        "cause": "Häufig wird BT-112 aus dem internen System übernommen, während BT-109 und BT-110 neu berechnet werden — schon ein Cent Rundungsdifferenz zwischen beiden Welten löst den Fehler aus.",
+        "fix": "Leiten Sie BT-112 immer als BT-109 + BT-110 aus den beiden Dokumentwerten ab, statt einen unabhängig berechneten Bruttobetrag einzutragen. Dezimalarithmetik verwenden, nie float."
+      },
+      "en": {
+        "meaning": "The invoice total with VAT (BT-112) must equal the total without VAT (BT-109) plus the total VAT amount (BT-110), exactly.",
+        "cause": "BT-112 is often copied from the internal system while BT-109 and BT-110 are recalculated — a single cent of rounding difference between the two worlds triggers the error.",
+        "fix": "Always derive BT-112 as BT-109 + BT-110 from the two document values instead of writing an independently calculated gross amount. Use decimal arithmetic, never float."
+      }
+    },
+    "BR-CO-16": {
+      "de": {
+        "meaning": "Der Zahlbetrag (BT-115) muss rechnerisch aufgehen: Bruttobetrag (BT-112) minus bereits gezahlter Betrag (BT-113) plus Rundungsbetrag (BT-114).",
+        "cause": "Klassischer Rundungsfehler. Wenn Beträge intern als Gleitkommazahl gerechnet werden, weicht die Summe um einen Cent ab — sichtbar wird das erst in der Prüfung.",
+        "fix": "Rechnen Sie Beträge durchgängig mit Dezimalarithmetik, nicht mit float oder double, und runden Sie erst bei der Ausgabe auf zwei Nachkommastellen. Prüfen Sie außerdem, ob ein Anzahlungsbetrag (BT-113) gesetzt ist, den Ihre Berechnung nicht berücksichtigt."
+      },
+      "en": {
+        "meaning": "The amount due for payment (BT-115) must add up: invoice total with VAT (BT-112) minus any amount already paid (BT-113) plus the rounding amount (BT-114).",
+        "cause": "The classic rounding bug. When amounts are computed as floating-point numbers the total drifts by a cent, and nothing reveals it until validation.",
+        "fix": "Use decimal arithmetic throughout rather than float or double, and round only when writing the output to two decimal places. Also check whether a prepaid amount (BT-113) is set that your calculation ignores."
+      }
+    },
+    "BR-CO-17": {
+      "de": {
+        "meaning": "Je Steuerkategorie muss der Steuerbetrag (BT-117) exakt der Bemessungsgrundlage (BT-116) multipliziert mit dem Steuersatz (BT-119) entsprechen, kaufmännisch auf zwei Nachkommastellen gerundet.",
+        "cause": "Der häufigste Weg in diesen Fehler: die Steuer wird je Position berechnet und gerundet, dann summiert. Die Summe gerundeter Positionssteuern weicht von der Steuer auf die summierte Bemessungsgrundlage ab.",
+        "fix": "Gruppieren Sie die Positionen nach Steuerkategorie, summieren Sie die Nettobeträge zur Bemessungsgrundlage BT-116 und berechnen Sie die Steuer einmal daraus: BT-116 × BT-119 / 100, gerundet auf zwei Stellen."
+      },
+      "en": {
+        "meaning": "Per VAT category, the tax amount (BT-117) must equal the taxable amount (BT-116) multiplied by the rate (BT-119), rounded to two decimals.",
+        "cause": "The most common route into this error: tax is calculated and rounded per line, then summed. The sum of rounded line taxes drifts from the tax on the summed base.",
+        "fix": "Group lines by VAT category, sum their net amounts into the taxable base BT-116, and compute the tax once from it: BT-116 × BT-119 / 100, rounded to two decimals."
+      }
+    },
+    "BR-CO-18": {
+      "de": {
+        "meaning": "Die Rechnung muss mindestens eine Umsatzsteuer-Aufschlüsselung (BG-23) enthalten — je Steuerkategorie einen Block mit Nettobetrag, Steuerbetrag, Kategorie und Satz.",
+        "cause": "Bei steuerfreien Rechnungen wirkt der Block überflüssig und wird weggelassen. Die Regel verlangt ihn trotzdem: „keine Steuer“ ist selbst eine Aussage, und sie gehört aufgeschlüsselt.",
+        "fix": "Schreiben Sie je Steuerkategorie ein cac:TaxTotal/cac:TaxSubtotal (UBL) beziehungsweise ein ram:ApplicableTradeTax (CII) — auch für E oder Z, dort mit Steuerbetrag 0 und dem Befreiungsgrund."
+      },
+      "en": {
+        "meaning": "The invoice must contain at least one VAT breakdown group (BG-23) — one block per tax category, carrying the taxable amount, the tax amount, the category and the rate.",
+        "cause": "On an exempt invoice the block looks superfluous and gets left out. The rule wants it regardless: “no tax” is itself a statement, and it belongs in the breakdown.",
+        "fix": "Write one cac:TaxTotal/cac:TaxSubtotal in UBL, or one ram:ApplicableTradeTax in CII, per tax category — including E or Z, with a tax amount of zero and the exemption reason."
+      }
+    },
+    "BR-CO-19": {
+      "de": {
+        "meaning": "Wird ein Abrechnungszeitraum (BG-14) übermittelt, muss mindestens ein Datum darin stehen: Beginn (BT-73), Ende (BT-74) oder beides. Ein leerer Zeitraum ist keine Angabe.",
+        "cause": "Die Gruppe wird im Mapping bedingungslos angelegt und erst danach befüllt. Fehlen beide Daten im Quellsystem — etwa bei einer einmaligen Leistung —, bleibt eine leere Hülle im Dokument stehen.",
+        "fix": "Legen Sie die Gruppe nur an, wenn wenigstens ein Datum vorliegt: cac:InvoicePeriod mit cbc:StartDate und/oder cbc:EndDate in UBL, ram:BillingSpecifiedPeriod mit ram:StartDateTime und/oder ram:EndDateTime in CII."
+      },
+      "en": {
+        "meaning": "If an invoicing period (BG-14) is sent, at least one date must be in it: the start (BT-73), the end (BT-74), or both. An empty period states nothing.",
+        "cause": "The group is created unconditionally in the mapping and populated afterwards. Where the source system holds neither date — a one-off service, say — an empty shell is left behind in the document.",
+        "fix": "Create the group only when at least one date exists: cac:InvoicePeriod with cbc:StartDate and/or cbc:EndDate in UBL, ram:BillingSpecifiedPeriod with ram:StartDateTime and/or ram:EndDateTime in CII."
+      }
+    },
+    "BR-CO-20": {
+      "de": {
+        "meaning": "Wird auf einer Position ein Leistungszeitraum (BG-26) übermittelt, muss mindestens ein Datum darin stehen: Beginn (BT-134), Ende (BT-135) oder beides. Das Gegenstück zu BR-CO-19 auf Positionsebene.",
+        "cause": "Derselbe Fehler wie im Kopf, nur häufiger: Positionen werden in einer Schleife erzeugt, und die Zeitraum-Gruppe wird für jede Position angelegt, obwohl nur manche davon einen Zeitraum haben.",
+        "fix": "Erzeugen Sie cac:InvoicePeriod innerhalb der cac:InvoiceLine nur dann, wenn ein Datum vorliegt — in CII entsprechend ram:BillingSpecifiedPeriod innerhalb der Position."
+      },
+      "en": {
+        "meaning": "If a line period (BG-26) is sent on an invoice line, at least one date must be in it: the start (BT-134), the end (BT-135), or both. The line-level counterpart to BR-CO-19.",
+        "cause": "The same mistake as in the header, only more often: lines are produced in a loop and the period group is created for every one of them, though only some lines actually have a period.",
+        "fix": "Emit cac:InvoicePeriod inside cac:InvoiceLine only when a date exists — and in CII, ram:BillingSpecifiedPeriod inside the line, on the same condition."
+      }
+    },
+    "BR-CO-21": {
+      "de": {
+        "meaning": "Jeder Abschlag auf Dokumentebene (BG-20) muss begründet sein — im Klartext (BT-97), als Code (BT-98) oder beides. Ein Betrag ohne Grund ist für den Empfänger nicht prüfbar.",
+        "cause": "Der Betrag steht im Rechnungsobjekt, der Grund nur in der PDF-Darstellung. Im strukturierten Datensatz bleibt dann eine Zeile über 50,00 € Abzug ohne jede Erklärung übrig.",
+        "fix": "Geben Sie mindestens eines der beiden an: cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge (UBL), ram:Reason oder ram:ReasonCode im ram:SpecifiedTradeAllowanceCharge (CII)."
+      },
+      "en": {
+        "meaning": "Every document-level allowance (BG-20) must be justified — in plain text (BT-97), as a code (BT-98), or both. An amount with no reason is something the recipient cannot check.",
+        "cause": "The amount lives in the invoice object and the reason only in the PDF rendering. What survives into the structured data is a deduction of 50.00 with no explanation attached to it.",
+        "fix": "Supply at least one of the two: cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode inside ram:SpecifiedTradeAllowanceCharge in CII."
+      }
+    },
+    "BR-CO-22": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf Dokumentebene (BG-21) muss einen Grund tragen — im Klartext (BT-104), als Code (BT-105) oder beides.",
+        "cause": "Zuschläge entstehen oft erst spät im Prozess, etwa aus dem Versanddienstleister, und werden als reiner Betrag durchgereicht. Beim Empfänger landet ein Aufschlag, den niemand zuordnen kann, und Rechnungen mit unerklärten Aufschlägen bleiben liegen.",
+        "fix": "Ergänzen Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode im cac:AllowanceCharge mit cbc:ChargeIndicator true (UBL) beziehungsweise ram:Reason oder ram:ReasonCode im ram:SpecifiedTradeAllowanceCharge (CII)."
+      },
+      "en": {
+        "meaning": "Every document-level charge (BG-21) must carry a reason — in plain text (BT-104), as a code (BT-105), or both.",
+        "cause": "Charges often appear late in the process, out of a shipping provider for instance, and are passed through as a bare amount. The recipient receives a surcharge nobody can attribute, and invoices with unexplained surcharges sit unpaid.",
+        "fix": "Add cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode to the cac:AllowanceCharge whose cbc:ChargeIndicator is true in UBL, or ram:Reason or ram:ReasonCode to the ram:SpecifiedTradeAllowanceCharge in CII."
+      }
+    },
+    "BR-CO-23": {
+      "de": {
+        "meaning": "Jeder Abschlag auf einer Rechnungsposition (BG-27) muss begründet sein — im Klartext (BT-139), als Code (BT-140) oder beides.",
+        "cause": "Positionsrabatte kommen aus der Preisfindung und tragen dort selten mehr als einen Prozentsatz. Der Grund existiert im Quellsystem oft gar nicht und kann deshalb auch nicht gemappt werden.",
+        "fix": "Übernehmen Sie die Rabattart aus der Preisfindung, oder setzen Sie einen zutreffenden Standardgrund. Geschrieben wird cbc:AllowanceChargeReason beziehungsweise cbc:AllowanceChargeReasonCode im cac:AllowanceCharge der Position (UBL), ram:Reason oder ram:ReasonCode in CII."
+      },
+      "en": {
+        "meaning": "Every allowance on an invoice line (BG-27) must be justified — in plain text (BT-139), as a code (BT-140), or both.",
+        "cause": "Line discounts come out of a pricing engine that rarely carries more than a percentage. The reason frequently does not exist in the source system at all, so there is nothing available to map.",
+        "fix": "Carry the discount type through from pricing, or set a default reason that is actually true. It is written as cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode inside the line's cac:AllowanceCharge in UBL, ram:Reason or ram:ReasonCode in CII."
+      }
+    },
+    "BR-CO-24": {
+      "de": {
+        "meaning": "Jeder Zuschlag auf einer Rechnungsposition (BG-28) muss einen Grund tragen — im Klartext (BT-144), als Code (BT-145) oder beides.",
+        "cause": "Der seltenste der vier Fälle, und deshalb der, für den im Mapping am ehesten gar kein Feld vorgesehen wurde: der Betrag wird durchgereicht, weil er in der Summe gebraucht wird, der Grund fällt weg.",
+        "fix": "Schreiben Sie cbc:AllowanceChargeReason oder cbc:AllowanceChargeReasonCode in das cac:AllowanceCharge der Position mit cbc:ChargeIndicator true (UBL) beziehungsweise ram:Reason oder ram:ReasonCode in das ram:SpecifiedTradeAllowanceCharge der Position (CII)."
+      },
+      "en": {
+        "meaning": "Every charge on an invoice line (BG-28) must carry a reason — in plain text (BT-144), as a code (BT-145), or both.",
+        "cause": "The rarest of the four cases, and therefore the one most likely to have no field in the mapping at all: the amount is passed through because the total needs it, and the reason is dropped.",
+        "fix": "Write cbc:AllowanceChargeReason or cbc:AllowanceChargeReasonCode into the line's cac:AllowanceCharge with cbc:ChargeIndicator true in UBL, or ram:Reason or ram:ReasonCode into the line's ram:SpecifiedTradeAllowanceCharge in CII."
+      }
+    },
+    "BR-CO-25": {
+      "de": {
+        "meaning": "Sobald ein positiver Zahlbetrag (BT-115) vorliegt, muss die Rechnung entweder ein Fälligkeitsdatum (BT-9) oder Zahlungsbedingungen (BT-20) enthalten.",
+        "cause": "In vielen Systemen steht die Zahlungsfrist nur als Fußtext auf der PDF-Rechnung. Im strukturierten Datensatz fehlen dann beide Felder, obwohl die Information vorhanden wäre.",
+        "fix": "Übermitteln Sie das Fälligkeitsdatum in BT-9 (UBL cbc:DueDate, CII ram:DueDateDateTime) oder die Zahlungsbedingungen als Text in BT-20, zum Beispiel „Zahlbar innerhalb von 14 Tagen ohne Abzug\"."
+      },
+      "en": {
+        "meaning": "Whenever the amount due for payment (BT-115) is positive, the invoice must carry either a payment due date (BT-9) or payment terms (BT-20).",
+        "cause": "In many systems the payment deadline exists only as footer text on the PDF. Both structured fields are then empty even though the information is available.",
+        "fix": "Send the due date in BT-9 (cbc:DueDate in UBL, ram:DueDateDateTime in CII) or the payment terms as text in BT-20, for example \"Payable within 14 days net\"."
+      }
+    },
+    "BR-CO-26": {
+      "de": {
+        "meaning": "Damit der Käufer den Lieferanten automatisch zuordnen kann, muss mindestens eine Kennung des Verkäufers vorhanden sein: eine Verkäuferkennung (BT-29), die Registernummer (BT-30) oder die Umsatzsteuer-Identifikationsnummer (BT-31).",
+        "cause": "Der Verkäufer wird mit Name und Anschrift übermittelt, weil das für den Menschen genügt. Für den automatischen Abgleich im Kreditorenstamm des Empfängers reicht ein Name nicht — Schreibweisen ändern sich, Kennungen nicht.",
+        "fix": "Senden Sie mindestens eine davon: cac:PartyIdentification/cbc:ID (BT-29), cac:PartyLegalEntity/cbc:CompanyID (BT-30) oder cac:PartyTaxScheme/cbc:CompanyID (BT-31) in UBL; in CII ram:SellerTradeParty/ram:ID, ram:SpecifiedLegalOrganization/ram:ID beziehungsweise ram:SpecifiedTaxRegistration/ram:ID."
+      },
+      "en": {
+        "meaning": "So the buyer can identify the supplier automatically, at least one seller identifier must be present: a seller identifier (BT-29), the legal registration identifier (BT-30), or the VAT identifier (BT-31).",
+        "cause": "The seller is sent as a name and an address, because that is enough for a human. It is not enough for an automatic match against the recipient's supplier master data — spellings change, identifiers do not.",
+        "fix": "Send at least one of them: cac:PartyIdentification/cbc:ID (BT-29), cac:PartyLegalEntity/cbc:CompanyID (BT-30) or cac:PartyTaxScheme/cbc:CompanyID (BT-31) in UBL; ram:SellerTradeParty/ram:ID, ram:SpecifiedLegalOrganization/ram:ID or ram:SpecifiedTaxRegistration/ram:ID in CII."
+      }
+    },
+    "BR-DE-1": {
+      "de": {
+        "meaning": "Die Rechnung muss Angaben zur Zahlung enthalten (Gruppe BG-16, \"PAYMENT INSTRUCTIONS\") — also mindestens, auf welchem Weg gezahlt werden soll.",
+        "cause": "Viele Systeme drucken die Bankverbindung nur in den Fußtext der PDF-Rechnung. Im strukturierten Datensatz fehlt sie dann vollständig, obwohl sie für den Menschen sichtbar ist.",
+        "fix": "Füllen Sie die Gruppe BG-16 strukturiert: Zahlungsart (BT-81) und je nach Zahlungsweg die Kontoangaben, etwa IBAN in BT-84. Freitext im Rechnungsfuß genügt nicht."
+      },
+      "en": {
+        "meaning": "The invoice must contain payment instructions (group BG-16) — at minimum, how the invoice is meant to be paid.",
+        "cause": "Many systems print bank details only in the footer of the PDF. They are visible to a human but entirely absent from the structured data.",
+        "fix": "Populate BG-16 as structured data: payment means code (BT-81) and, depending on the method, the account details such as IBAN in BT-84. Free text in the footer does not count."
+      }
+    },
+    "BR-DE-10": {
+      "de": {
+        "meaning": "Sobald eine Lieferanschrift (Gruppe BG-15, „DELIVER TO ADDRESS\") übermittelt wird, muss sie den Ort (BT-77) enthalten. Ohne Lieferanschrift greift die Regel nicht.",
+        "cause": "Eine halb befüllte Lieferanschrift: das System schreibt die Gruppe, sobald irgendein Lieferdatum oder -land vorliegt, füllt aber nur die Felder, die es kennt — übrig bleibt etwa ein Land ohne Ort.",
+        "fix": "Entweder die Lieferanschrift vollständig übermitteln (Ort in BT-77: UBL cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:CityName, CII ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CityName) — oder die Gruppe BG-15 ganz weglassen, wenn Sie keine Lieferanschrift angeben wollen."
+      },
+      "en": {
+        "meaning": "Once a delivery address (group BG-15, \"DELIVER TO ADDRESS\") is transmitted, it must contain the city (BT-77). Without a delivery address the rule does not apply.",
+        "cause": "A half-filled delivery address: the system writes the group as soon as any delivery date or country exists, but only fills the fields it knows — leaving, say, a country without a city.",
+        "fix": "Either transmit the delivery address completely (city in BT-77: cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:CityName in UBL, ram:ShipToTradeParty/ram:PostalTradeAddress/ram:CityName in CII) — or omit group BG-15 entirely if you do not mean to state one."
+      }
+    },
+    "BR-DE-11": {
+      "de": {
+        "meaning": "Sobald eine Lieferanschrift (BG-15) übermittelt wird, muss sie die Postleitzahl (BT-78) enthalten — das Gegenstück zu BR-DE-10 für den Ort.",
+        "cause": "Wie bei BR-DE-10 eine unvollständig befüllte Gruppe; die beiden Fehler treten fast immer gemeinsam auf.",
+        "fix": "Postleitzahl in BT-78 ergänzen (UBL cbc:PostalZone, CII ram:PostcodeCode unterhalb der Lieferanschrift) — oder die Gruppe BG-15 weglassen."
+      },
+      "en": {
+        "meaning": "Once a delivery address (BG-15) is transmitted, it must contain the post code (BT-78) — the counterpart of BR-DE-10 for the city.",
+        "cause": "As with BR-DE-10, a partially filled group; the two findings almost always appear together.",
+        "fix": "Add the post code in BT-78 (cbc:PostalZone in UBL, ram:PostcodeCode under the delivery address in CII) — or omit group BG-15."
+      }
+    },
+    "BR-DE-14": {
+      "de": {
+        "meaning": "Der Umsatzsteuersatz (BT-119, „VAT category rate\") muss für jede Steuerkategorie übermittelt werden — auch dann, wenn er 0 beträgt.",
+        "cause": "Bei steuerbefreiten oder Reverse-Charge-Rechnungen (Kategorien E, AE, Z) lassen viele Systeme den Prozentsatz weg, weil er inhaltlich „nichts aussagt\". XRechnung verlangt ihn trotzdem.",
+        "fix": "Schreiben Sie BT-119 immer, bei befreiten Kategorien explizit mit dem Wert 0: in UBL cac:TaxCategory/cbc:Percent, in CII ram:ApplicableTradeTax/ram:RateApplicablePercent."
+      },
+      "en": {
+        "meaning": "The VAT category rate (BT-119) must be transmitted for every tax category — including when it is 0.",
+        "cause": "For exempt or reverse-charge invoices (categories E, AE, Z) many systems omit the percentage because it \"says nothing\". XRechnung requires it anyway.",
+        "fix": "Always write BT-119, explicitly 0 for exempt categories: cac:TaxCategory/cbc:Percent in UBL, ram:ApplicableTradeTax/ram:RateApplicablePercent in CII."
+      }
+    },
+    "BR-DE-15": {
+      "de": {
+        "meaning": "Die Rechnung muss eine Käuferreferenz (BT-10) enthalten. Bei Rechnungen an die öffentliche Verwaltung steht in diesem Feld in aller Regel die Leitweg-ID, mit der die Rechnung an die richtige Stelle geroutet wird.",
+        "cause": "Das Feld fehlt fast immer dann, wenn eine bestehende Rechnungsvorlage aus dem B2B-Geschäft übernommen wurde: dort wird die Käuferreferenz selten benötigt, für XRechnung ist sie jedoch verpflichtend.",
+        "fix": "Übernehmen Sie die vom Rechnungsempfänger mitgeteilte Leitweg-ID beziehungsweise Käuferreferenz in BT-10. In UBL ist das cbc:BuyerReference, in CII ram:BuyerReference."
+      },
+      "en": {
+        "meaning": "The invoice must carry a buyer reference (BT-10). For invoices to German public authorities this field normally holds the Leitweg-ID, the routing identifier that gets the invoice to the right office.",
+        "cause": "It is usually missing because an existing B2B invoice template was reused: buyer reference is rarely needed there, but XRechnung makes it mandatory.",
+        "fix": "Put the Leitweg-ID or buyer reference supplied by your customer into BT-10 — cbc:BuyerReference in UBL, ram:BuyerReference in CII."
+      }
+    },
+    "BR-DE-16": {
+      "de": {
+        "meaning": "Sobald die Rechnung einen der Steuercodes S, Z, E, AE, K, G, L oder M verwendet, muss der Verkäufer steuerlich identifizierbar sein: entweder über die Umsatzsteuer-Identifikationsnummer (BT-31), die Steuernummer (BT-32) oder einen steuerlichen Vertreter (BG-11).",
+        "cause": "Kleinunternehmer nach § 19 UStG verwenden den Code E und haben oft keine USt-IdNr. Dann fehlt häufig auch die Steuernummer, weil sie im bisherigen Rechnungslayout nie erfasst wurde.",
+        "fix": "Tragen Sie mindestens eines der drei Elemente ein. Ohne USt-IdNr. ist BT-32 (Steuernummer) der übliche Weg."
+      },
+      "en": {
+        "meaning": "As soon as the invoice uses one of the tax category codes S, Z, E, AE, K, G, L or M, the seller must be identifiable for tax: through a VAT identifier (BT-31), a tax registration identifier (BT-32), or a tax representative (BG-11).",
+        "cause": "Small businesses under § 19 UStG use category E and often have no VAT identifier. The tax number is frequently missing too, because the previous invoice layout never captured it.",
+        "fix": "Supply at least one of the three. Without a VAT identifier, BT-32 (tax registration number) is the usual choice."
+      }
+    },
+    "BR-DE-17": {
+      "de": {
+        "meaning": "Der Rechnungstyp (BT-3) soll einer der zugelassenen UNTDID-1001-Codes sein: 326, 380, 384, 389, 381, 875, 876 oder 877.",
+        "cause": "Der Standardwert vieler Systeme ist 380 (Handelsrechnung) und damit korrekt. Abweichungen entstehen meist bei Gutschriften oder Abschlagsrechnungen im Baugewerbe, wo ein selbst gewählter Code eingetragen wurde.",
+        "fix": "Ordnen Sie Ihren internen Belegtyp einem der zugelassenen Codes zu — 380 für die normale Rechnung, 381 für die Gutschrift, 326 für die Abschlagsrechnung."
+      },
+      "en": {
+        "meaning": "The invoice type code (BT-3) should be one of the permitted UNTDID 1001 codes: 326, 380, 384, 389, 381, 875, 876 or 877.",
+        "cause": "Most systems default to 380 (commercial invoice), which is correct. Deviations usually appear on credit notes or construction-industry partial invoices where a custom code was set.",
+        "fix": "Map your internal document type onto one of the permitted codes — 380 for a normal invoice, 381 for a credit note, 326 for a partial invoice."
+      }
+    },
+    "BR-DE-18": {
+      "de": {
+        "meaning": "Skonto-Angaben in den Zahlungsbedingungen (BT-20) müssen einem festen maschinenlesbaren Format folgen: #SKONTO#TAGE=n#PROZENT=n.nn#, je Angabe eine Zeile, alles in Großbuchstaben, Prozent mit Punkt und genau zwei Nachkommastellen.",
+        "cause": "Die Regel prüft ausschließlich Zeilen, die mit # beginnen. Ein freier Satz wie „2 % Skonto bei Zahlung innerhalb von 14 Tagen\" wird ignoriert und fällt nicht durch — er ist für den Empfänger allerdings auch nicht maschinell auswertbar. Der Fehler entsteht beim halb korrekten Versuch: PROZENT=2 statt PROZENT=2.00, ein Leerzeichen zu viel oder der fehlende Zeilenumbruch am Ende.",
+        "fix": "Schreiben Sie den Eintrag exakt als #SKONTO#TAGE=14#PROZENT=2.00# und schließen Sie ihn mit einem Zeilenumbruch ab. Prozentwerte immer mit Punkt und genau zwei Nachkommastellen. Bezieht sich das Skonto nur auf einen Teilbetrag, folgt als viertes Segment #BASISBETRAG=n.nn#. Kein zusätzliches Leerzeichen, kein weiterer Text in derselben Zeile."
+      },
+      "en": {
+        "meaning": "Cash-discount (Skonto) information in the payment terms (BT-20) must follow a fixed machine-readable format: #SKONTO#TAGE=n#PROZENT=n.nn#, one entry per line, all in capitals, the percentage with a dot and exactly two decimals.",
+        "cause": "The rule only inspects lines beginning with #. Free text such as \"2% discount if paid within 14 days\" is ignored and passes — though it is also unusable to the recipient's software. The error comes from the half-correct attempt: PROZENT=2 instead of PROZENT=2.00, one space too many, or the missing trailing line break.",
+        "fix": "Write the entry exactly as #SKONTO#TAGE=14#PROZENT=2.00# and terminate it with a line break. Percentages always with a dot and exactly two decimals. If the discount applies to a partial amount only, append #BASISBETRAG=n.nn# as a fourth segment. No extra whitespace, no other text on the same line."
+      }
+    },
+    "BR-DE-19": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel SEPA-Überweisung angegeben (BT-81 mit Code 58), soll die Kontoverbindung (BT-84, „Payment account identifier\") eine korrekte IBAN sein.",
+        "cause": "Meist eine IBAN mit Tippfehler oder Leerzeichen aus der Druckformatierung — oder Code 58, obwohl gar keine SEPA-Überweisung gemeint ist.",
+        "fix": "Übermitteln Sie die IBAN ohne Leerzeichen und mit gültiger Prüfziffer in BT-84 (UBL cac:PayeeFinancialAccount/cbc:ID, CII ram:PayeePartyCreditorFinancialAccount/ram:IBANID) — oder wählen Sie den passenden Zahlungsmittelcode, wenn es keine SEPA-Überweisung ist."
+      },
+      "en": {
+        "meaning": "If SEPA credit transfer is declared as the payment means (BT-81 with code 58), the payment account identifier (BT-84) should be a correct IBAN.",
+        "cause": "Usually an IBAN with a typo or with spaces carried over from print formatting — or code 58 although the payment is not actually a SEPA transfer.",
+        "fix": "Send the IBAN without spaces and with a valid check digit in BT-84 (cac:PayeeFinancialAccount/cbc:ID in UBL, ram:PayeePartyCreditorFinancialAccount/ram:IBANID in CII) — or pick the correct payment means code if it is not a SEPA transfer."
+      }
+    },
+    "BR-DE-2": {
+      "de": {
+        "meaning": "Die Rechnung muss die Gruppe „SELLER CONTACT\" (BG-6) enthalten — einen Ansprechpartner des Verkäufers mit Kontaktdaten. XRechnung verlangt sie immer, auch im B2B-Fall.",
+        "cause": "Rechnungsvorlagen führen Kontaktdaten meist nur im Briefkopf. Beim Mapping in das strukturierte Format wird die Kontaktgruppe dann komplett ausgelassen, weil es im internen Datenmodell kein Pflichtfeld dafür gibt.",
+        "fix": "Übermitteln Sie BG-6 mit Ansprechpartner (BT-41), Telefon (BT-42) und E-Mail (BT-43). In UBL ist das cac:AccountingSupplierParty/cac:Party/cac:Contact, in CII ram:SellerTradeParty/ram:DefinedTradeContact."
+      },
+      "en": {
+        "meaning": "The invoice must contain the \"SELLER CONTACT\" group (BG-6) — a seller contact person with contact details. XRechnung requires it always, including B2B.",
+        "cause": "Invoice templates usually carry contact details only in the letterhead. When mapping to the structured format the contact group is dropped entirely, because the internal data model has no mandatory field for it.",
+        "fix": "Send BG-6 with contact point (BT-41), telephone (BT-42) and email (BT-43). In UBL that is cac:AccountingSupplierParty/cac:Party/cac:Contact, in CII ram:SellerTradeParty/ram:DefinedTradeContact."
+      }
+    },
+    "BR-DE-20": {
+      "de": {
+        "meaning": "Bei SEPA-Lastschrift (BT-81 mit Code 59) soll das zu belastende Konto (BT-91, „Debited account identifier\") eine korrekte IBAN enthalten.",
+        "cause": "Meist eine Kunden-IBAN mit Tippfehler oder mit Leerzeichen aus der Anzeigeformatierung — dieselben Ursachen wie bei BR-DE-19, nur auf der Käuferseite.",
+        "fix": "Übermitteln Sie die IBAN des zu belastenden Kontos ohne Leerzeichen und mit gültiger Prüfziffer in BT-91 (UBL cac:PaymentMandate/cac:PayerFinancialAccount/cbc:ID, CII ram:PayerPartyDebtorFinancialAccount/ram:IBANID)."
+      },
+      "en": {
+        "meaning": "For SEPA direct debit (BT-81 with code 59), the debited account identifier (BT-91) should be a correct IBAN.",
+        "cause": "Usually a customer IBAN with a typo or with spaces carried over from display formatting — the same causes as BR-DE-19, just on the buyer side.",
+        "fix": "Send the debited account's IBAN without spaces and with a valid check digit in BT-91 (cac:PaymentMandate/cac:PayerFinancialAccount/cbc:ID in UBL, ram:PayerPartyDebtorFinancialAccount/ram:IBANID in CII)."
+      }
+    },
+    "BR-DE-21": {
+      "de": {
+        "meaning": "Die Spezifikationskennung (BT-24) soll syntaktisch der Kennung des Standards XRechnung entsprechen — sie sagt dem Empfänger, dass die Rechnung nach XRechnung erstellt wurde, und in welcher Version.",
+        "cause": "Häufig steht dort nur die EN-16931-Kennung ohne den XRechnung-Teil, eine veraltete Versionsnummer oder ein Tippfehler im URN.",
+        "fix": "Übermitteln Sie die Kennung der verwendeten Version, für XRechnung 3.0 etwa urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0 — in UBL als cbc:CustomizationID, in CII in ram:GuidelineSpecifiedDocumentContextParameter/ram:ID."
+      },
+      "en": {
+        "meaning": "The specification identifier (BT-24) should syntactically match the identifier of the XRechnung standard — it tells the recipient the invoice was built to XRechnung, and to which version.",
+        "cause": "Commonly only the EN 16931 identifier is present without the XRechnung part, or the version is outdated, or the URN carries a typo.",
+        "fix": "Send the identifier of the version you produce, for XRechnung 3.0 for example urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0 — as cbc:CustomizationID in UBL, in ram:GuidelineSpecifiedDocumentContextParameter/ram:ID in CII."
+      }
+    },
+    "BR-DE-22": {
+      "de": {
+        "meaning": "Alle eingebetteten Anlagen der Rechnung müssen unterschiedliche Dateinamen tragen. Der Dateiname ist das einzige Unterscheidungsmerkmal, unter dem der Empfänger die Anlagen ablegt.",
+        "cause": "Der Generator vergibt einen konstanten Namen — jede Anlage heißt „anlage.pdf\" oder „attachment.pdf\". Bei genau einer Anlage fällt das nie auf; die zweite löst den Fehler aus.",
+        "fix": "Vergeben Sie je Anlage einen eindeutigen Dateinamen im filename-Attribut (UBL cac:Attachment/cbc:EmbeddedDocumentBinaryObject/@filename, CII ram:AttachmentBinaryObject/@filename) — am einfachsten den Originalnamen der Datei, notfalls mit laufender Nummer."
+      },
+      "en": {
+        "meaning": "All attachments embedded in the invoice must carry distinct filenames. The filename is the only handle under which the recipient stores them.",
+        "cause": "The generator uses a constant name — every attachment is \"anlage.pdf\" or \"attachment.pdf\". With exactly one attachment this never shows; the second one triggers the error.",
+        "fix": "Give each attachment a unique name in the filename attribute (cac:Attachment/cbc:EmbeddedDocumentBinaryObject/@filename in UBL, ram:AttachmentBinaryObject/@filename in CII) — simplest is the file's original name, with a running number if needed."
+      }
+    },
+    "BR-DE-23-a": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel eine Überweisung angegeben (BT-81 mit Code 30 oder 58), muss die Gruppe BG-17 („CREDIT TRANSFER\") mit der Empfängerbankverbindung übermittelt werden — wer eine Überweisung verlangt, muss sagen, wohin.",
+        "cause": "Die Bankverbindung steht nur im PDF-Fußtext oder im Freitext der Zahlungsbedingungen, nicht als strukturierte Gruppe. Der Code 58 wurde gesetzt, BG-17 aber nie gemappt.",
+        "fix": "Übermitteln Sie BG-17 mit mindestens der IBAN des Empfängerkontos (BT-84): in UBL cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID, in CII ram:PayeePartyCreditorFinancialAccount/ram:IBANID."
+      },
+      "en": {
+        "meaning": "If the payment means is a credit transfer (BT-81 with code 30 or 58), group BG-17 (\"CREDIT TRANSFER\") with the payee's bank account must be transmitted — asking for a transfer means saying where to.",
+        "cause": "The bank details live only in the PDF footer or in free-text payment terms, not as a structured group. Code 58 was set, BG-17 never mapped.",
+        "fix": "Transmit BG-17 with at least the payee account's IBAN (BT-84): cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID in UBL, ram:PayeePartyCreditorFinancialAccount/ram:IBANID in CII."
+      }
+    },
+    "BR-DE-23-b": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel eine Überweisung angegeben (BT-81 mit Code 30 oder 58), dürfen keine Kartendaten (BG-18) und keine Lastschriftdaten (BG-19) übermittelt werden — das Gegenstück zu BR-DE-23-a: zum Zahlungsweg gehören genau die passenden Daten.",
+        "cause": "Das System schreibt alle vorhandenen Zahlungsinformationen immer mit — etwa das gespeicherte Lastschriftmandat des Kunden, obwohl diese eine Rechnung per Überweisung gezahlt werden soll.",
+        "fix": "Übermitteln Sie je Rechnung nur die zum Zahlungsmittelcode passende Gruppe: bei 30/58 ausschließlich BG-17. Kartendaten und Mandatsangaben weglassen — oder den Code korrigieren, wenn tatsächlich per Lastschrift eingezogen wird."
+      },
+      "en": {
+        "meaning": "If the payment means is a credit transfer (BT-81 with code 30 or 58), no card data (BG-18) and no direct-debit data (BG-19) may be transmitted — the counterpart of BR-DE-23-a: a payment method carries exactly its own data.",
+        "cause": "The system always writes every payment detail it has — say, the customer's stored direct-debit mandate, although this particular invoice is to be paid by transfer.",
+        "fix": "Per invoice, transmit only the group matching the payment means code: with 30/58, BG-17 alone. Drop card and mandate data — or fix the code if the invoice is in fact collected by direct debit."
+      }
+    },
+    "BR-DE-24-a": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel eine Kartenzahlung angegeben (BT-81 mit Code 48, 54 oder 55), muss die Gruppe BG-18 („PAYMENT CARD INFORMATION\") übermittelt werden.",
+        "cause": "Kartenzahlung kommt in Rechnungsprozessen selten vor; wird der Code doch gesetzt (etwa weil bereits per Karte gezahlt wurde), fehlt die zugehörige Gruppe fast immer.",
+        "fix": "Übermitteln Sie BG-18 mit der maskierten Kartennummer (BT-87, nur die letzten Stellen — niemals die vollständige PAN): in UBL cac:PaymentMeans/cac:CardAccount, in CII ram:ApplicableTradeSettlementFinancialCard."
+      },
+      "en": {
+        "meaning": "If the payment means is a card payment (BT-81 with code 48, 54 or 55), group BG-18 (\"PAYMENT CARD INFORMATION\") must be transmitted.",
+        "cause": "Card payment is rare in invoicing flows; when the code is set anyway (say, because payment was already taken by card), the matching group is almost always missing.",
+        "fix": "Transmit BG-18 with the masked card number (BT-87, last digits only — never the full PAN): cac:PaymentMeans/cac:CardAccount in UBL, ram:ApplicableTradeSettlementFinancialCard in CII."
+      }
+    },
+    "BR-DE-24-b": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel eine Kartenzahlung angegeben (BT-81 mit Code 48, 54 oder 55), dürfen keine Überweisungsdaten (BG-17) und keine Lastschriftdaten (BG-19) übermittelt werden.",
+        "cause": "Wie bei BR-DE-23-b: die eigene Bankverbindung wird gewohnheitsmäßig in jede Rechnung geschrieben, auch wenn der gewählte Zahlungsweg gar keine Überweisung ist.",
+        "fix": "Bei Kartenzahlung nur BG-18 übermitteln. Die sonst übliche Empfänger-IBAN (BG-17) für diese Rechnung weglassen — oder den Zahlungsmittelcode auf 58 ändern, wenn in Wahrheit überwiesen werden soll."
+      },
+      "en": {
+        "meaning": "If the payment means is a card payment (BT-81 with code 48, 54 or 55), no credit-transfer data (BG-17) and no direct-debit data (BG-19) may be transmitted.",
+        "cause": "As with BR-DE-23-b: the seller's own bank account is habitually written into every invoice, even when the chosen payment route is not a transfer at all.",
+        "fix": "With card payment, transmit BG-18 only. Leave out the usual payee IBAN (BG-17) for this invoice — or change the payment means code to 58 if it is actually to be paid by transfer."
+      }
+    },
+    "BR-DE-25-a": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel SEPA-Lastschrift angegeben (BT-81 mit Code 59), muss die Gruppe BG-19 („DIRECT DEBIT\") übermittelt werden — mit den Angaben, die den Einzug tragen: Mandatsreferenz, Gläubiger-ID und zu belastendes Konto.",
+        "cause": "Der Code 59 wird gesetzt, weil per Lastschrift eingezogen wird — Mandatsreferenz und Gläubiger-ID leben aber im Debitorenstamm und wurden nie in das Rechnungsformat gemappt.",
+        "fix": "Übermitteln Sie BG-19: Mandatsreferenz (BT-89, UBL cac:PaymentMandate/cbc:ID, CII ram:SpecifiedTradePaymentTerms/ram:DirectDebitMandateID), Gläubiger-ID (BT-90) und das zu belastende Konto (BT-91). Siehe auch BR-DE-30 und BR-DE-31, die die letzten beiden einzeln prüfen."
+      },
+      "en": {
+        "meaning": "If the payment means is SEPA direct debit (BT-81 with code 59), group BG-19 (\"DIRECT DEBIT\") must be transmitted — with the data the collection rests on: mandate reference, creditor identifier and the account to be debited.",
+        "cause": "Code 59 is set because payment is collected by direct debit — but the mandate reference and creditor ID live in the accounts-receivable master data and were never mapped into the invoice format.",
+        "fix": "Transmit BG-19: mandate reference (BT-89, cac:PaymentMandate/cbc:ID in UBL, ram:SpecifiedTradePaymentTerms/ram:DirectDebitMandateID in CII), creditor identifier (BT-90) and the debited account (BT-91). See also BR-DE-30 and BR-DE-31, which check the last two individually."
+      }
+    },
+    "BR-DE-25-b": {
+      "de": {
+        "meaning": "Wird als Zahlungsmittel SEPA-Lastschrift angegeben (BT-81 mit Code 59), dürfen keine Überweisungsdaten (BG-17) und keine Kartendaten (BG-18) übermittelt werden.",
+        "cause": "Der häufigste Fall der drei b-Regeln: die eigene Bankverbindung steht als BG-17 in jeder Rechnung, aus Gewohnheit — bei einer Lastschrift hat sie dort nichts zu suchen, eingezogen wird vom Konto des Käufers.",
+        "fix": "Bei Lastschrift nur BG-19 übermitteln und die Empfängerbankverbindung (BG-17) für diese Rechnung weglassen. Wer beides anbieten will, muss sich je Rechnung für einen Zahlungsweg entscheiden."
+      },
+      "en": {
+        "meaning": "If the payment means is SEPA direct debit (BT-81 with code 59), no credit-transfer data (BG-17) and no card data (BG-18) may be transmitted.",
+        "cause": "The most common of the three b-rules: the seller's own bank account sits in every invoice as BG-17 out of habit — with a direct debit it has no business there, since collection is from the buyer's account.",
+        "fix": "With direct debit, transmit BG-19 only and drop the payee bank account (BG-17) for this invoice. If you want to offer both routes, each invoice still has to commit to one."
+      }
+    },
+    "BR-DE-26": {
+      "de": {
+        "meaning": "Eine Rechnungskorrektur (BT-3 mit Code 384) soll mindestens eine Referenz auf die vorausgegangene Rechnung enthalten (Gruppe BG-3, „PRECEDING INVOICE REFERENCE\") — sonst weiß der Empfänger nicht, was korrigiert wird.",
+        "cause": "Die Korrektur wird als eigenständiger Beleg erzeugt, und die Nummer der Ursprungsrechnung steht nur im Freitext („Korrektur zu Rechnung 2026-0815\") statt im strukturierten Feld.",
+        "fix": "Übermitteln Sie die Nummer der korrigierten Rechnung in BG-3 (BT-25): in UBL cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID, in CII ram:InvoiceReferencedDocument/ram:IssuerAssignedID."
+      },
+      "en": {
+        "meaning": "A corrected invoice (BT-3 with code 384) should reference the invoice it corrects at least once (group BG-3, \"PRECEDING INVOICE REFERENCE\") — otherwise the recipient cannot tell what is being corrected.",
+        "cause": "The correction is generated as a standalone document, and the original invoice number appears only in free text (\"correction to invoice 2026-0815\") instead of the structured field.",
+        "fix": "Transmit the corrected invoice's number in BG-3 (BT-25): cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID in UBL, ram:InvoiceReferencedDocument/ram:IssuerAssignedID in CII."
+      }
+    },
+    "BR-DE-27": {
+      "de": {
+        "meaning": "Die Telefonnummer des Ansprechpartners (BT-42) soll mindestens drei Ziffern enthalten — eine Plausibilitätsprüfung, keine Formatvorschrift.",
+        "cause": "Das Feld ist mit einem Platzhalter gefüllt („-\", „0\", „n/a\"), weil BR-DE-5 irgendeinen Wert verlangt und das Quellsystem keine Durchwahl kennt.",
+        "fix": "Tragen Sie eine echte erreichbare Nummer ein (UBL cac:Contact/cbc:Telephone, CII ram:DefinedTradeContact/ram:TelephoneUniversalCommunication/ram:CompleteNumber). Format ist frei — +49 30 1234567 genügt; nur aus weniger als drei Ziffern darf sie nicht bestehen."
+      },
+      "en": {
+        "meaning": "The seller contact telephone number (BT-42) should contain at least three digits — a plausibility check, not a format rule.",
+        "cause": "The field holds a placeholder (\"-\", \"0\", \"n/a\") because BR-DE-5 demands some value and the source system has no phone number on file.",
+        "fix": "Enter a real, reachable number (cac:Contact/cbc:Telephone in UBL, ram:DefinedTradeContact/ram:TelephoneUniversalCommunication/ram:CompleteNumber in CII). The format is free — +49 30 1234567 is fine; it just must not consist of fewer than three digits."
+      }
+    },
+    "BR-DE-28": {
+      "de": {
+        "meaning": "Die E-Mail-Adresse des Ansprechpartners (BT-43) soll plausibel aufgebaut sein: genau ein @-Zeichen, davor und dahinter mindestens zwei Zeichen, kein Leerzeichen und kein Punkt direkt am @, kein Punkt am Anfang oder Ende.",
+        "cause": "Platzhalter wie „-\" oder „keine\", zwei Adressen in einem Feld („a@firma.de; b@firma.de\") oder ein abgeschnittener Wert mit Punkt am Ende.",
+        "fix": "Tragen Sie genau eine gültige Adresse ein, etwa rechnung@firma.de (UBL cac:Contact/cbc:ElectronicMail, CII ram:EmailURIUniversalCommunication/ram:URIID). Mehrere Empfänger gehören nicht in das Feld — wählen Sie ein Funktionspostfach."
+      },
+      "en": {
+        "meaning": "The seller contact email address (BT-43) should be plausibly formed: exactly one @, at least two characters on each side, no space or dot immediately at the @, no leading or trailing dot.",
+        "cause": "Placeholders like \"-\" or \"none\", two addresses in one field (\"a@firma.de; b@firma.de\"), or a truncated value ending in a dot.",
+        "fix": "Enter exactly one valid address, e.g. invoices@company.com (cac:Contact/cbc:ElectronicMail in UBL, ram:EmailURIUniversalCommunication/ram:URIID in CII). Multiple recipients do not belong in the field — use a shared mailbox instead."
+      }
+    },
+    "BR-DE-3": {
+      "de": {
+        "meaning": "Die Stadt des Verkäufers (BT-37, „Seller city\") muss übermittelt werden.",
+        "cause": "Die Anschrift liegt intern oft als eine zusammenhängende Adresszeile vor. Ohne saubere Trennung in Straße, PLZ und Ort bleibt das Stadtfeld im strukturierten Datensatz leer.",
+        "fix": "Übermitteln Sie den Ort in BT-37: in UBL cac:PostalAddress/cbc:CityName, in CII ram:PostalTradeAddress/ram:CityName. Adressen im Stammdatensatz einmal sauber in Einzelfelder zerlegen."
+      },
+      "en": {
+        "meaning": "The seller city (BT-37) must be transmitted.",
+        "cause": "The address often exists internally as one combined address line. Without clean separation into street, post code and city, the structured city field stays empty.",
+        "fix": "Send the city in BT-37: cac:PostalAddress/cbc:CityName in UBL, ram:PostalTradeAddress/ram:CityName in CII. Split addresses into individual fields once, in the master data."
+      }
+    },
+    "BR-DE-30": {
+      "de": {
+        "meaning": "Enthält die Rechnung Lastschriftdaten (BG-19), muss darin die Gläubiger-Identifikationsnummer (BT-90) stehen — die SEPA-Kennung, unter der Sie als Zahlungsempfänger einziehen dürfen.",
+        "cause": "Die Gläubiger-ID ist einmal je Unternehmen vergeben und liegt in der Buchhaltung, nicht im Rechnungsdatensatz — beim Mapping wird sie schlicht vergessen.",
+        "fix": "Übermitteln Sie Ihre Gläubiger-ID (Format DE98ZZZ09999999999) in BT-90: in UBL cac:PayeeParty/cac:PartyIdentification/cbc:ID mit schemeID=\"SEPA\", in CII ram:CreditorReferenceID."
+      },
+      "en": {
+        "meaning": "If the invoice carries direct-debit data (BG-19), it must include the bank-assigned creditor identifier (BT-90) — the SEPA identifier under which you are allowed to collect.",
+        "cause": "The creditor ID is issued once per company and lives in accounting, not in the invoice data set — the mapping simply forgets it.",
+        "fix": "Transmit your creditor identifier (format DE98ZZZ09999999999) in BT-90: cac:PayeeParty/cac:PartyIdentification/cbc:ID with schemeID=\"SEPA\" in UBL, ram:CreditorReferenceID in CII."
+      }
+    },
+    "BR-DE-31": {
+      "de": {
+        "meaning": "Enthält die Rechnung Lastschriftdaten (BG-19), muss darin das zu belastende Konto (BT-91) stehen — die IBAN des Käufers, von der eingezogen wird.",
+        "cause": "Die Kunden-IBAN liegt im Mandat beim Zahlungsdienstleister oder im Debitorenstamm und wird aus Vorsicht nicht in den Rechnungsdatensatz übernommen — die Regel verlangt sie dort aber.",
+        "fix": "Übermitteln Sie die IBAN des zu belastenden Kontos in BT-91: in UBL cac:PaymentMandate/cac:PayerFinancialAccount/cbc:ID, in CII ram:PayerPartyDebtorFinancialAccount/ram:IBANID. Zur IBAN-Korrektheit siehe BR-DE-20."
+      },
+      "en": {
+        "meaning": "If the invoice carries direct-debit data (BG-19), it must include the debited account identifier (BT-91) — the buyer's IBAN the payment is collected from.",
+        "cause": "The customer's IBAN lives in the mandate at the payment provider or in the receivables master data, and is cautiously kept out of the invoice data set — but the rule requires it there.",
+        "fix": "Transmit the debited account's IBAN in BT-91: cac:PaymentMandate/cac:PayerFinancialAccount/cbc:ID in UBL, ram:PayerPartyDebtorFinancialAccount/ram:IBANID in CII. For IBAN correctness see BR-DE-20."
+      }
+    },
+    "BR-DE-4": {
+      "de": {
+        "meaning": "Die Postleitzahl des Verkäufers (BT-38, „Seller post code\") muss übermittelt werden.",
+        "cause": "Wie bei der Stadt: die PLZ steckt in einer kombinierten Adresszeile und wird beim Export nicht als eigenes Feld befüllt.",
+        "fix": "Übermitteln Sie die PLZ in BT-38: in UBL cac:PostalAddress/cbc:PostalZone, in CII ram:PostalTradeAddress/ram:PostcodeCode."
+      },
+      "en": {
+        "meaning": "The seller post code (BT-38) must be transmitted.",
+        "cause": "Same as the city: the post code sits inside a combined address line and is never populated as its own field on export.",
+        "fix": "Send the post code in BT-38: cac:PostalAddress/cbc:PostalZone in UBL, ram:PostalTradeAddress/ram:PostcodeCode in CII."
+      }
+    },
+    "BR-DE-5": {
+      "de": {
+        "meaning": "Ein Ansprechpartner oder eine Kontaktstelle des Verkäufers (BT-41, „Seller contact point\") muss übermittelt werden — ein Name oder eine Abteilung, an die sich der Käufer wenden kann.",
+        "cause": "Das Feld existiert in vielen Rechnungssystemen schlicht nicht; erfasst sind nur Firmenname und Adresse. Beim Export bleibt BT-41 dann leer, obwohl BG-6 übermittelt wird.",
+        "fix": "Übermitteln Sie eine Person oder Abteilung, etwa „Buchhaltung\" oder „Max Mustermann\": in UBL cac:Contact/cbc:Name, in CII ram:DefinedTradeContact/ram:PersonName oder ram:DepartmentName."
+      },
+      "en": {
+        "meaning": "A seller contact point (BT-41) must be transmitted — a person or department the buyer can turn to.",
+        "cause": "The field simply does not exist in many invoicing systems; only company name and address are captured. On export BT-41 stays empty even though BG-6 is present.",
+        "fix": "Send a person or department, such as \"Accounting\" or \"Jane Doe\": cac:Contact/cbc:Name in UBL, ram:DefinedTradeContact/ram:PersonName or ram:DepartmentName in CII."
+      }
+    },
+    "BR-DE-6": {
+      "de": {
+        "meaning": "Eine Telefonnummer des Verkäufer-Ansprechpartners (BT-42, „Seller contact telephone number\") muss übermittelt werden.",
+        "cause": "Die Telefonnummer steht im Briefkopf der PDF, ist aber im Datenmodell keinem Kontakt zugeordnet — beim Erzeugen des strukturierten Datensatzes fehlt sie dann.",
+        "fix": "Übermitteln Sie die Nummer in BT-42: in UBL cac:Contact/cbc:Telephone, in CII ram:TelephoneUniversalCommunication/ram:CompleteNumber. Mindestens drei Ziffern, sonst greift zusätzlich BR-DE-27."
+      },
+      "en": {
+        "meaning": "A telephone number for the seller contact (BT-42) must be transmitted.",
+        "cause": "The phone number appears in the PDF letterhead but is not attached to any contact in the data model — so it is missing when the structured document is generated.",
+        "fix": "Send the number in BT-42: cac:Contact/cbc:Telephone in UBL, ram:TelephoneUniversalCommunication/ram:CompleteNumber in CII. At least three digits, or BR-DE-27 fires as well."
+      }
+    },
+    "BR-DE-7": {
+      "de": {
+        "meaning": "Eine E-Mail-Adresse des Verkäufer-Ansprechpartners (BT-43, „Seller contact email address\") muss übermittelt werden.",
+        "cause": "Wie Telefonnummer und Ansprechpartner: die Adresse existiert im Briefkopf, aber nicht als strukturiertes Kontaktfeld im Datenmodell.",
+        "fix": "Übermitteln Sie die Adresse in BT-43: in UBL cac:Contact/cbc:ElectronicMail, in CII ram:EmailURIUniversalCommunication/ram:URIID. Auf ein plausibles Format achten, sonst warnt zusätzlich BR-DE-28."
+      },
+      "en": {
+        "meaning": "An email address for the seller contact (BT-43) must be transmitted.",
+        "cause": "Like the phone number and contact point: the address exists in the letterhead but not as a structured contact field in the data model.",
+        "fix": "Send the address in BT-43: cac:Contact/cbc:ElectronicMail in UBL, ram:EmailURIUniversalCommunication/ram:URIID in CII. Keep the format plausible or BR-DE-28 warns as well."
+      }
+    },
+    "BR-DE-8": {
+      "de": {
+        "meaning": "Die Rechnung muss den Ort des Käufers (BT-52) enthalten. XRechnung verlangt eine vollständige Käuferanschrift, auch wo die europäische Norm den Ort noch offen ließe.",
+        "cause": "Meist liegt die Anschrift im Quellsystem nur als eine zusammengezogene Zeile vor („Musterstraße 1, 10115 Berlin\") und wird beim Mapping nicht in Einzelfelder zerlegt — der Ort landet dann nirgends.",
+        "fix": "Übermitteln Sie den Ort strukturiert in BT-52: in UBL cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:CityName, in CII ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CityName."
+      },
+      "en": {
+        "meaning": "The invoice must contain the buyer's city (BT-52). XRechnung requires a complete buyer address even where the European norm alone would leave the city optional.",
+        "cause": "The source system usually holds the address as one collapsed line (\"Musterstraße 1, 10115 Berlin\") and the mapping never splits it into fields — so the city ends up nowhere.",
+        "fix": "Send the city as structured data in BT-52: cac:AccountingCustomerParty/cac:Party/cac:PostalAddress/cbc:CityName in UBL, ram:BuyerTradeParty/ram:PostalTradeAddress/ram:CityName in CII."
+      }
+    },
+    "BR-DE-9": {
+      "de": {
+        "meaning": "Die Rechnung muss die Postleitzahl des Käufers (BT-53) enthalten — das Gegenstück zu BR-DE-8 für den Ort.",
+        "cause": "Dieselbe Wurzel wie bei BR-DE-8: unzerteilte Adresszeilen. Zusätzlich trifft es Rechnungen an Käufer in Ländern ohne Postleitzahlensystem, weil das Feld dort schlicht leer bleibt.",
+        "fix": "Übermitteln Sie die Postleitzahl in BT-53 (UBL cbc:PostalZone, CII ram:PostcodeCode). Hat das Land des Käufers keine Postleitzahlen, tragen Sie den Wert ein, den der Käufer postalisch verwendet — leer lassen lässt die Prüfung nicht zu."
+      },
+      "en": {
+        "meaning": "The invoice must contain the buyer's post code (BT-53) — the counterpart of BR-DE-8 for the city.",
+        "cause": "Same root as BR-DE-8: unsplit address lines. It also bites invoices to buyers in countries without a post-code system, where the field is simply left empty.",
+        "fix": "Send the post code in BT-53 (cbc:PostalZone in UBL, ram:PostcodeCode in CII). If the buyer's country has no post codes, use whatever the buyer uses postally — the check does not allow the field to be empty."
+      }
+    },
+    "PEPPOL-EN16931-R001": {
+      "de": {
+        "meaning": "Die Rechnung muss den Geschäftsprozess (BT-23) nennen — die Kennung des Prozesses, in dem sie verschickt wird. Sie sagt dem Empfänger, nach welchem Regelwerk er die Rechnung erwartet.",
+        "cause": "Der Wert ist eine Konstante und wird deshalb gern als selbstverständlich behandelt: die Spezifikations-Kennung (BT-24) wird gesetzt, die Prozess-Kennung daneben vergessen, weil beide gleich aussehen und keine aus den Rechnungsdaten stammt.",
+        "fix": "Setzen Sie BT-23 fest auf urn:fdc:peppol.eu:2017:poacc:billing:01:1.0 — cbc:ProfileID in UBL, ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID in CII. Der Wert hängt nicht von der Rechnung ab."
+      },
+      "en": {
+        "meaning": "The invoice must name the business process (BT-23) — the identifier of the process it is being sent in. It tells the recipient which rule set to expect the invoice under.",
+        "cause": "The value is a constant and so gets treated as self-evident: the specification identifier (BT-24) is set and the process identifier next to it is forgotten, because the two look alike and neither comes from the invoice data.",
+        "fix": "Set BT-23 to the fixed value urn:fdc:peppol.eu:2017:poacc:billing:01:1.0 — cbc:ProfileID in UBL, ram:BusinessProcessSpecifiedDocumentContextParameter/ram:ID in CII. It does not vary with the invoice."
+      }
+    },
+    "PEPPOL-EN16931-R005": {
+      "de": {
+        "meaning": "Wird eine abweichende Währung für die Umsatzsteuer (BT-6) angegeben, muss sie sich von der Rechnungswährung (BT-5) unterscheiden. Das Feld existiert nur für den Fall, dass die Steuer in einer anderen Währung zu melden ist.",
+        "cause": "Das Mapping füllt BT-6 vorsorglich mit derselben Währung wie BT-5, weil ein leeres Feld nach einer Lücke aussieht. Damit behauptet die Rechnung eine Währungsumrechnung, die es nicht gibt.",
+        "fix": "Lassen Sie BT-6 weg, wenn Steuer und Rechnung dieselbe Währung verwenden: cbc:TaxCurrencyCode in UBL, ram:TaxCurrencyCode in CII. Nur bei tatsächlich abweichender Meldewährung wird es gesetzt."
+      },
+      "en": {
+        "meaning": "If a separate VAT accounting currency (BT-6) is given, it must differ from the invoice currency (BT-5). The field exists only for the case where tax has to be reported in another currency.",
+        "cause": "The mapping fills BT-6 with the same currency as BT-5 as a precaution, because an empty field looks like a gap. The invoice then claims a currency conversion that is not happening.",
+        "fix": "Omit BT-6 when tax and invoice share a currency: cbc:TaxCurrencyCode in UBL, ram:TaxCurrencyCode in CII. Set it only where the reporting currency genuinely differs."
+      }
+    },
+    "PEPPOL-EN16931-R008": {
+      "de": {
+        "meaning": "Das Dokument darf keine leeren Elemente enthalten. Ein Tag ohne Inhalt ist keine Angabe, sondern eine Behauptung, dass etwas übermittelt wurde.",
+        "cause": "Mappings schreiben Felder unbedingt und setzen den Wert danach. Ist die Quelle null, bleibt ein leeres Tag stehen — besonders häufig bei Notizfeldern, Referenzen und optionalen Kennungen, die nur manchmal belegt sind.",
+        "fix": "Schreiben Sie ein Element erst, wenn ein Wert vorliegt. In den meisten Serialisierern ist das eine Bedingung um den Schreibaufruf herum, keine nachgelagerte Bereinigung — leere Tags nachträglich zu entfernen erwischt selten alle."
+      },
+      "en": {
+        "meaning": "The document must contain no empty elements. A tag with no content is not an absent value; it is a claim that something was transmitted.",
+        "cause": "Mappings write fields unconditionally and set the value afterwards. Where the source is null, an empty tag is left behind — most often on note fields, references and optional identifiers that are only sometimes populated.",
+        "fix": "Write an element only once a value exists. In most serialisers that is a condition around the write call rather than a clean-up pass afterwards — stripping empty tags at the end rarely catches all of them."
+      }
+    },
+    "PEPPOL-EN16931-R010": {
+      "de": {
+        "meaning": "Die elektronische Adresse des Käufers (BT-49) muss übermittelt werden — die Kennung, an die die Rechnung technisch zugestellt wird, zusammen mit dem Schema, aus dem sie stammt.",
+        "cause": "Die Adresse gehört zum Übertragungsweg und nicht zur Rechnung, also steht sie im Versandsystem und nicht im Rechnungsdatensatz. Beim Erzeugen des Dokuments fehlt sie dann, obwohl der Versand sie kennt.",
+        "fix": "Setzen Sie BT-49 mit passendem Schema-Attribut: cbc:EndpointID mit schemeID unter cac:AccountingCustomerParty/cac:Party in UBL, ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID in CII. EM steht für eine E-Mail-Adresse, 9958 für die Leitweg-ID."
+      },
+      "en": {
+        "meaning": "The buyer electronic address (BT-49) must be provided — the identifier the invoice is technically delivered to, together with the scheme it comes from.",
+        "cause": "The address belongs to the transport rather than to the invoice, so it lives in the sending system and not in the invoice record. It is then missing when the document is built, even though the transport knows it.",
+        "fix": "Set BT-49 with its scheme attribute: cbc:EndpointID with schemeID under cac:AccountingCustomerParty/cac:Party in UBL, ram:BuyerTradeParty/ram:URIUniversalCommunication/ram:URIID in CII. EM denotes an email address, 9958 the German Leitweg-ID."
+      }
+    },
+    "PEPPOL-EN16931-R020": {
+      "de": {
+        "meaning": "Die elektronische Adresse des Verkäufers (BT-34) muss übermittelt werden — das Gegenstück zu BT-49, an das der Empfänger antworten oder eine Rückmeldung schicken kann.",
+        "cause": "Dieselbe Ursache wie beim Käufer, nur wird sie hier zusätzlich für verzichtbar gehalten: „der Empfänger weiß doch, von wem die Rechnung kommt“. Für die automatische Verarbeitung ist der Absender aber genauso eine Kennung wie der Empfänger.",
+        "fix": "Setzen Sie BT-34 mit Schema-Attribut unter cac:AccountingSupplierParty/cac:Party: cbc:EndpointID mit schemeID in UBL, ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID in CII. Der Wert ist für Ihr Unternehmen konstant."
+      },
+      "en": {
+        "meaning": "The seller electronic address (BT-34) must be provided — the counterpart to BT-49, the address a recipient can reply or send a response message to.",
+        "cause": "The same cause as for the buyer, with an extra reason to skip it: “the recipient knows who the invoice is from”. For automatic processing the sender is an identifier exactly as the recipient is.",
+        "fix": "Set BT-34 with its scheme attribute under cac:AccountingSupplierParty/cac:Party: cbc:EndpointID with schemeID in UBL, ram:SellerTradeParty/ram:URIUniversalCommunication/ram:URIID in CII. The value is constant for your company."
+      }
+    },
+    "PEPPOL-EN16931-R040": {
+      "de": {
+        "meaning": "Sind sowohl der Grundbetrag als auch der Prozentsatz eines Ab- oder Zuschlags angegeben, muss der Betrag genau daraus folgen: Grundbetrag × Prozentsatz ÷ 100.",
+        "cause": "Der Betrag stammt aus der Preisfindung, Grundbetrag und Prozentsatz werden zur Erläuterung nachträglich ergänzt. Rundet die Preisfindung anders — oder wurde der Rabatt auf einen anderen Grundbetrag gerechnet —, passen die drei Zahlen nicht zusammen.",
+        "fix": "Rechnen Sie den Betrag aus genau den beiden Werten, die im Dokument stehen: cbc:Amount aus cbc:BaseAmount und cbc:MultiplierFactorNumeric im selben cac:AllowanceCharge (UBL), ram:ActualAmount aus ram:BasisAmount und ram:CalculationPercent (CII). Wer den Prozentsatz nicht belegen kann, lässt beide erläuternden Felder weg."
+      },
+      "en": {
+        "meaning": "Where both the base amount and the percentage of an allowance or charge are given, the amount must follow from them exactly: base amount × percentage ÷ 100.",
+        "cause": "The amount comes from pricing, while the base amount and percentage are added afterwards as an explanation. If pricing rounds differently — or the discount was calculated on a different base — the three numbers stop agreeing.",
+        "fix": "Compute the amount from exactly the two values present in the document: cbc:Amount from cbc:BaseAmount and cbc:MultiplierFactorNumeric in the same cac:AllowanceCharge in UBL, ram:ActualAmount from ram:BasisAmount and ram:CalculationPercent in CII. If you cannot substantiate the percentage, leave both explanatory fields out."
+      }
+    },
+    "PEPPOL-EN16931-R041": {
+      "de": {
+        "meaning": "Wird der Prozentsatz eines Ab- oder Zuschlags angegeben, muss auch der Grundbetrag dabeistehen. Ein Prozentsatz ohne Bezugsgröße lässt sich nicht nachrechnen.",
+        "cause": "Der Prozentsatz ist das, was im Vertrag steht, und wird deshalb übernommen. Der Grundbetrag ist ein Zwischenergebnis der Preisfindung und existiert im Rechnungsobjekt oft gar nicht als eigenes Feld.",
+        "fix": "Übermitteln Sie beide oder keines: cbc:MultiplierFactorNumeric zusammen mit cbc:BaseAmount im selben cac:AllowanceCharge (UBL), ram:CalculationPercent zusammen mit ram:BasisAmount (CII). Der reine Betrag allein ist immer zulässig."
+      },
+      "en": {
+        "meaning": "If the percentage of an allowance or charge is given, the base amount must accompany it. A percentage with nothing to apply it to cannot be recalculated.",
+        "cause": "The percentage is what the contract says, so it gets carried through. The base amount is an intermediate result of pricing and frequently has no field of its own in the invoice object at all.",
+        "fix": "Send both or neither: cbc:MultiplierFactorNumeric together with cbc:BaseAmount in the same cac:AllowanceCharge in UBL, ram:CalculationPercent together with ram:BasisAmount in CII. The amount on its own is always acceptable."
+      }
+    },
+    "PEPPOL-EN16931-R042": {
+      "de": {
+        "meaning": "Wird der Grundbetrag eines Ab- oder Zuschlags angegeben, muss auch der Prozentsatz dabeistehen — das Gegenstück zu R041.",
+        "cause": "Der Grundbetrag wird gesetzt, weil er in den Daten vorhanden ist, der Prozentsatz nicht, weil der Rabatt in Wahrheit ein fester Betrag war. Dann steht eine Bezugsgröße im Dokument, aus der nichts folgt.",
+        "fix": "Ergänzen Sie cbc:MultiplierFactorNumeric (UBL) beziehungsweise ram:CalculationPercent (CII) — oder lassen Sie den Grundbetrag weg, wenn es sich um einen Festbetrag handelt. Ein Festbetrag braucht nur cbc:Amount."
+      },
+      "en": {
+        "meaning": "If the base amount of an allowance or charge is given, the percentage must accompany it — the counterpart to R041.",
+        "cause": "The base amount is set because it happens to be in the data; the percentage is not, because the discount was really a fixed sum. What remains is a reference figure from which nothing follows.",
+        "fix": "Add cbc:MultiplierFactorNumeric in UBL, or ram:CalculationPercent in CII — or drop the base amount if this is a fixed sum. A fixed sum needs only cbc:Amount."
+      }
+    },
+    "PEPPOL-EN16931-R043": {
+      "de": {
+        "meaning": "Das Kennzeichen, ob es sich um einen Zuschlag oder einen Abschlag handelt, muss genau true oder false lauten — kleingeschrieben, ohne Alternativen.",
+        "cause": "Boolesche Werte werden von Serialisierern unterschiedlich geschrieben: 1 und 0 aus vielen Datenbanken, True aus Python, TRUE aus manchen Templates. Jede dieser Schreibweisen ist für einen Menschen eindeutig und für das Schema falsch.",
+        "fix": "Schreiben Sie den Wert als Zeichenkette true oder false in cbc:ChargeIndicator (UBL). Verlassen Sie sich nicht auf die Standard-Serialisierung Ihres booleschen Typs, sondern setzen Sie die beiden Literale ausdrücklich."
+      },
+      "en": {
+        "meaning": "The indicator saying whether this is a charge or an allowance must be exactly true or false — lower case, with no alternatives.",
+        "cause": "Serialisers write booleans differently: 1 and 0 out of many databases, True out of Python, TRUE out of some templates. Each is unambiguous to a human and wrong for the schema.",
+        "fix": "Write the value as the literal string true or false in cbc:ChargeIndicator in UBL. Do not rely on your boolean type's default serialisation; emit the two literals explicitly."
+      }
+    },
+    "PEPPOL-EN16931-R043-1": {
+      "de": {
+        "meaning": "In CII muss das Zuschlags-Kennzeichen eines Ab- oder Zuschlags auf Dokument- oder Positionsebene genau true oder false lauten. Diese Regel prüft die Gruppe ram:SpecifiedTradeAllowanceCharge.",
+        "cause": "In CII steckt der Wert eine Ebene tiefer als in UBL, in ram:ChargeIndicator/udt:Indicator. Mappings, die von UBL portiert wurden, schreiben den Wert versehentlich direkt in ram:ChargeIndicator oder übernehmen die Schreibweise 1 und 0 aus der Datenbank.",
+        "fix": "Schreiben Sie true oder false kleingeschrieben in ram:ChargeIndicator/udt:Indicator innerhalb von ram:SpecifiedTradeAllowanceCharge. Für Ab- und Zuschläge im Preis gilt dieselbe Anforderung an anderer Stelle — siehe R043-2."
+      },
+      "en": {
+        "meaning": "In CII the charge indicator of an allowance or charge at document or line level must be exactly true or false. This rule checks the ram:SpecifiedTradeAllowanceCharge group.",
+        "cause": "In CII the value sits one level deeper than in UBL, inside ram:ChargeIndicator/udt:Indicator. Mappings ported from UBL write it straight into ram:ChargeIndicator, or carry over the database's 1 and 0.",
+        "fix": "Write true or false in lower case into ram:ChargeIndicator/udt:Indicator inside ram:SpecifiedTradeAllowanceCharge. The same requirement applies to price-level allowances in a different place — see R043-2."
+      }
+    },
+    "PEPPOL-EN16931-R043-2": {
+      "de": {
+        "meaning": "Dieselbe Anforderung wie R043-1, aber für den Ab- oder Zuschlag im Preis: ram:AppliedTradeAllowanceCharge innerhalb des Bruttopreises muss ein Kennzeichen von genau true oder false tragen.",
+        "cause": "Der Preisrabatt wird oft von einer anderen Stelle im Mapping geschrieben als die Rabatte auf Dokumentebene — häufig direkt aus der Artikel-Preisfindung. Eine dort abweichende Schreibweise fällt erst hier auf, obwohl R043-1 längst sauber ist.",
+        "fix": "Schreiben Sie true oder false kleingeschrieben in ram:ChargeIndicator/udt:Indicator innerhalb von ram:AppliedTradeAllowanceCharge unter ram:GrossPriceProductTradePrice. Im Preis ist ohnehin nur false zulässig — siehe R044."
+      },
+      "en": {
+        "meaning": "The same requirement as R043-1, but for the allowance or charge inside the price: ram:AppliedTradeAllowanceCharge under the gross price must carry an indicator of exactly true or false.",
+        "cause": "The price discount is usually written by a different part of the mapping from the document-level ones, often straight out of item pricing. A different convention there surfaces only here, long after R043-1 is clean.",
+        "fix": "Write true or false in lower case into ram:ChargeIndicator/udt:Indicator inside ram:AppliedTradeAllowanceCharge under ram:GrossPriceProductTradePrice. In the price only false is permitted anyway — see R044."
+      }
+    },
+    "PEPPOL-EN16931-R044": {
+      "de": {
+        "meaning": "Im Preis einer Position ist kein Zuschlag erlaubt. Das Kennzeichen dort darf nur false lauten: der Preis kennt ausschließlich den Abschlag vom Bruttopreis auf den Nettopreis.",
+        "cause": "Wer einen Aufschlag auf einen Artikel abbilden will — Mindermenge, Eilzuschlag, Verpackung —, sucht ihn intuitiv im Preis, weil er dort im eigenen System gepflegt wird. Die Norm sieht Zuschläge aber nur auf Positions- oder Dokumentebene vor.",
+        "fix": "Verschieben Sie den Zuschlag in das cac:AllowanceCharge der Position oder des Dokuments mit cbc:ChargeIndicator true. Innerhalb von cac:Price bleibt nur der Abschlag mit false — in CII entsprechend ram:AppliedTradeAllowanceCharge."
+      },
+      "en": {
+        "meaning": "No charge is permitted inside a line's price. The indicator there may only be false: the price knows nothing but the allowance from the gross price down to the net price.",
+        "cause": "Anyone modelling a surcharge on an item — small-quantity, express, packaging — looks for it in the price, because that is where their own system keeps it. The norm provides for charges only at line or document level.",
+        "fix": "Move the charge into the line's or the document's cac:AllowanceCharge with cbc:ChargeIndicator true. Inside cac:Price only the allowance, with false, may remain — the same applies to ram:AppliedTradeAllowanceCharge in CII."
+      }
+    },
+    "PEPPOL-EN16931-R046": {
+      "de": {
+        "meaning": "Wird ein Bruttopreis angegeben, muss der Nettopreis genau daraus folgen: Bruttopreis minus Preisnachlass. Die drei Zahlen beschreiben eine einzige Rechnung und müssen aufgehen.",
+        "cause": "Der Nettopreis kommt aus der Preisfindung und ist bereits gerundet; Bruttopreis und Nachlass werden zur Nachvollziehbarkeit ergänzt und stammen aus der Konditionspflege. Zwischen beiden liegt oft ein Cent.",
+        "fix": "Leiten Sie cbc:PriceAmount aus cbc:BaseAmount minus cbc:Amount des Preis-Abschlags ab (UBL) beziehungsweise ram:ChargeAmount minus ram:ActualAmount in CII. Wenn Sie den Bruttopreis nicht belegen können, lassen Sie ihn und den Nachlass weg — der Nettopreis allein genügt."
+      },
+      "en": {
+        "meaning": "Where a gross price is given, the net price must follow from it exactly: gross price minus the price allowance. The three numbers describe one calculation and have to add up.",
+        "cause": "The net price comes from pricing and is already rounded, while the gross price and the discount are added for traceability out of condition records. A cent frequently sits between the two.",
+        "fix": "Derive cbc:PriceAmount from cbc:BaseAmount minus the price allowance's cbc:Amount in UBL, or ram:ChargeAmount minus ram:ActualAmount in CII. If you cannot substantiate the gross price, omit it and the allowance — the net price alone is enough."
+      }
+    },
+    "PEPPOL-EN16931-R053": {
+      "de": {
+        "meaning": "Die Rechnung darf genau eine Steuersumme in Rechnungswährung enthalten — also genau einen Block mit Aufschlüsselung. Mehrere Steuerkategorien gehören als mehrere Unterblöcke in diesen einen Block.",
+        "cause": "Wer je Steuersatz einen eigenen Steuerblock erzeugt, bildet die Struktur des eigenen Systems ab statt die der Norm. Die Rechnung sieht dann korrekt aus und hat trotzdem zwei Gesamtsummen.",
+        "fix": "Erzeugen Sie ein einziges cac:TaxTotal mit cbc:TaxAmount und darin je Steuerkategorie ein cac:TaxSubtotal (UBL). In CII gibt es diese Verschachtelung nicht: dort steht je Kategorie ein ram:ApplicableTradeTax."
+      },
+      "en": {
+        "meaning": "The invoice may contain exactly one tax total in the invoice currency — that is, exactly one block carrying a breakdown. Several tax categories belong inside that one block as several sub-blocks.",
+        "cause": "Emitting one tax block per rate reproduces the structure of your own system rather than the structure of the norm. The invoice then looks right and still carries two grand totals.",
+        "fix": "Emit a single cac:TaxTotal with cbc:TaxAmount and one cac:TaxSubtotal inside it per tax category in UBL. CII has no such nesting: there, one ram:ApplicableTradeTax per category is correct."
+      }
+    },
+    "PEPPOL-EN16931-R054": {
+      "de": {
+        "meaning": "Ein zweiter Steuerblock ohne Aufschlüsselung ist nur erlaubt, wenn eine abweichende Steuerwährung (BT-6) angegeben ist — und dann genau einer. Er nennt die Steuersumme in der Meldewährung.",
+        "cause": "Der Block entsteht aus einer Vorlage für Auslandsrechnungen und bleibt stehen, wenn BT-6 im konkreten Fall nicht gesetzt wird. Dann steht eine Steuersumme in einer Währung im Dokument, die die Rechnung gar nicht kennt.",
+        "fix": "Erzeugen Sie das zusätzliche cac:TaxTotal ohne cac:TaxSubtotal nur zusammen mit cbc:TaxCurrencyCode — beide oder keines. Die eigentliche Aufschlüsselung bleibt im Block der Rechnungswährung, siehe R053."
+      },
+      "en": {
+        "meaning": "A second tax block without a breakdown is permitted only where a separate VAT accounting currency (BT-6) is given — and then exactly one. It states the tax total in the reporting currency.",
+        "cause": "The block comes from a template for cross-border invoices and stays behind when BT-6 is not set in a given case. What is left is a tax total in a currency the invoice does not otherwise mention.",
+        "fix": "Emit the extra cac:TaxTotal without a cac:TaxSubtotal only together with cbc:TaxCurrencyCode — both or neither. The actual breakdown stays in the invoice-currency block, see R053."
+      }
+    },
+    "PEPPOL-EN16931-R055": {
+      "de": {
+        "meaning": "Die Steuersumme in Rechnungswährung und die Steuersumme in der Meldewährung müssen dasselbe Vorzeichen tragen. Beide beschreiben denselben Betrag, nur in zwei Währungen.",
+        "cause": "Bei Gutschriften mit negativen Beträgen wird das Vorzeichen an einer Stelle gedreht und an der anderen nicht — typischerweise, weil die Umrechnung in die Meldewährung über einen Betragsdienst läuft, der den Absolutwert liefert.",
+        "fix": "Rechnen Sie die Meldewährung aus dem vorzeichenbehafteten Betrag um, statt Vorzeichen und Betrag getrennt zu behandeln. Geprüft werden die beiden cbc:TaxAmount in den cac:TaxTotal-Blöcken (UBL) beziehungsweise die entsprechenden Beträge in CII."
+      },
+      "en": {
+        "meaning": "The tax total in the invoice currency and the tax total in the accounting currency must carry the same operational sign. Both describe the same amount, only in two currencies.",
+        "cause": "On credit notes with negative amounts the sign gets flipped in one place and not the other — typically because the conversion into the reporting currency runs through a service that returns an absolute value.",
+        "fix": "Convert from the signed amount rather than handling sign and magnitude separately. What is checked is the two cbc:TaxAmount values in the cac:TaxTotal blocks in UBL, and the corresponding amounts in CII."
+      }
+    },
+    "PEPPOL-EN16931-R061": {
+      "de": {
+        "meaning": "Bei Lastschrift muss die Mandatsreferenz übermittelt werden — die Kennung des Mandats, mit dem der Zahler dem Einzug zugestimmt hat.",
+        "cause": "Das Mandat liegt beim Zahlungsdienstleister, und die Rechnung wird als reine Zahlungsaufforderung gebaut. Die Referenz existiert also, steht aber in einem anderen System als dem, das die Rechnung erzeugt.",
+        "fix": "Übernehmen Sie die Mandatsreferenz nach BT-89: cac:PaymentMeans/cac:PaymentMandate/cbc:ID in UBL, ram:SpecifiedTradePaymentTerms/ram:DirectDebitMandateID in CII. Für den deutschen Prüfweg gilt zusätzlich BR-DE-25-a."
+      },
+      "en": {
+        "meaning": "For direct debit the mandate reference must be provided — the identifier of the mandate under which the payer agreed to the collection.",
+        "cause": "The mandate lives with the payment provider while the invoice is built as a bare request for payment. The reference exists, but in a different system from the one producing the document.",
+        "fix": "Carry the mandate reference into BT-89: cac:PaymentMeans/cac:PaymentMandate/cbc:ID in UBL, ram:SpecifiedTradePaymentTerms/ram:DirectDebitMandateID in CII. On the German path BR-DE-25-a applies as well."
+      }
+    },
+    "PEPPOL-EN16931-R101": {
+      "de": {
+        "meaning": "Auf einer Rechnungsposition ist als zusätzliche Dokumentenreferenz nur der Objektbezeichner zulässig — der Typcode 130. Andere Belegverweise gehören auf Dokumentebene.",
+        "cause": "Lieferschein- oder Auftragsnummern werden je Position gepflegt und deshalb auch je Position ausgegeben. Auf Positionsebene sieht die Norm dafür aber nur den Objektbezeichner vor.",
+        "fix": "Setzen Sie auf der Position cbc:DocumentTypeCode auf 130 (UBL: cac:InvoiceLine/cac:DocumentReference; CII: ram:AdditionalReferencedDocument der Position). Lieferschein und Auftrag gehören in cac:DespatchDocumentReference beziehungsweise cac:OrderReference auf Dokumentebene."
+      },
+      "en": {
+        "meaning": "On an invoice line the only additional document reference permitted is the object identifier — type code 130. Other document references belong at document level.",
+        "cause": "Delivery-note and order numbers are maintained per line and so get written per line. At line level the norm provides only for the object identifier.",
+        "fix": "Set cbc:DocumentTypeCode to 130 on the line (cac:InvoiceLine/cac:DocumentReference in UBL, the line's ram:AdditionalReferencedDocument in CII). Delivery notes and orders belong in cac:DespatchDocumentReference or cac:OrderReference at document level."
+      }
+    },
+    "PEPPOL-EN16931-R110": {
+      "de": {
+        "meaning": "Beginnt eine Position einen eigenen Leistungszeitraum, muss dieser innerhalb des Abrechnungszeitraums der Rechnung liegen: das Startdatum der Position darf nicht vor dem Start der Rechnung liegen.",
+        "cause": "Nachberechnungen sind der klassische Fall: eine Leistung aus dem Vormonat wird in die laufende Rechnung aufgenommen und behält ihren echten Zeitraum, während der Rechnungszeitraum nur den aktuellen Monat abdeckt.",
+        "fix": "Weiten Sie den Rechnungszeitraum (cac:InvoicePeriod im Kopf) so, dass er alle Positionen umfasst, oder stellen Sie die Nachberechnung in eine eigene Rechnung. Geprüft wird cbc:StartDate der Position gegen cbc:StartDate im Kopf."
+      },
+      "en": {
+        "meaning": "If a line has a period of its own, it must fall inside the invoicing period: the line's start date may not precede the invoice's start date.",
+        "cause": "Back-billing is the classic case: a service from the previous month is picked up on the current invoice and keeps its real period, while the invoicing period covers only the current month.",
+        "fix": "Widen the invoicing period (cac:InvoicePeriod in the header) so it spans every line, or put the back-billed item on an invoice of its own. What is compared is the line's cbc:StartDate against the header's cbc:StartDate."
+      }
+    },
+    "PEPPOL-EN16931-R111": {
+      "de": {
+        "meaning": "Das Enddatum eines Positionszeitraums darf nicht nach dem Ende des Abrechnungszeitraums liegen — das Gegenstück zu R110 am anderen Ende.",
+        "cause": "Vorausberechnete Leistungen laufen über das Rechnungsende hinaus: eine Jahreslizenz wird im August in Rechnung gestellt und endet im nächsten Juli, während der Rechnungszeitraum den August abdeckt.",
+        "fix": "Setzen Sie den Rechnungszeitraum so, dass er die längste Position einschließt, oder verzichten Sie auf den Kopf-Zeitraum, wenn die Positionen ohnehin eigene tragen. Geprüft wird cbc:EndDate der Position gegen cbc:EndDate im Kopf."
+      },
+      "en": {
+        "meaning": "A line period's end date may not fall after the end of the invoicing period — the counterpart to R110 at the other end.",
+        "cause": "Prepaid services run past the end of the invoice: an annual licence is billed in August and ends the following July, while the invoicing period covers August.",
+        "fix": "Set the invoicing period so it encloses the longest line, or drop the header period altogether where the lines carry their own. What is compared is the line's cbc:EndDate against the header's cbc:EndDate."
+      }
+    },
+    "PEPPOL-EN16931-R120": {
+      "de": {
+        "meaning": "Der Nettobetrag einer Position muss aus ihren eigenen Angaben folgen: Menge × (Nettopreis ÷ Preiseinheit), zuzüglich der Zuschläge und abzüglich der Abschläge auf der Position.",
+        "cause": "Der Positionsbetrag stammt aus dem Rechnungsobjekt und ist dort längst berechnet; Menge, Preis und Rabatte werden daneben geschrieben. Sobald die Preiseinheit nicht 1 ist oder ein Positionsrabatt hinzukommt, weichen die beiden Wege voneinander ab.",
+        "fix": "Berechnen Sie cbc:LineExtensionAmount aus genau den Werten, die in der Position stehen — cbc:InvoicedQuantity, cac:Price/cbc:PriceAmount, cac:Price/cbc:BaseQuantity und die cac:AllowanceCharge der Position. Diese Regel ist eine Warnung, keine Ablehnung: die Rechnung bleibt gültig, aber die Zahlen widersprechen sich."
+      },
+      "en": {
+        "meaning": "A line's net amount must follow from the line's own figures: quantity × (net price ÷ price base quantity), plus the line's charges and minus its allowances.",
+        "cause": "The line amount comes from the invoice object, where it was computed long ago, and quantity, price and discounts are written alongside it. As soon as the price base quantity is not 1, or a line discount appears, the two routes diverge.",
+        "fix": "Compute cbc:LineExtensionAmount from exactly the values present on the line — cbc:InvoicedQuantity, cac:Price/cbc:PriceAmount, cac:Price/cbc:BaseQuantity and the line's cac:AllowanceCharge. This rule is a warning rather than a rejection: the invoice stays valid, but its numbers contradict each other."
+      }
+    },
+    "PEPPOL-EN16931-R121": {
+      "de": {
+        "meaning": "Die Preiseinheit muss eine positive Zahl größer als null sein. Sie sagt, auf wie viele Einheiten sich der Preis bezieht — 100 bei einem Preis je 100 Stück.",
+        "cause": "Das Feld wird mit dem Standardwert des eigenen Datentyps belegt, und der ist bei einer nicht gepflegten Zahl oft 0. Ein Preis je null Einheiten ist eine Division durch null und macht jede Nachrechnung unmöglich.",
+        "fix": "Lassen Sie cac:Price/cbc:BaseQuantity weg, wenn sich der Preis auf eine Einheit bezieht — das ist der Standardfall und braucht keine Angabe. Andernfalls setzen Sie die tatsächliche Bezugsmenge, in CII ram:BasisQuantity."
+      },
+      "en": {
+        "meaning": "The price base quantity must be a positive number above zero. It states how many units the price refers to — 100 for a price per hundred pieces.",
+        "cause": "The field is filled with the default of your own data type, and for an unmaintained number that is often 0. A price per zero units is a division by zero and makes any recalculation impossible.",
+        "fix": "Omit cac:Price/cbc:BaseQuantity where the price is per single unit — that is the default and needs no statement. Otherwise set the real reference quantity, or ram:BasisQuantity in CII."
+      }
+    },
+    "PEPPOL-EN16931-R130": {
+      "de": {
+        "meaning": "Die Maßeinheit der Preiseinheit muss dieselbe sein wie die der berechneten Menge. Preis und Menge müssen sich auf dasselbe messen, sonst ist der Positionsbetrag nicht nachrechenbar.",
+        "cause": "Menge und Preis kommen aus verschiedenen Quellen: die Menge aus dem Auftrag, die Preiseinheit aus dem Artikelstamm. Wird dort in Kilogramm gepflegt und im Auftrag in Stück bestellt, treffen zwei verschiedene Einheiten aufeinander.",
+        "fix": "Setzen Sie das unitCode-Attribut von cac:Price/cbc:BaseQuantity gleich dem von cbc:InvoicedQuantity, oder rechnen Sie den Preis vorher auf die berechnete Einheit um. In CII gilt dasselbe für ram:BasisQuantity und ram:BilledQuantity."
+      },
+      "en": {
+        "meaning": "The unit of the price base quantity must be the same as the unit of the invoiced quantity. Price and quantity have to measure the same thing, or the line amount cannot be recalculated.",
+        "cause": "Quantity and price come from different sources: the quantity from the order, the price base quantity from the item master. Where the master is kept in kilograms and the order is placed in pieces, two different units meet.",
+        "fix": "Set the unitCode attribute of cac:Price/cbc:BaseQuantity to match that of cbc:InvoicedQuantity, or convert the price to the invoiced unit beforehand. The same applies to ram:BasisQuantity and ram:BilledQuantity in CII."
+      }
+    }
+  }
+}

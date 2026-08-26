@@ -1,0 +1,668 @@
+{
+  "source": "https://normapi.de/fehler",
+  "licence": "CC BY 4.0",
+  "note": "Illustrative fragments, not complete documents. Element order follows the schema.",
+  "count": 132,
+  "rules": {
+    "BR-01": {
+      "syntax": "UBL",
+      "wrong": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>",
+      "right": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>\n<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>"
+    },
+    "BR-02": {
+      "syntax": "UBL",
+      "wrong": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>",
+      "right": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>\n<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>"
+    },
+    "BR-03": {
+      "syntax": "UBL",
+      "wrong": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>26.08.2026</cbc:IssueDate>",
+      "right": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>"
+    },
+    "BR-04": {
+      "syntax": "UBL",
+      "wrong": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>",
+      "right": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>"
+    },
+    "BR-05": {
+      "syntax": "UBL",
+      "wrong": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>\n<cbc:BuyerReference>04011000-12345-34</cbc:BuyerReference>",
+      "right": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>\n<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:BuyerReference>04011000-12345-34</cbc:BuyerReference>"
+    },
+    "BR-06": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Berlin</cbc:CityName>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingSupplierParty>",
+      "right": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Berlin</cbc:CityName>\n    </cac:PostalAddress>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n  </cac:Party>\n</cac:AccountingSupplierParty>"
+    },
+    "BR-07": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n    </cac:PostalAddress>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Behörde Bonn</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "BR-08": {
+      "syntax": "UBL",
+      "wrong": "<cac:Party>\n  <cac:PartyLegalEntity>\n    <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n  </cac:PartyLegalEntity>\n</cac:Party>",
+      "right": "<cac:Party>\n  <cac:PostalAddress>\n    <cbc:StreetName>Musterstraße 1</cbc:StreetName>\n    <cbc:CityName>Berlin</cbc:CityName>\n    <cbc:PostalZone>10115</cbc:PostalZone>\n    <cac:Country>\n      <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n    </cac:Country>\n  </cac:PostalAddress>\n  <cac:PartyLegalEntity>\n    <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n  </cac:PartyLegalEntity>\n</cac:Party>"
+    },
+    "BR-09": {
+      "syntax": "UBL",
+      "wrong": "<cac:PostalAddress>\n  <cbc:CityName>Berlin</cbc:CityName>\n  <cbc:PostalZone>10115</cbc:PostalZone>\n  <cac:Country>\n    <cbc:IdentificationCode>Deutschland</cbc:IdentificationCode>\n  </cac:Country>\n</cac:PostalAddress>",
+      "right": "<cac:PostalAddress>\n  <cbc:CityName>Berlin</cbc:CityName>\n  <cbc:PostalZone>10115</cbc:PostalZone>\n  <cac:Country>\n    <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n  </cac:Country>\n</cac:PostalAddress>"
+    },
+    "BR-10": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Behörde Bonn</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country>\n        <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n      </cac:Country>\n    </cac:PostalAddress>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Behörde Bonn</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "BR-11": {
+      "syntax": "UBL",
+      "wrong": "<cac:PostalAddress>\n  <cbc:CityName>Bonn</cbc:CityName>\n  <cbc:PostalZone>53113</cbc:PostalZone>\n</cac:PostalAddress>",
+      "right": "<cac:PostalAddress>\n  <cbc:CityName>Bonn</cbc:CityName>\n  <cbc:PostalZone>53113</cbc:PostalZone>\n  <cac:Country>\n    <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n  </cac:Country>\n</cac:PostalAddress>"
+    },
+    "BR-12": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-13": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-14": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-15": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-16": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">1</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Pauschale</cbc:Name>\n    <cac:ClassifiedTaxCategory>\n      <cbc:ID>S</cbc:ID>\n      <cbc:Percent>19</cbc:Percent>\n      <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n    </cac:ClassifiedTaxCategory>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">1000.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-17": {
+      "syntax": "UBL",
+      "wrong": "<cac:PayeeParty>\n  <cac:PartyIdentification>\n    <cbc:ID>FACTOR-01</cbc:ID>\n  </cac:PartyIdentification>\n</cac:PayeeParty>",
+      "right": "<cac:PayeeParty>\n  <cac:PartyIdentification>\n    <cbc:ID>FACTOR-01</cbc:ID>\n  </cac:PartyIdentification>\n  <cac:PartyName>\n    <cbc:Name>Muster Factoring GmbH</cbc:Name>\n  </cac:PartyName>\n</cac:PayeeParty>"
+    },
+    "BR-18": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxRepresentativeParty>\n  <cac:PartyTaxScheme>\n    <cbc:CompanyID>DE811234567</cbc:CompanyID>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:PartyTaxScheme>\n</cac:TaxRepresentativeParty>",
+      "right": "<cac:TaxRepresentativeParty>\n  <cac:PartyName>\n    <cbc:Name>Steuerkanzlei Muster</cbc:Name>\n  </cac:PartyName>\n  <cac:PartyTaxScheme>\n    <cbc:CompanyID>DE811234567</cbc:CompanyID>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:PartyTaxScheme>\n</cac:TaxRepresentativeParty>"
+    },
+    "BR-19": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxRepresentativeParty>\n  <cac:PartyName>\n    <cbc:Name>Steuerkanzlei Muster</cbc:Name>\n  </cac:PartyName>\n</cac:TaxRepresentativeParty>",
+      "right": "<cac:TaxRepresentativeParty>\n  <cac:PartyName>\n    <cbc:Name>Steuerkanzlei Muster</cbc:Name>\n  </cac:PartyName>\n  <cac:PostalAddress>\n    <cbc:CityName>Berlin</cbc:CityName>\n    <cbc:PostalZone>10115</cbc:PostalZone>\n    <cac:Country>\n      <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n    </cac:Country>\n  </cac:PostalAddress>\n</cac:TaxRepresentativeParty>"
+    },
+    "BR-20": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxRepresentativeParty>\n  <cac:PostalAddress>\n    <cbc:CityName>Berlin</cbc:CityName>\n    <cbc:PostalZone>10115</cbc:PostalZone>\n  </cac:PostalAddress>\n</cac:TaxRepresentativeParty>",
+      "right": "<cac:TaxRepresentativeParty>\n  <cac:PostalAddress>\n    <cbc:CityName>Berlin</cbc:CityName>\n    <cbc:PostalZone>10115</cbc:PostalZone>\n    <cac:Country>\n      <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n    </cac:Country>\n  </cac:PostalAddress>\n</cac:TaxRepresentativeParty>"
+    },
+    "BR-21": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-22": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-23": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity>10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-24": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-25": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-26": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "BR-27": {
+      "syntax": "UBL",
+      "wrong": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">-100.00</cbc:PriceAmount>\n</cac:Price>",
+      "right": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n</cac:Price>"
+    },
+    "BR-28": {
+      "syntax": "UBL",
+      "wrong": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n    <cbc:BaseAmount currencyID=\"EUR\">-110.00</cbc:BaseAmount>\n  </cac:AllowanceCharge>\n</cac:Price>",
+      "right": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n    <cbc:BaseAmount currencyID=\"EUR\">110.00</cbc:BaseAmount>\n  </cac:AllowanceCharge>\n</cac:Price>"
+    },
+    "BR-29": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2026-07-31</cbc:EndDate>\n</cac:InvoicePeriod>",
+      "right": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2026-08-31</cbc:EndDate>\n</cac:InvoicePeriod>"
+    },
+    "BR-30": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:StartDate>2026-12-01</cbc:StartDate>\n    <cbc:EndDate>2026-01-31</cbc:EndDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:StartDate>2026-12-01</cbc:StartDate>\n    <cbc:EndDate>2027-01-31</cbc:EndDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>"
+    },
+    "BR-31": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-32": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:AllowanceCharge>"
+    },
+    "BR-33": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Mengenrabatt</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-36": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-37": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:AllowanceCharge>"
+    },
+    "BR-38": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Mengenrabatt</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-41": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-42": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Mengenrabatt</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-43": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-44": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Mengenrabatt</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-45": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxSubtotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>",
+      "right": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>"
+    },
+    "BR-46": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>",
+      "right": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>"
+    },
+    "BR-47": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>",
+      "right": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>"
+    },
+    "BR-48": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>",
+      "right": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>"
+    },
+    "BR-49": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-50": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-51": {
+      "syntax": "UBL",
+      "wrong": "<cac:CardAccount>\n  <cbc:PrimaryAccountNumberID>4111111111111111</cbc:PrimaryAccountNumberID>\n  <cbc:NetworkID>NA</cbc:NetworkID>\n</cac:CardAccount>",
+      "right": "<cac:CardAccount>\n  <cbc:PrimaryAccountNumberID>************1111</cbc:PrimaryAccountNumberID>\n  <cbc:NetworkID>NA</cbc:NetworkID>\n</cac:CardAccount>"
+    },
+    "BR-52": {
+      "syntax": "UBL",
+      "wrong": "<cac:AdditionalDocumentReference>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"stundennachweis.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>",
+      "right": "<cac:AdditionalDocumentReference>\n  <cbc:ID>SN-2026-0042</cbc:ID>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"stundennachweis.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>"
+    },
+    "BR-53": {
+      "syntax": "UBL",
+      "wrong": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:TaxCurrencyCode>SEK</cbc:TaxCurrencyCode>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>",
+      "right": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:TaxCurrencyCode>SEK</cbc:TaxCurrencyCode>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"SEK\">2090.00</cbc:TaxAmount>\n</cac:TaxTotal>"
+    },
+    "BR-54": {
+      "syntax": "UBL",
+      "wrong": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:AdditionalItemProperty>\n    <cbc:Name>Projektnummer</cbc:Name>\n  </cac:AdditionalItemProperty>\n</cac:Item>",
+      "right": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:AdditionalItemProperty>\n    <cbc:Name>Projektnummer</cbc:Name>\n    <cbc:Value>P-2026-0815</cbc:Value>\n  </cac:AdditionalItemProperty>\n</cac:Item>"
+    },
+    "BR-55": {
+      "syntax": "UBL",
+      "wrong": "<cac:BillingReference>\n  <cac:InvoiceDocumentReference>\n    <cbc:IssueDate>2026-07-15</cbc:IssueDate>\n  </cac:InvoiceDocumentReference>\n</cac:BillingReference>",
+      "right": "<cac:BillingReference>\n  <cac:InvoiceDocumentReference>\n    <cbc:ID>RE-2026-0041</cbc:ID>\n    <cbc:IssueDate>2026-07-15</cbc:IssueDate>\n  </cac:InvoiceDocumentReference>\n</cac:BillingReference>"
+    },
+    "BR-56": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxRepresentativeParty>\n  <cac:PartyName>\n    <cbc:Name>Steuerkanzlei Muster</cbc:Name>\n  </cac:PartyName>\n</cac:TaxRepresentativeParty>",
+      "right": "<cac:TaxRepresentativeParty>\n  <cac:PartyName>\n    <cbc:Name>Steuerkanzlei Muster</cbc:Name>\n  </cac:PartyName>\n  <cac:PartyTaxScheme>\n    <cbc:CompanyID>DE811234567</cbc:CompanyID>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:PartyTaxScheme>\n</cac:TaxRepresentativeParty>"
+    },
+    "BR-57": {
+      "syntax": "UBL",
+      "wrong": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>",
+      "right": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country>\n        <cbc:IdentificationCode>DE</cbc:IdentificationCode>\n      </cac:Country>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>"
+    },
+    "BR-61": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cbc:PaymentID>RE-2026-0042</cbc:PaymentID>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cbc:PaymentID>RE-2026-0042</cbc:PaymentID>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-62": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cbc:EndpointID>rechnung@muster.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Muster GmbH</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingSupplierParty>",
+      "right": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cbc:EndpointID schemeID=\"EM\">rechnung@muster.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Muster GmbH</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingSupplierParty>"
+    },
+    "BR-63": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cbc:EndpointID>rechnung@behoerde-bonn.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Behörde Bonn</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cbc:EndpointID schemeID=\"EM\">rechnung@behoerde-bonn.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Behörde Bonn</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "BR-64": {
+      "syntax": "UBL",
+      "wrong": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:StandardItemIdentification>\n    <cbc:ID>04012345678901</cbc:ID>\n  </cac:StandardItemIdentification>\n</cac:Item>",
+      "right": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:StandardItemIdentification>\n    <cbc:ID schemeID=\"0160\">04012345678901</cbc:ID>\n  </cac:StandardItemIdentification>\n</cac:Item>"
+    },
+    "BR-65": {
+      "syntax": "UBL",
+      "wrong": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:CommodityClassification>\n    <cbc:ItemClassificationCode>12345678</cbc:ItemClassificationCode>\n  </cac:CommodityClassification>\n</cac:Item>",
+      "right": "<cac:Item>\n  <cbc:Name>Beratungsleistung</cbc:Name>\n  <cac:CommodityClassification>\n    <cbc:ItemClassificationCode listID=\"TST\">12345678</cbc:ItemClassificationCode>\n  </cac:CommodityClassification>\n</cac:Item>"
+    },
+    "BR-CO-03": {
+      "syntax": "UBL",
+      "wrong": "<cbc:TaxPointDate>2026-08-26</cbc:TaxPointDate>\n<cac:InvoicePeriod>\n  <cbc:DescriptionCode>3</cbc:DescriptionCode>\n</cac:InvoicePeriod>",
+      "right": "<cbc:TaxPointDate>2026-08-26</cbc:TaxPointDate>"
+    },
+    "BR-CO-04": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n  </cac:Item>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:Item>\n    <cbc:Name>Beratungsleistung</cbc:Name>\n    <cac:ClassifiedTaxCategory>\n      <cbc:ID>S</cbc:ID>\n      <cbc:Percent>19</cbc:Percent>\n      <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n    </cac:ClassifiedTaxCategory>\n  </cac:Item>\n</cac:InvoiceLine>"
+    },
+    "BR-CO-09": {
+      "syntax": "UBL",
+      "wrong": "<cac:PartyTaxScheme>\n  <cbc:CompanyID>811234567</cbc:CompanyID>\n  <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n</cac:PartyTaxScheme>",
+      "right": "<cac:PartyTaxScheme>\n  <cbc:CompanyID>DE811234567</cbc:CompanyID>\n  <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n</cac:PartyTaxScheme>"
+    },
+    "BR-CO-10": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n</cac:LegalMonetaryTotal>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">333.34</cbc:LineExtensionAmount>\n</cac:InvoiceLine>\n<cac:InvoiceLine>\n  <cbc:ID>2</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">666.67</cbc:LineExtensionAmount>\n</cac:InvoiceLine>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.01</cbc:LineExtensionAmount>\n</cac:LegalMonetaryTotal>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">333.34</cbc:LineExtensionAmount>\n</cac:InvoiceLine>\n<cac:InvoiceLine>\n  <cbc:ID>2</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">666.67</cbc:LineExtensionAmount>\n</cac:InvoiceLine>"
+    },
+    "BR-CO-11": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">30.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">30.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:LegalMonetaryTotal>\n  <cbc:AllowanceTotalAmount currencyID=\"EUR\">50.00</cbc:AllowanceTotalAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">30.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">30.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:LegalMonetaryTotal>\n  <cbc:AllowanceTotalAmount currencyID=\"EUR\">60.00</cbc:AllowanceTotalAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-12": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">20.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:LegalMonetaryTotal>\n  <cbc:ChargeTotalAmount currencyID=\"EUR\">35.00</cbc:ChargeTotalAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">20.00</cbc:Amount>\n</cac:AllowanceCharge>\n<cac:LegalMonetaryTotal>\n  <cbc:ChargeTotalAmount currencyID=\"EUR\">20.00</cbc:ChargeTotalAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-13": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:AllowanceTotalAmount currencyID=\"EUR\">50.00</cbc:AllowanceTotalAmount>\n  <cbc:ChargeTotalAmount currencyID=\"EUR\">20.00</cbc:ChargeTotalAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">970.00</cbc:TaxExclusiveAmount>\n  <cbc:AllowanceTotalAmount currencyID=\"EUR\">50.00</cbc:AllowanceTotalAmount>\n  <cbc:ChargeTotalAmount currencyID=\"EUR\">20.00</cbc:ChargeTotalAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-14": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">800.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">152.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">200.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">14.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>",
+      "right": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">166.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">800.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">152.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">200.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">14.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>"
+    },
+    "BR-CO-15": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1189.99</cbc:TaxInclusiveAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-16": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PrepaidAmount currencyID=\"EUR\">200.00</cbc:PrepaidAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">1190.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:LegalMonetaryTotal>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1190.00</cbc:TaxInclusiveAmount>\n  <cbc:PrepaidAmount currencyID=\"EUR\">200.00</cbc:PrepaidAmount>\n  <cbc:PayableAmount currencyID=\"EUR\">990.00</cbc:PayableAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-17": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">189.99</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>",
+      "right": "<cac:TaxSubtotal>\n  <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxCategory>\n    <cbc:ID>S</cbc:ID>\n    <cbc:Percent>19</cbc:Percent>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:TaxCategory>\n</cac:TaxSubtotal>"
+    },
+    "BR-CO-18": {
+      "syntax": "UBL",
+      "wrong": "<cac:LegalMonetaryTotal>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxInclusiveAmount>\n</cac:LegalMonetaryTotal>",
+      "right": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">0.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">0.00</cbc:TaxAmount>\n    <cac:TaxCategory>\n      <cbc:ID>E</cbc:ID>\n      <cbc:Percent>0</cbc:Percent>\n      <cbc:TaxExemptionReason>Kleinunternehmer nach 19 UStG</cbc:TaxExemptionReason>\n      <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n    </cac:TaxCategory>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>\n<cac:LegalMonetaryTotal>\n  <cbc:TaxExclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxExclusiveAmount>\n  <cbc:TaxInclusiveAmount currencyID=\"EUR\">1000.00</cbc:TaxInclusiveAmount>\n</cac:LegalMonetaryTotal>"
+    },
+    "BR-CO-19": {
+      "syntax": "UBL",
+      "wrong": "<cbc:BuyerReference>04011000-12345-34</cbc:BuyerReference>\n<cac:InvoicePeriod/>",
+      "right": "<cbc:BuyerReference>04011000-12345-34</cbc:BuyerReference>\n<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2026-08-31</cbc:EndDate>\n</cac:InvoicePeriod>"
+    },
+    "BR-CO-20": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:InvoicePeriod/>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:InvoicePeriod>\n    <cbc:StartDate>2026-08-01</cbc:StartDate>\n    <cbc:EndDate>2026-08-31</cbc:EndDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>"
+    },
+    "BR-CO-21": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Mengenrabatt</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-CO-22": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">20.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n  <cbc:AllowanceChargeReason>Frachtkosten</cbc:AllowanceChargeReason>\n  <cbc:Amount currencyID=\"EUR\">20.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "BR-CO-23": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Rabatt</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-CO-24": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">25.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:AllowanceChargeReason>Montage</cbc:AllowanceChargeReason>\n    <cbc:Amount currencyID=\"EUR\">25.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:InvoiceLine>"
+    },
+    "BR-CO-25": {
+      "syntax": "UBL",
+      "wrong": "<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>",
+      "right": "<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:DueDate>2026-09-09</cbc:DueDate>\n<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>"
+    },
+    "BR-CO-26": {
+      "syntax": "UBL",
+      "wrong": "<cac:Party>\n  <cac:PartyName>\n    <cbc:Name>Muster GmbH</cbc:Name>\n  </cac:PartyName>\n  <cac:PostalAddress>\n    <cbc:CityName>Berlin</cbc:CityName>\n  </cac:PostalAddress>\n</cac:Party>",
+      "right": "<cac:Party>\n  <cac:PartyName>\n    <cbc:Name>Muster GmbH</cbc:Name>\n  </cac:PartyName>\n  <cac:PostalAddress>\n    <cbc:CityName>Berlin</cbc:CityName>\n  </cac:PostalAddress>\n  <cac:PartyTaxScheme>\n    <cbc:CompanyID>DE811234567</cbc:CompanyID>\n    <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n  </cac:PartyTaxScheme>\n</cac:Party>"
+    },
+    "BR-DE-1": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentTerms>\n  <cbc:Note>Zahlbar innerhalb von 14 Tagen auf DE02120300000000202051</cbc:Note>\n</cac:PaymentTerms>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>\n<cac:PaymentTerms>\n  <cbc:Note>Zahlbar innerhalb von 14 Tagen</cbc:Note>\n</cac:PaymentTerms>"
+    },
+    "BR-DE-10": {
+      "syntax": "UBL",
+      "wrong": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>",
+      "right": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>"
+    },
+    "BR-DE-11": {
+      "syntax": "UBL",
+      "wrong": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>",
+      "right": "<cac:Delivery>\n  <cac:DeliveryLocation>\n    <cac:Address>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:Address>\n  </cac:DeliveryLocation>\n</cac:Delivery>"
+    },
+    "BR-DE-14": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxCategory>\n  <cbc:ID>E</cbc:ID>\n  <cbc:TaxExemptionReason>Kleinunternehmer nach § 19 UStG</cbc:TaxExemptionReason>\n  <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n</cac:TaxCategory>",
+      "right": "<cac:TaxCategory>\n  <cbc:ID>E</cbc:ID>\n  <cbc:Percent>0</cbc:Percent>\n  <cbc:TaxExemptionReason>Kleinunternehmer nach § 19 UStG</cbc:TaxExemptionReason>\n  <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>\n</cac:TaxCategory>"
+    },
+    "BR-DE-15": {
+      "syntax": "UBL",
+      "wrong": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>\n<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>",
+      "right": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>\n<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:BuyerReference>04011000-12345-34</cbc:BuyerReference>"
+    },
+    "BR-DE-16": {
+      "syntax": "UBL",
+      "wrong": "<cac:Party>\n  <cac:PartyLegalEntity>\n    <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n  </cac:PartyLegalEntity>\n</cac:Party>",
+      "right": "<cac:Party>\n  <cac:PartyTaxScheme>\n    <cbc:CompanyID>12/345/67890</cbc:CompanyID>\n    <cac:TaxScheme><cbc:ID>FC</cbc:ID></cac:TaxScheme>\n  </cac:PartyTaxScheme>\n  <cac:PartyLegalEntity>\n    <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n  </cac:PartyLegalEntity>\n</cac:Party>"
+    },
+    "BR-DE-17": {
+      "syntax": "UBL",
+      "wrong": "<cbc:InvoiceTypeCode>RE</cbc:InvoiceTypeCode>",
+      "right": "<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>"
+    },
+    "BR-DE-18": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentTerms>\n  <cbc:Note>2 % Skonto bei Zahlung innerhalb von 14 Tagen</cbc:Note>\n</cac:PaymentTerms>",
+      "right": "<cac:PaymentTerms>\n  <cbc:Note>#SKONTO#TAGE=14#PROZENT=2.00#\nZahlbar innerhalb von 30 Tagen netto</cbc:Note>\n</cac:PaymentTerms>"
+    },
+    "BR-DE-19": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02 1203 0000 0000 2020 51</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-2": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n  </cac:Party>\n</cac:AccountingSupplierParty>",
+      "right": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cac:PartyLegalEntity>\n      <cbc:RegistrationName>Muster GmbH</cbc:RegistrationName>\n    </cac:PartyLegalEntity>\n    <cac:Contact>\n      <cbc:Name>Buchhaltung</cbc:Name>\n      <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n      <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n    </cac:Contact>\n  </cac:Party>\n</cac:AccountingSupplierParty>"
+    },
+    "BR-DE-20": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n    <cac:PayerFinancialAccount>\n      <cbc:ID>DE02 1203 0000 0000 2020 51</cbc:ID>\n    </cac:PayerFinancialAccount>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n    <cac:PayerFinancialAccount>\n      <cbc:ID>DE02120300000000202051</cbc:ID>\n    </cac:PayerFinancialAccount>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-21": {
+      "syntax": "UBL",
+      "wrong": "<cbc:CustomizationID>urn:cen.eu:en16931:2017</cbc:CustomizationID>",
+      "right": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>"
+    },
+    "BR-DE-22": {
+      "syntax": "UBL",
+      "wrong": "<cac:AdditionalDocumentReference>\n  <cbc:ID>1</cbc:ID>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"anhang.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>\n<cac:AdditionalDocumentReference>\n  <cbc:ID>2</cbc:ID>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"anhang.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>",
+      "right": "<cac:AdditionalDocumentReference>\n  <cbc:ID>1</cbc:ID>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"stundennachweis.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>\n<cac:AdditionalDocumentReference>\n  <cbc:ID>2</cbc:ID>\n  <cac:Attachment>\n    <cbc:EmbeddedDocumentBinaryObject mimeCode=\"application/pdf\" filename=\"lieferschein.pdf\">JVBERi0=</cbc:EmbeddedDocumentBinaryObject>\n  </cac:Attachment>\n</cac:AdditionalDocumentReference>"
+    },
+    "BR-DE-23-a": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-23-b": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>58</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-24-a": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>54</cbc:PaymentMeansCode>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>54</cbc:PaymentMeansCode>\n  <cac:CardAccount>\n    <cbc:PrimaryAccountNumberID>************1234</cbc:PrimaryAccountNumberID>\n    <cbc:NetworkID>NA</cbc:NetworkID>\n  </cac:CardAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-24-b": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>54</cbc:PaymentMeansCode>\n  <cac:CardAccount>\n    <cbc:PrimaryAccountNumberID>************1234</cbc:PrimaryAccountNumberID>\n    <cbc:NetworkID>NA</cbc:NetworkID>\n  </cac:CardAccount>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>54</cbc:PaymentMeansCode>\n  <cac:CardAccount>\n    <cbc:PrimaryAccountNumberID>************1234</cbc:PrimaryAccountNumberID>\n    <cbc:NetworkID>NA</cbc:NetworkID>\n  </cac:CardAccount>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-25-a": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n    <cac:PayerFinancialAccount>\n      <cbc:ID>DE02120300000000202051</cbc:ID>\n    </cac:PayerFinancialAccount>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-25-b": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PayeeFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayeeFinancialAccount>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>"
+    },
+    "BR-DE-26": {
+      "syntax": "UBL",
+      "wrong": "<cbc:InvoiceTypeCode>384</cbc:InvoiceTypeCode>\n<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>",
+      "right": "<cbc:InvoiceTypeCode>384</cbc:InvoiceTypeCode>\n<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cac:BillingReference>\n  <cac:InvoiceDocumentReference>\n    <cbc:ID>RE-2026-0041</cbc:ID>\n  </cac:InvoiceDocumentReference>\n</cac:BillingReference>"
+    },
+    "BR-DE-27": {
+      "syntax": "UBL",
+      "wrong": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>-</cbc:Telephone>\n</cac:Contact>",
+      "right": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n</cac:Contact>"
+    },
+    "BR-DE-28": {
+      "syntax": "UBL",
+      "wrong": "<cac:Contact>\n  <cbc:ElectronicMail>rechnung@muster.de, buchhaltung@muster.de</cbc:ElectronicMail>\n</cac:Contact>",
+      "right": "<cac:Contact>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>"
+    },
+    "BR-DE-3": {
+      "syntax": "UBL",
+      "wrong": "<cac:PostalAddress>\n  <cbc:StreetName>Musterstraße 1</cbc:StreetName>\n  <cbc:PostalZone>10115</cbc:PostalZone>\n  <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n</cac:PostalAddress>",
+      "right": "<cac:PostalAddress>\n  <cbc:StreetName>Musterstraße 1</cbc:StreetName>\n  <cbc:CityName>Berlin</cbc:CityName>\n  <cbc:PostalZone>10115</cbc:PostalZone>\n  <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n</cac:PostalAddress>"
+    },
+    "BR-DE-30": {
+      "syntax": "UBL",
+      "wrong": "<cac:PayeeParty>\n  <cac:PartyName><cbc:Name>Muster GmbH</cbc:Name></cac:PartyName>\n</cac:PayeeParty>",
+      "right": "<cac:PayeeParty>\n  <cac:PartyIdentification>\n    <cbc:ID schemeID=\"SEPA\">DE98ZZZ09999999999</cbc:ID>\n  </cac:PartyIdentification>\n  <cac:PartyName><cbc:Name>Muster GmbH</cbc:Name></cac:PartyName>\n</cac:PayeeParty>"
+    },
+    "BR-DE-31": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMandate>\n  <cbc:ID>MANDAT-2026-0007</cbc:ID>\n</cac:PaymentMandate>",
+      "right": "<cac:PaymentMandate>\n  <cbc:ID>MANDAT-2026-0007</cbc:ID>\n  <cac:PayerFinancialAccount>\n    <cbc:ID>DE02120300000000202051</cbc:ID>\n  </cac:PayerFinancialAccount>\n</cac:PaymentMandate>"
+    },
+    "BR-DE-4": {
+      "syntax": "UBL",
+      "wrong": "<cac:PostalAddress>\n  <cbc:StreetName>Musterstraße 1</cbc:StreetName>\n  <cbc:CityName>Berlin</cbc:CityName>\n  <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n</cac:PostalAddress>",
+      "right": "<cac:PostalAddress>\n  <cbc:StreetName>Musterstraße 1</cbc:StreetName>\n  <cbc:CityName>Berlin</cbc:CityName>\n  <cbc:PostalZone>10115</cbc:PostalZone>\n  <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n</cac:PostalAddress>"
+    },
+    "BR-DE-5": {
+      "syntax": "UBL",
+      "wrong": "<cac:Contact>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>",
+      "right": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>"
+    },
+    "BR-DE-6": {
+      "syntax": "UBL",
+      "wrong": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>",
+      "right": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>"
+    },
+    "BR-DE-7": {
+      "syntax": "UBL",
+      "wrong": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n</cac:Contact>",
+      "right": "<cac:Contact>\n  <cbc:Name>Buchhaltung</cbc:Name>\n  <cbc:Telephone>+49 30 1234567</cbc:Telephone>\n  <cbc:ElectronicMail>rechnung@muster.de</cbc:ElectronicMail>\n</cac:Contact>"
+    },
+    "BR-DE-8": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "BR-DE-9": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PostalAddress>\n      <cbc:CityName>Bonn</cbc:CityName>\n      <cbc:PostalZone>53113</cbc:PostalZone>\n      <cac:Country><cbc:IdentificationCode>DE</cbc:IdentificationCode></cac:Country>\n    </cac:PostalAddress>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "PEPPOL-EN16931-R001": {
+      "syntax": "UBL",
+      "wrong": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>\n<cbc:ID>RE-2026-0042</cbc:ID>",
+      "right": "<cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</cbc:CustomizationID>\n<cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>\n<cbc:ID>RE-2026-0042</cbc:ID>"
+    },
+    "PEPPOL-EN16931-R005": {
+      "syntax": "UBL",
+      "wrong": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:TaxCurrencyCode>EUR</cbc:TaxCurrencyCode>",
+      "right": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>"
+    },
+    "PEPPOL-EN16931-R008": {
+      "syntax": "UBL",
+      "wrong": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>\n<cbc:Note/>",
+      "right": "<cbc:ID>RE-2026-0042</cbc:ID>\n<cbc:IssueDate>2026-08-26</cbc:IssueDate>"
+    },
+    "PEPPOL-EN16931-R010": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cac:PartyName>\n      <cbc:Name>Behörde Bonn</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingCustomerParty>",
+      "right": "<cac:AccountingCustomerParty>\n  <cac:Party>\n    <cbc:EndpointID schemeID=\"EM\">rechnung@behoerde-bonn.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Behörde Bonn</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingCustomerParty>"
+    },
+    "PEPPOL-EN16931-R020": {
+      "syntax": "UBL",
+      "wrong": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cac:PartyName>\n      <cbc:Name>Muster GmbH</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingSupplierParty>",
+      "right": "<cac:AccountingSupplierParty>\n  <cac:Party>\n    <cbc:EndpointID schemeID=\"EM\">rechnung@muster.de</cbc:EndpointID>\n    <cac:PartyName>\n      <cbc:Name>Muster GmbH</cbc:Name>\n    </cac:PartyName>\n  </cac:Party>\n</cac:AccountingSupplierParty>"
+    },
+    "PEPPOL-EN16931-R040": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  <cbc:BaseAmount currencyID=\"EUR\">1000.00</cbc:BaseAmount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>\n  <cbc:Amount currencyID=\"EUR\">100.00</cbc:Amount>\n  <cbc:BaseAmount currencyID=\"EUR\">1000.00</cbc:BaseAmount>\n</cac:AllowanceCharge>"
+    },
+    "PEPPOL-EN16931-R041": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>\n  <cbc:Amount currencyID=\"EUR\">100.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>\n  <cbc:Amount currencyID=\"EUR\">100.00</cbc:Amount>\n  <cbc:BaseAmount currencyID=\"EUR\">1000.00</cbc:BaseAmount>\n</cac:AllowanceCharge>"
+    },
+    "PEPPOL-EN16931-R042": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">100.00</cbc:Amount>\n  <cbc:BaseAmount currencyID=\"EUR\">1000.00</cbc:BaseAmount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">100.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "PEPPOL-EN16931-R043": {
+      "syntax": "UBL",
+      "wrong": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>0</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>",
+      "right": "<cac:AllowanceCharge>\n  <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n  <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n</cac:AllowanceCharge>"
+    },
+    "PEPPOL-EN16931-R043-1": {
+      "syntax": "CII",
+      "wrong": "<ram:SpecifiedTradeAllowanceCharge>\n  <ram:ChargeIndicator>\n    <udt:Indicator>0</udt:Indicator>\n  </ram:ChargeIndicator>\n  <ram:ActualAmount>50.00</ram:ActualAmount>\n</ram:SpecifiedTradeAllowanceCharge>",
+      "right": "<ram:SpecifiedTradeAllowanceCharge>\n  <ram:ChargeIndicator>\n    <udt:Indicator>false</udt:Indicator>\n  </ram:ChargeIndicator>\n  <ram:ActualAmount>50.00</ram:ActualAmount>\n</ram:SpecifiedTradeAllowanceCharge>"
+    },
+    "PEPPOL-EN16931-R043-2": {
+      "syntax": "CII",
+      "wrong": "<ram:GrossPriceProductTradePrice>\n  <ram:ChargeAmount>110.00</ram:ChargeAmount>\n  <ram:AppliedTradeAllowanceCharge>\n    <ram:ChargeIndicator>\n      <udt:Indicator>FALSE</udt:Indicator>\n    </ram:ChargeIndicator>\n    <ram:ActualAmount>10.00</ram:ActualAmount>\n  </ram:AppliedTradeAllowanceCharge>\n</ram:GrossPriceProductTradePrice>",
+      "right": "<ram:GrossPriceProductTradePrice>\n  <ram:ChargeAmount>110.00</ram:ChargeAmount>\n  <ram:AppliedTradeAllowanceCharge>\n    <ram:ChargeIndicator>\n      <udt:Indicator>false</udt:Indicator>\n    </ram:ChargeIndicator>\n    <ram:ActualAmount>10.00</ram:ActualAmount>\n  </ram:AppliedTradeAllowanceCharge>\n</ram:GrossPriceProductTradePrice>"
+    },
+    "PEPPOL-EN16931-R044": {
+      "syntax": "UBL",
+      "wrong": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n  </cac:AllowanceCharge>\n</cac:Price>",
+      "right": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n    <cbc:BaseAmount currencyID=\"EUR\">110.00</cbc:BaseAmount>\n  </cac:AllowanceCharge>\n</cac:Price>"
+    },
+    "PEPPOL-EN16931-R046": {
+      "syntax": "UBL",
+      "wrong": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">105.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n    <cbc:BaseAmount currencyID=\"EUR\">110.00</cbc:BaseAmount>\n  </cac:AllowanceCharge>\n</cac:Price>",
+      "right": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">10.00</cbc:Amount>\n    <cbc:BaseAmount currencyID=\"EUR\">110.00</cbc:BaseAmount>\n  </cac:AllowanceCharge>\n</cac:Price>"
+    },
+    "PEPPOL-EN16931-R053": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">152.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">800.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">152.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">14.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">200.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">14.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>",
+      "right": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">166.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">800.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">152.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">200.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">14.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>"
+    },
+    "PEPPOL-EN16931-R054": {
+      "syntax": "UBL",
+      "wrong": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"SEK\">2090.00</cbc:TaxAmount>\n</cac:TaxTotal>",
+      "right": "<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>\n<cbc:TaxCurrencyCode>SEK</cbc:TaxCurrencyCode>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  <cac:TaxSubtotal>\n    <cbc:TaxableAmount currencyID=\"EUR\">1000.00</cbc:TaxableAmount>\n    <cbc:TaxAmount currencyID=\"EUR\">190.00</cbc:TaxAmount>\n  </cac:TaxSubtotal>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"SEK\">2090.00</cbc:TaxAmount>\n</cac:TaxTotal>"
+    },
+    "PEPPOL-EN16931-R055": {
+      "syntax": "UBL",
+      "wrong": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">-190.00</cbc:TaxAmount>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"SEK\">2090.00</cbc:TaxAmount>\n</cac:TaxTotal>",
+      "right": "<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"EUR\">-190.00</cbc:TaxAmount>\n</cac:TaxTotal>\n<cac:TaxTotal>\n  <cbc:TaxAmount currencyID=\"SEK\">-2090.00</cbc:TaxAmount>\n</cac:TaxTotal>"
+    },
+    "PEPPOL-EN16931-R061": {
+      "syntax": "UBL",
+      "wrong": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cac:PayerFinancialAccount>\n      <cbc:ID>DE02120300000000202051</cbc:ID>\n    </cac:PayerFinancialAccount>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>",
+      "right": "<cac:PaymentMeans>\n  <cbc:PaymentMeansCode>59</cbc:PaymentMeansCode>\n  <cac:PaymentMandate>\n    <cbc:ID>MANDAT-2026-0007</cbc:ID>\n    <cac:PayerFinancialAccount>\n      <cbc:ID>DE02120300000000202051</cbc:ID>\n    </cac:PayerFinancialAccount>\n  </cac:PaymentMandate>\n</cac:PaymentMeans>"
+    },
+    "PEPPOL-EN16931-R101": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:DocumentReference>\n    <cbc:ID>LS-2026-0007</cbc:ID>\n    <cbc:DocumentTypeCode>50</cbc:DocumentTypeCode>\n  </cac:DocumentReference>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:DocumentReference>\n    <cbc:ID>LS-2026-0007</cbc:ID>\n    <cbc:DocumentTypeCode>130</cbc:DocumentTypeCode>\n  </cac:DocumentReference>\n</cac:InvoiceLine>"
+    },
+    "PEPPOL-EN16931-R110": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2026-08-31</cbc:EndDate>\n</cac:InvoicePeriod>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:StartDate>2026-07-15</cbc:StartDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-07-01</cbc:StartDate>\n  <cbc:EndDate>2026-08-31</cbc:EndDate>\n</cac:InvoicePeriod>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:StartDate>2026-07-15</cbc:StartDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>"
+    },
+    "PEPPOL-EN16931-R111": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2026-08-31</cbc:EndDate>\n</cac:InvoicePeriod>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:EndDate>2027-07-31</cbc:EndDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoicePeriod>\n  <cbc:StartDate>2026-08-01</cbc:StartDate>\n  <cbc:EndDate>2027-07-31</cbc:EndDate>\n</cac:InvoicePeriod>\n<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cac:InvoicePeriod>\n    <cbc:EndDate>2027-07-31</cbc:EndDate>\n  </cac:InvoicePeriod>\n</cac:InvoiceLine>"
+    },
+    "PEPPOL-EN16931-R120": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">1000.00</cbc:LineExtensionAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cbc:LineExtensionAmount currencyID=\"EUR\">950.00</cbc:LineExtensionAmount>\n  <cac:AllowanceCharge>\n    <cbc:ChargeIndicator>false</cbc:ChargeIndicator>\n    <cbc:Amount currencyID=\"EUR\">50.00</cbc:Amount>\n  </cac:AllowanceCharge>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  </cac:Price>\n</cac:InvoiceLine>"
+    },
+    "PEPPOL-EN16931-R121": {
+      "syntax": "UBL",
+      "wrong": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cbc:BaseQuantity unitCode=\"C62\">0</cbc:BaseQuantity>\n</cac:Price>",
+      "right": "<cac:Price>\n  <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n  <cbc:BaseQuantity unitCode=\"C62\">1</cbc:BaseQuantity>\n</cac:Price>"
+    },
+    "PEPPOL-EN16931-R130": {
+      "syntax": "UBL",
+      "wrong": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n    <cbc:BaseQuantity unitCode=\"KGM\">1</cbc:BaseQuantity>\n  </cac:Price>\n</cac:InvoiceLine>",
+      "right": "<cac:InvoiceLine>\n  <cbc:ID>1</cbc:ID>\n  <cbc:InvoicedQuantity unitCode=\"C62\">10</cbc:InvoicedQuantity>\n  <cac:Price>\n    <cbc:PriceAmount currencyID=\"EUR\">100.00</cbc:PriceAmount>\n    <cbc:BaseQuantity unitCode=\"C62\">1</cbc:BaseQuantity>\n  </cac:Price>\n</cac:InvoiceLine>"
+    }
+  }
+}

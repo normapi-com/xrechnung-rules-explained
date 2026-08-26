@@ -1,0 +1,128 @@
+{
+  "rulesetDirectory": "ruleset",
+  "layers": {
+    "EN16931-UBL": {
+      "assertions": 979,
+      "distinctCodes": 979,
+      "sharedChecks": 4,
+      "codesInSharedChecks": 8
+    },
+    "EN16931-CII": {
+      "assertions": 779,
+      "distinctCodes": 779,
+      "sharedChecks": 9,
+      "codesInSharedChecks": 18
+    },
+    "XRechnung-UBL": {
+      "assertions": 76,
+      "distinctCodes": 76,
+      "sharedChecks": 0,
+      "codesInSharedChecks": 0
+    },
+    "XRechnung-CII": {
+      "assertions": 71,
+      "distinctCodes": 71,
+      "sharedChecks": 0,
+      "codesInSharedChecks": 0
+    }
+  },
+  "neverFires": [
+    "BR-CO-05",
+    "BR-CO-06",
+    "BR-CO-07",
+    "BR-CO-08"
+  ],
+  "sameCheck": [
+    {
+      "layer": "EN16931-UBL",
+      "codes": [
+        "BR-33",
+        "BR-CO-21"
+      ]
+    },
+    {
+      "layer": "EN16931-UBL",
+      "codes": [
+        "BR-38",
+        "BR-CO-22"
+      ]
+    },
+    {
+      "layer": "EN16931-UBL",
+      "codes": [
+        "BR-42",
+        "BR-CO-23"
+      ]
+    },
+    {
+      "layer": "EN16931-UBL",
+      "codes": [
+        "BR-44",
+        "BR-CO-24"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-50",
+        "BR-61"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-33",
+        "BR-CO-21"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-38",
+        "BR-CO-22"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-42",
+        "BR-CO-23"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-44",
+        "BR-CO-24"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-O-11",
+        "BR-O-12"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "BR-O-13",
+        "BR-O-14"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "CII-SR-184",
+        "CII-SR-193"
+      ]
+    },
+    {
+      "layer": "EN16931-CII",
+      "codes": [
+        "CII-SR-333",
+        "CII-SR-334"
+      ]
+    }
+  ]
+}
