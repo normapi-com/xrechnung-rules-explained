@@ -130,6 +130,32 @@ The committed `data/findings.json` carries codes, layers and counts. It does not
 carry the XPath the assertions are written in — that is KoSIT's artefact under
 KoSIT's terms. Re-run the script to see it in full.
 
+## Producing the codes in the first place
+
+This reference explains codes; it does not produce them. To get a findings list
+out of a document, any EN 16931 validator will do — the
+[KoSIT validator](https://github.com/itplr-kosit/validator) with the
+configuration above is the reference implementation, and
+[mustangproject](https://github.com/ZUGFeRD/mustangproject),
+[horstoeko/zugferd](https://github.com/horstoeko/zugferd) and
+[ZUGFeRD-csharp](https://github.com/stephanstapel/ZUGFeRD-csharp) all validate
+in their own ecosystems.
+
+If you would rather not run a Java toolchain,
+[`@normapi/client`](https://github.com/normapi-de/client) is a zero-dependency
+TypeScript wrapper over a hosted one:
+
+```bash
+npm install @normapi/client
+```
+
+```ts
+const result = await validate(await readFile('invoice.xml'))
+for (const finding of result.findings) {
+  console.log(finding.code) // look it up in data/explanations.json
+}
+```
+
 ## Where this comes from
 
 These explanations are written and maintained for
