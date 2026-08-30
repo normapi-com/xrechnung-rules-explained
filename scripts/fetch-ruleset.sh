@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
-# Downloads and unpacks one official validator-configuration release.
-#
-# The rule set is not vendored here. It belongs to KoSIT, it is republished
-# roughly twice a year, and pinning a copy in this repository would make the
-# analysis quietly stale. Fetching it means the numbers you get are the numbers
-# for the release you actually care about.
-#
-# The checksum is verified. A re-tagged or tampered release fails here rather
-# than silently changing what the analysis reports.
+# Downloads, verifies and unpacks one official validator-configuration release.
+# Why it is fetched rather than vendored here: see the README.
 #
 # Usage:  scripts/fetch-ruleset.sh [target-dir]
 set -euo pipefail
@@ -24,6 +17,8 @@ trap 'rm -rf "$WORK"' EXIT
 echo "downloading ${FILE}"
 curl -fsSL "$URL" -o "$WORK/$FILE"
 
+# A re-tagged or tampered release fails here rather than silently
+# changing what the analysis reports.
 echo "verifying checksum"
 if command -v sha256sum >/dev/null 2>&1; then
   echo "${SHA256}  ${WORK}/${FILE}" | sha256sum -c -

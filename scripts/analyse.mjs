@@ -1,18 +1,7 @@
 /**
- * What falls out of compiling the XRechnung rule set.
- *
- * Reads the four XSLT files a validator-configuration release ships and reports
- * three things the published rule lists do not:
- *
- *   1. rules whose assertion is `true()` — they cannot fail, ever
- *   2. distinct rule codes that compile to the same check on the same context —
- *      one mistake, two error codes
- *   3. how the codes are split across the EN 16931 and XRechnung layers
- *
- * The comparison in (2) has to include the context. Comparing only the test
- * expression reports around ninety codes as duplicates, and most of those are
- * the same expression evaluated somewhere else entirely: BR-02 and BR-21 both
- * test `normalize-space(cbc:ID) != ''`, one on the invoice and one on a line.
+ * What falls out of compiling the XRechnung rule set: rules that can never
+ * fail, codes that are one check under two names, and how both are split
+ * across the EN 16931 and XRechnung layers. The README explains the findings.
  *
  * Usage:  node scripts/analyse.mjs <path-to-unpacked-configuration> [out.json]
  */
@@ -35,7 +24,14 @@ const LAYERS = {
 
 const squash = (s) => s.replace(/\s+/g, ' ').trim()
 
-/** Every assertion in one stylesheet, with the context it is evaluated on. */
+/**
+ * Every assertion in one stylesheet, with the context it is evaluated on.
+ *
+ * The context is what makes a duplicate a duplicate. Comparing test
+ * expressions alone reports around ninety codes as shared, most of which are
+ * not: BR-02 and BR-21 both test `normalize-space(cbc:ID) != ''`, one on the
+ * invoice and one on a line.
+ */
 function assertionsIn(xsl) {
   const templates = [...xsl.matchAll(/<xsl:template match="([^"]+)"/g)].map((m) => [
     m.index,
