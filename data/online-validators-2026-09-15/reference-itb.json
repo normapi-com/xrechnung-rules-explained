@@ -1,0 +1,63 @@
+{
+  "A1-clean-ubl.xml": {
+    "result": "SUCCESS",
+    "errors": 0,
+    "warnings": 0,
+    "codes": []
+  },
+  "A2-clean-cii.xml": {
+    "result": "SUCCESS",
+    "errors": 0,
+    "warnings": 0,
+    "codes": []
+  },
+  "B1-ubl-date-format.xml": {
+    "result": "SUCCESS",
+    "errors": 0,
+    "warnings": 0,
+    "codes": []
+  },
+  "B2-cii-date-format.xml": {
+    "result": "FAILURE",
+    "errors": 1,
+    "warnings": 0,
+    "codes": [
+      "BR-03"
+    ]
+  },
+  "B3-ubl-relative-uri.xml": {
+    "result": "SUCCESS",
+    "errors": 0,
+    "warnings": 0,
+    "codes": []
+  },
+  "C1-ubl-no-buyer-reference.xml": {
+    "result": "SUCCESS",
+    "errors": 0,
+    "warnings": 0,
+    "codes": []
+  },
+  "C2-ubl-wrong-total.xml": {
+    "result": "FAILURE",
+    "errors": 2,
+    "warnings": 0,
+    "codes": [
+      "BR-CO-15",
+      "BR-CO-16"
+    ]
+  },
+  "C3-ubl-bad-unit-code.xml": {
+    "result": "FAILURE",
+    "errors": 2,
+    "warnings": 0,
+    "codes": [
+      "BR-CL-23"
+    ]
+  },
+  "D1-ubl-broken-xml.xml": {
+    "result": "FAILURE",
+    "errors": 1,
+    "warnings": 0,
+    "codes": []
+  }
+}

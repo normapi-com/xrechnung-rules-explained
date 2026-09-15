@@ -156,6 +156,22 @@ for (const finding of result.findings) {
 }
 ```
 
+## Eleven online validators, measured
+
+`data/online-validators-2026-09-15/` holds the raw data behind
+[a comparison of eleven free e-invoice validation sites](https://normapi.de/studie/online-validatoren),
+run on 15 September 2026: the nine test files, the official KoSIT run used as the
+control, the European Commission ITB run, and every observation recorded verbatim
+from each tool's own report.
+
+Three of the eleven do not process an XRechnung in the UBL syntax at all — one
+fails on the unmodified conformance instance. Three more catch a missing
+Leitweg-ID but report nothing for `BR-TMP-6`, added on 2 September 2026.
+
+Published by a vendor that runs a validator of its own, and which is deliberately
+absent from the comparison; the directory's README says so before it says anything
+else. Every operator named was emailed their own entry on the day it went up.
+
 ## Where this comes from
 
 These explanations are written and maintained for
@@ -172,6 +188,8 @@ repository does not, so that the rule set stays the reader's own download.
 
 - `data/*.json` — [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Use
   them, translate them, build on them; credit normapi.de.
+- `data/online-validators-2026-09-15/corpus/*` — derived from the KoSIT test
+  suite and still **Apache-2.0**; that directory's README has the detail.
 - `scripts/*` — MIT.
 - The XRechnung validator configuration is **not** included and is not covered by
   either. It belongs to KoSIT; see

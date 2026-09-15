@@ -1,0 +1,140 @@
+{
+  "A1-clean-ubl.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": true,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-DE-TMP-32"
+    ],
+    "severities": {
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "accept",
+    "isolated": true
+  },
+  "A2-clean-cii.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": true,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-DE-TMP-32"
+    ],
+    "severities": {
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "accept",
+    "isolated": true
+  },
+  "B1-ubl-date-format.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": true,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-DE-TMP-32",
+      "BR-TMP-6"
+    ],
+    "severities": {
+      "BR-DE-TMP-32": "INFORMATION",
+      "BR-TMP-6": "WARNING"
+    },
+    "expected": "BR-TMP-6",
+    "isolated": true
+  },
+  "B2-cii-date-format.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": false,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-03",
+      "BR-DE-TMP-32",
+      "BR-TMP-7"
+    ],
+    "severities": {
+      "BR-03": "ERROR",
+      "BR-TMP-7": "WARNING",
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "BR-TMP-7",
+    "isolated": true
+  },
+  "B3-ubl-relative-uri.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": false,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-DE-TMP-32",
+      "BR-TMP-2"
+    ],
+    "severities": {
+      "BR-DE-TMP-32": "INFORMATION",
+      "BR-TMP-2": "ERROR"
+    },
+    "expected": "BR-TMP-2",
+    "isolated": true
+  },
+  "C1-ubl-no-buyer-reference.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": false,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-DE-15",
+      "BR-DE-TMP-32"
+    ],
+    "severities": {
+      "BR-DE-15": "ERROR",
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "BR-DE-15",
+    "isolated": true
+  },
+  "C2-ubl-wrong-total.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": false,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-CO-15",
+      "BR-CO-16",
+      "BR-DE-TMP-32"
+    ],
+    "severities": {
+      "BR-CO-15": "ERROR",
+      "BR-CO-16": "ERROR",
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "BR-CO-",
+    "isolated": true
+  },
+  "C3-ubl-bad-unit-code.xml": {
+    "wellFormed": true,
+    "schemaValid": true,
+    "acceptable": true,
+    "ruleset": "v2026-08-31",
+    "codes": [
+      "BR-CL-23",
+      "BR-DE-TMP-32"
+    ],
+    "severities": {
+      "BR-CL-23": "ERROR",
+      "BR-DE-TMP-32": "INFORMATION"
+    },
+    "expected": "BR-CL-23",
+    "isolated": true
+  },
+  "D1-ubl-broken-xml.xml": {
+    "wellFormed": false,
+    "schemaValid": false,
+    "acceptable": false,
+    "ruleset": "v2026-08-31",
+    "codes": [],
+    "severities": {},
+    "expected": "not well-formed",
+    "isolated": true
+  }
+}
