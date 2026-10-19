@@ -142,7 +142,7 @@ configuration above is the reference implementation, and
 in their own ecosystems.
 
 If you would rather not run a Java toolchain,
-[`@normapi/client`](https://github.com/normapi-de/client) is a zero-dependency
+[`@normapi/client`](https://github.com/normapi-com/client) is a zero-dependency
 TypeScript wrapper over a hosted one:
 
 ```bash
